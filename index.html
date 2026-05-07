@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>GA4 Independent Reading Hub</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Century Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #e8f7ff 0%, transparent 32%),
+        linear-gradient(135deg, #f7fbff 0%, #fff8ec 100%);
+      color: #243447;
+    }
+
+    header {
+      background: linear-gradient(135deg, #23395d, #406e8e);
+      color: white;
+      text-align: center;
+      padding: 42px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+    }
+
+    header p {
+      max-width: 780px;
+      margin: 14px auto 0;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    .intro {
+      background: white;
+      padding: 24px;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(35, 57, 93, 0.12);
+      margin-bottom: 26px;
+      border-left: 7px solid #f4b942;
+    }
+
+    .intro h2 {
+      margin-top: 0;
+      color: #23395d;
+    }
+
+    .intro ul {
+      line-height: 1.8;
+    }
+
+    .reading-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+      gap: 20px;
+    }
+
+    .reading-card {
+      background: white;
+      border-radius: 24px;
+      padding: 24px;
+      text-decoration: none;
+      color: #243447;
+      box-shadow: 0 12px 30px rgba(35, 57, 93, 0.12);
+      border: 2px solid transparent;
+      transition: 0.25s;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .reading-card:hover {
+      transform: translateY(-5px);
+      border-color: #406e8e;
+      box-shadow: 0 16px 36px rgba(35, 57, 93, 0.18);
+    }
+
+    .label {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: bold;
+      margin: 0 5px 8px 0;
+    }
+
+    .fiction {
+      background: #fff0d6;
+      color: #8a5a00;
+    }
+
+    .ready {
+      background: #ecfff2;
+      color: #2d7a4b;
+    }
+
+    .coming {
+      background: #eeeeee;
+      color: #666;
+    }
+
+    .skill {
+      background: #e8f7ff;
+      color: #23395d;
+    }
+
+    .reading-card h2 {
+      margin: 8px 0;
+      color: #23395d;
+      font-size: 1.35rem;
+    }
+
+    .reading-card p {
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .skills {
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+
+    .button {
+      margin-top: 16px;
+      background: #23395d;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .button.coming-btn {
+      background: #8a97a8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px;
+      color: #5f7184;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>GA4 Independent Reading Hub</h1>
+    <p>
+      Complete the pre-reading and post-reading activities before finishing your Short Reads Plus worksheet.
+    </p>
+  </header>
+
+  <div class="container">
+
+    <section class="intro">
+      <h2>How to Use This Page</h2>
+      <ul>
+        <li><strong>Before reading:</strong> learn key vocabulary and prepare the reading skill.</li>
+        <li><strong>Read the story:</strong> look carefully for clues, problems, causes, and character choices.</li>
+        <li><strong>After reading:</strong> complete the quick check and skill practice.</li>
+        <li><strong>Then:</strong> finish your paper worksheet using evidence from the text.</li>
+      </ul>
+    </section>
+
+    <section class="reading-grid">
+
+      <a class="reading-card" href="birds-of-killingworth.html">
+        <div>
+          <span class="label fiction">Fiction Reading 1</span>
+          <span class="label coming">Coming Soon</span>
+          <h2>The Birds of Killingworth</h2>
+          <p>
+            The people of Killingworth think birds are causing trouble for their crops.
+            After they drive the birds away, they discover that the birds were actually helping the town.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Cause & Effect, Theme, Inference</p>
+          <p>Pre-reading and post-reading activities for vocabulary, prediction, cause and effect, and worksheet preparation.</p>
+        </div>
+        <div class="button coming-btn">Coming Soon</div>
+      </a>
+
+      <a class="reading-card" href="hans-the-helpful.html">
+        <div>
+          <span class="label fiction">Fiction Reading 2</span>
+          <span class="label coming">Coming Soon</span>
+          <h2>Hans the Helpful</h2>
+          <p>
+            Hans wants to be generous and helpful, but his choices may cause unexpected problems.
+            Readers need to think about whether his actions are truly helpful.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Character Traits, Motivation, Evidence</p>
+          <p>Pre-reading and post-reading activities for vocabulary, character thinking, and using evidence.</p>
+        </div>
+        <div class="button coming-btn">Coming Soon</div>
+      </a>
+
+      <a class="reading-card" href="emperor-new-clothes.html">
+        <div>
+          <span class="label fiction">Fiction Reading 3</span>
+          <span class="label coming">Coming Soon</span>
+          <h2>The Emperor’s New Clothes</h2>
+          <p>
+            Two weavers trick an emperor by using his pride and fear of looking foolish.
+            The story shows how people sometimes pretend to believe something because they are afraid.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Character Motivation, Theme, Inference</p>
+          <p>Pre-reading and post-reading activities for vocabulary, character motivation, and theme.</p>
+        </div>
+        <div class="button coming-btn">Coming Soon</div>
+      </a>
+
+      <a class="reading-card" href="sly-thief.html">
+        <div>
+          <span class="label fiction">Fiction Reading 4</span>
+          <span class="label coming">Coming Soon</span>
+          <h2>The Sly Thief</h2>
+          <p>
+            A thief uses clever tricks to get what he wants.
+            Readers need to follow the problem carefully and notice how characters respond to the thief’s actions.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Problem & Solution, Sequence, Character Actions</p>
+          <p>Pre-reading and post-reading activities for vocabulary, sequencing, and problem-solution thinking.</p>
+        </div>
+        <div class="button coming-btn">Coming Soon</div>
+      </a>
+
+      <a class="reading-card" href="too-too.html">
+        <div>
+          <span class="label fiction">Fiction Reading 5</span>
+          <span class="label ready">Ready</span>
+          <h2>Too-Too the Listener</h2>
+          <p>
+            A doctor, an owl, and a locked room lead to a mystery.
+            Careful listening becomes the key to understanding what is really happening.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Prediction, Inference, Text Evidence</p>
+          <p>Pre-reading and post-reading activities for vocabulary, prediction, inference, and worksheet preparation.</p>
+        </div>
+        <div class="button">Start Reading Practice</div>
+      </a>
+
+      <a class="reading-card" href="good-luck-bad-luck.html">
+        <div>
+          <span class="label fiction">Fiction Reading 6</span>
+          <span class="label coming">Coming Soon</span>
+          <h2>Good Luck, Bad Luck</h2>
+          <p>
+            Events that seem lucky or unlucky may change later.
+            The story encourages readers to think about perspective and how people judge situations too quickly.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Perspective, Theme, Cause & Effect</p>
+          <p>Pre-reading and post-reading activities for vocabulary, perspective, and theme.</p>
+        </div>
+        <div class="button coming-btn">Coming Soon</div>
+      </a>
+
+      <a class="reading-card" href="hans-in-luck.html">
+        <div>
+          <span class="label fiction">Fiction Reading 7</span>
+          <span class="label coming">Coming Soon</span>
+          <h2>Hans in Luck</h2>
+          <p>
+            Hans keeps trading one thing for another as he travels.
+            Readers need to decide whether Hans is foolish, lucky, happy, or simply sees value differently.
+          </p>
+          <p class="skills"><strong>Skills:</strong> Character Analysis, Theme, Value Judgement</p>
+          <p>Pre-reading and post-reading activities for vocabulary, character analysis, and theme.</p>
+        </div>
+        <div class="button coming-btn">Coming Soon</div>
+      </a>
+
+    </section>
+
+  </div>
+
+  <footer>
+    GA4 Independent Learning · Short Reads Plus Practice
+  </footer>
+
+</body>
+</html>
