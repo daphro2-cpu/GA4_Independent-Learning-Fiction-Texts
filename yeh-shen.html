@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Yeh-Shen - GA4 Independent Reading</title>
+
+  <style>
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:"Century Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left,#e8f7ff 0%,transparent 34%),
+        linear-gradient(135deg,#f7fbff 0%,#fff8ec 100%);
+      color:#243447;
+    }
+
+    header{
+      background:linear-gradient(135deg,#23395d,#406e8e);
+      color:white;
+      padding:34px 18px;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0;
+      font-size:clamp(1.8rem,5vw,2.6rem);
+    }
+
+    header p{
+      max-width:800px;
+      margin:12px auto 0;
+      line-height:1.6;
+      font-size:1rem;
+    }
+
+    .top-nav{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .nav-btn{
+      background:rgba(255,255,255,0.18);
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:bold;
+      border:1px solid rgba(255,255,255,0.25);
+    }
+
+    .container{
+      max-width:1050px;
+      margin:0 auto;
+      padding:22px 16px 90px;
+    }
+
+    .card{
+      background:white;
+      border-radius:22px;
+      padding:22px;
+      margin:18px 0;
+      box-shadow:0 12px 30px rgba(35,57,93,0.12);
+      border:1px solid rgba(64,110,142,0.12);
+    }
+
+    h2{
+      margin-top:0;
+      color:#23395d;
+      font-size:clamp(1.35rem,4vw,1.8rem);
+    }
+
+    h3{
+      color:#406e8e;
+      margin-bottom:8px;
+    }
+
+    p,li{ line-height:1.55; }
+
+    .tag{
+      display:inline-block;
+      background:#e8f7ff;
+      color:#23395d;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:0.82rem;
+      margin:4px 4px 4px 0;
+      font-weight:bold;
+    }
+
+    .tag.gold{
+      background:#fff0d6;
+      color:#8a5a00;
+    }
+
+    .instruction{
+      background:#fff6db;
+      border-left:6px solid #f4b942;
+      padding:14px 16px;
+      border-radius:14px;
+      margin:14px 0;
+      line-height:1.5;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+    }
+
+    .option,.match-card,.clue-card{
+      border:2px solid #d8e6ef;
+      border-radius:16px;
+      padding:15px;
+      cursor:pointer;
+      transition:0.2s;
+      background:#fbfdff;
+      line-height:1.45;
+      min-height:68px;
+    }
+
+    .clue-card{
+      cursor:default;
+      background:#f7fbff;
+    }
+
+    .option:hover,.match-card:hover{
+      transform:translateY(-2px);
+      border-color:#406e8e;
+    }
+
+    .selected{
+      border-color:#406e8e !important;
+      background:#e8f7ff !important;
+    }
+
+    .correct{
+      border-color:#42a66b !important;
+      background:#ecfff2 !important;
+    }
+
+    .wrong{
+      border-color:#d9534f !important;
+      background:#fff0f0 !important;
+    }
+
+    button{
+      border:none;
+      background:#23395d;
+      color:white;
+      padding:13px 18px;
+      border-radius:14px;
+      cursor:pointer;
+      font-size:1rem;
+      margin-top:12px;
+      font-family:inherit;
+      font-weight:bold;
+      min-height:46px;
+    }
+
+    button:hover{ background:#406e8e; }
+
+    .gold-btn{
+      background:#f4b942;
+      color:#243447;
+    }
+
+    .feedback{
+      margin-top:12px;
+      font-weight:bold;
+      min-height:24px;
+    }
+
+    .progress-card{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid #d8e6ef;
+      padding:12px 16px;
+      box-shadow:0 6px 20px rgba(35,57,93,0.08);
+    }
+
+    .progress-inner{
+      max-width:1050px;
+      margin:0 auto;
+    }
+
+    .progress-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .stars{
+      font-size:1.2rem;
+      white-space:nowrap;
+    }
+
+    .progress-wrap{
+      background:#d8e6ef;
+      border-radius:999px;
+      height:14px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#f4b942,#42a66b);
+      transition:width 0.3s;
+    }
+
+    .badge-box{
+      text-align:center;
+      padding:20px;
+      border:2px dashed #f4b942;
+      border-radius:20px;
+      background:#fffaf0;
+      margin-top:16px;
+    }
+
+    .badge{
+      font-size:3rem;
+      margin:10px 0;
+    }
+
+    .bottom-home{
+      position:fixed;
+      bottom:14px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:30;
+      background:#23395d;
+      color:white;
+      text-decoration:none;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:bold;
+      box-shadow:0 8px 24px rgba(35,57,93,0.28);
+    }
+
+    @media (max-width:720px){
+      header{ padding:28px 14px; }
+      .container{ padding:16px 12px 90px; }
+      .card{ padding:18px; border-radius:18px; }
+      .grid{ grid-template-columns:1fr; }
+
+      .option,.match-card,.clue-card{
+        padding:16px;
+        min-height:72px;
+        font-size:1rem;
+      }
+
+      button{ width:100%; }
+
+      .bottom-home{
+        width:calc(100% - 30px);
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Yeh-Shen: A Cinderella Tale from China</h1>
+
+  <p>
+    GA4 Independent Reading Practice:
+    vocabulary, prediction, character traits, compare and contrast,
+    theme, evidence, and worksheet preparation.
+  </p>
+
+  <div class="top-nav">
+    <a class="nav-btn" href="index.html">← Reading Hub</a>
+    <a class="nav-btn" href="hans-in-luck.html">← Previous Reading</a>
+    <a class="nav-btn" href="why-the-bear-has-a-short-tail.html">Next Reading →</a>
+  </div>
+</header>
+
+<div class="progress-card">
+  <div class="progress-inner">
+    <div class="progress-row">
+      <strong>Progress</strong>
+      <span class="stars" id="starDisplay">☆☆☆</span>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<section class="card">
+  <h2>Learning Goal</h2>
+
+  <span class="tag gold">Fiction Reading 8</span>
+  <span class="tag">Character Traits</span>
+  <span class="tag">Compare & Contrast</span>
+  <span class="tag">Theme</span>
+  <span class="tag">Text Evidence</span>
+
+  <div class="instruction">
+    In this story, Yeh-Shen faces unfair treatment, but her kindness and courage help change her future.
+    As you read, think about the characters, how they are similar or different,
+    and what lesson the story teaches.
+  </div>
+</section>
+
+<section class="card">
+  <h2>Part 1: Vocabulary Preview</h2>
+
+  <p>
+    Choose the best meaning for each word.
+    These words will help you understand the story and the worksheet.
+  </p>
+
+  <div id="vocabQuiz"></div>
+</section>
+
+<section class="card">
+  <h2>Part 2: Prediction</h2>
+
+  <div class="instruction">
+    <strong>Reading Strategy: Prediction</strong><br><br>
+
+    Good readers make predictions before and during reading.
+    A prediction is a smart guess based on the title, pictures, story clues, and what we already know.
+
+    <br><br>
+
+    This story is a Cinderella tale from China, so readers can use what they know about Cinderella stories
+    to predict character problems, magical help, and a change in the main character’s life.
+  </div>
+
+  <h3>Look at the Clues</h3>
+
+  <div class="grid">
+    <div class="clue-card">
+      <strong>Clue 1</strong><br><br>
+      The title is <em>Yeh-Shen: A Cinderella Tale from China</em>.
+    </div>
+
+    <div class="clue-card">
+      <strong>Clue 2</strong><br><br>
+      Yeh-Shen is treated unfairly by her stepmother.
+    </div>
+
+    <div class="clue-card">
+      <strong>Clue 3</strong><br><br>
+      Kindness, magic, and courage may help Yeh-Shen.
+    </div>
+  </div>
+
+  <h3>Which prediction is BEST?</h3>
+
+  <div id="predictionOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Yeh-Shen will become cruel because others are cruel to her.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Yeh-Shen may face unfair treatment, but magical help and her good character may lead to a better future.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      The story will mostly explain how to catch fish for dinner.
+    </div>
+  </div>
+
+  <button onclick="checkPrediction()">Check Prediction</button>
+  <div class="feedback" id="predictionFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 3: Reading Skill Prep — Character Traits</h2>
+
+  <div class="instruction">
+    <strong>Reading Skill: Character Traits</strong><br><br>
+
+    Character traits describe what a character is like on the inside.
+
+    <br><br>
+
+    Readers infer character traits by looking at:
+    <ul>
+      <li>what the character says</li>
+      <li>what the character does</li>
+      <li>how the character treats others</li>
+      <li>how the character responds to problems</li>
+    </ul>
+
+    A strong answer uses a trait, a story clue, and an explanation.
+  </div>
+
+  <h3>Practice</h3>
+
+  <p>
+    <strong>Clue:</strong>
+    Yeh-Shen is treated unfairly, but she is still gentle and kind.
+  </p>
+
+  <p>Which character trait best fits Yeh-Shen?</p>
+
+  <div id="skillOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      selfish
+    </div>
+
+    <div class="option" data-answer="correct">
+      kind and patient
+    </div>
+
+    <div class="option" data-answer="wrong">
+      careless and cruel
+    </div>
+  </div>
+
+  <button onclick="checkSkill()">Check Answer</button>
+  <div class="feedback" id="skillFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Now Read the Story</h2>
+
+  <div class="instruction">
+    Read <strong>Yeh-Shen: A Cinderella Tale from China</strong>. While reading, look for:
+    <ul>
+      <li>how Yeh-Shen is treated</li>
+      <li>what Yeh-Shen is like as a character</li>
+      <li>how the stepmother and stepsister act</li>
+      <li>what magical help Yeh-Shen receives</li>
+      <li>how this story is similar to or different from other Cinderella stories</li>
+      <li>what lesson the story teaches</li>
+    </ul>
+  </div>
+
+  <button class="gold-btn" onclick="markDone('read')">I finished reading</button>
+  <div class="feedback" id="readFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 4: After-Reading Quick Check</h2>
+
+  <div class="instruction">
+    <strong>After Reading Strategy: Check Characters and Story Elements</strong><br><br>
+
+    After reading, good readers stop and check the important story elements:
+    <ul>
+      <li>main character</li>
+      <li>problem</li>
+      <li>helper or magical help</li>
+      <li>important object</li>
+      <li>ending</li>
+      <li>lesson/theme</li>
+    </ul>
+  </div>
+
+  <div id="readingQuiz"></div>
+</section>
+<section class="card">
+  <h2>Part 5: Compare & Contrast</h2>
+
+  <div class="instruction">
+    Compare means to tell how things are similar.
+    Contrast means to tell how things are different.
+    <br><br>
+    For this story, compare and contrast Yeh-Shen with the stepmother or compare this story with another Cinderella story.
+  </div>
+
+  <h3>Which answer shows a good comparison?</h3>
+
+  <div id="compareOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Yeh-Shen and her stepmother are exactly the same.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Yeh-Shen is kind and patient, but the stepmother is unfair and cruel.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Yeh-Shen and her stepmother are both magical fish.
+    </div>
+  </div>
+
+  <button onclick="checkCompare()">Check Answer</button>
+  <div class="feedback" id="compareFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 6: Character → Evidence Match</h2>
+
+  <p>Choose one character idea and one matching evidence card.</p>
+
+  <div class="grid">
+    <div>
+      <h3>Character Idea</h3>
+
+      <div class="match-card ideaCard" onclick="chooseIdea(this,'A')">
+        Yeh-Shen is kind and gentle.
+      </div>
+
+      <div class="match-card ideaCard" onclick="chooseIdea(this,'B')">
+        The stepmother is unfair.
+      </div>
+
+      <div class="match-card ideaCard" onclick="chooseIdea(this,'C')">
+        Yeh-Shen needs help to change her situation.
+      </div>
+    </div>
+
+    <div>
+      <h3>Evidence</h3>
+
+      <div class="match-card evidenceCard" onclick="chooseEvidence(this,'B')">
+        The stepmother treats Yeh-Shen badly and favours her own daughter.
+      </div>
+
+      <div class="match-card evidenceCard" onclick="chooseEvidence(this,'C')">
+        Magical help gives Yeh-Shen a chance to go to the festival.
+      </div>
+
+      <div class="match-card evidenceCard" onclick="chooseEvidence(this,'A')">
+        Yeh-Shen cares for the fish and does not act cruelly.
+      </div>
+    </div>
+  </div>
+
+  <button onclick="checkMatch()">Check Match</button>
+  <div class="feedback" id="matchFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 7: Story Elements Practice</h2>
+
+  <div class="instruction">
+    Cinderella tales often have similar story elements, but each version has special details.
+  </div>
+
+  <h3>Which story element fits Yeh-Shen?</h3>
+
+  <div id="storyElementOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Yeh-Shen has no problem and no unfair treatment.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Yeh-Shen is treated unfairly, receives magical help, and her life changes.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Yeh-Shen tricks everyone and steals from the king.
+    </div>
+  </div>
+
+  <button onclick="checkStoryElement()">Check Answer</button>
+  <div class="feedback" id="storyElementFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 8: Theme Practice</h2>
+
+  <div class="instruction">
+    A theme is the lesson or message in a story.
+    A strong theme is not just one event. It explains what the story teaches us.
+  </div>
+
+  <h3>Which theme BEST fits this story?</h3>
+
+  <div id="themeOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Being cruel to others always makes people happy.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Kindness and courage can help people face unfair situations.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Magic shoes are the only important thing in life.
+    </div>
+  </div>
+
+  <button onclick="checkTheme()">Check Theme</button>
+  <div class="feedback" id="themeFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 9: Worksheet Preparation</h2>
+
+  <div class="instruction">
+    Your worksheet may ask you to compare characters, explain story elements, or support a character trait with evidence.
+    <br><br>
+    A strong answer should include:
+    <ul>
+      <li>a clear idea</li>
+      <li>a story clue</li>
+      <li>an explanation of what the clue shows</li>
+    </ul>
+  </div>
+
+  <h3>Choose the strongest worksheet answer.</h3>
+
+  <div id="worksheetOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Yeh-Shen is nice. The story has magic.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Yeh-Shen is kind and patient because she stays gentle even when her stepmother treats her unfairly. This shows she has a good heart.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      The stepmother is kind because she helps Yeh-Shen go to the festival.
+    </div>
+  </div>
+
+  <button onclick="checkWorksheet()">Check Answer</button>
+  <div class="feedback" id="worksheetFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Completion Badge</h2>
+
+  <div class="badge-box">
+    <div class="badge">🏅</div>
+    <h3 id="badgeTitle">Keep going!</h3>
+    <p id="badgeMessage">Finish all parts to earn your completion badge.</p>
+  </div>
+</section>
+
+</div>
+
+<a class="bottom-home" href="index.html">← Back to Reading Hub</a>
+
+<script>
+const STORAGE_KEY = "ga4_yeh_shen_progress_v1";
+
+let progress = {
+  vocab:false,
+  prediction:false,
+  skill:false,
+  read:false,
+  quiz:false,
+  compare:false,
+  match:false,
+  storyElement:false,
+  theme:false,
+  worksheet:false
+};
+
+let vocabAnswered = 0;
+let quizAnswered = 0;
+let chosenIdea = null;
+let chosenEvidence = null;
+
+const vocabData = [
+  {
+    word:"unfair",
+    question:"What does unfair mean?",
+    options:[
+      "not treating people equally or justly",
+      "very colourful",
+      "easy to carry"
+    ],
+    answer:0
+  },
+  {
+    word:"stepmother",
+    question:"What is a stepmother?",
+    options:[
+      "a father's or mother's wife who is not the child's birth mother",
+      "a magical animal",
+      "a person who makes clothes"
+    ],
+    answer:0
+  },
+  {
+    word:"festival",
+    question:"What is a festival?",
+    options:[
+      "a special celebration or event",
+      "a small fish",
+      "a kind of shoe"
+    ],
+    answer:0
+  },
+  {
+    word:"courage",
+    question:"What does courage mean?",
+    options:[
+      "bravery when something is difficult or scary",
+      "being very sleepy",
+      "a kind of food"
+    ],
+    answer:0
+  },
+  {
+    word:"compare",
+    question:"What does compare mean?",
+    options:[
+      "to tell how things are similar",
+      "to make something disappear",
+      "to run quickly"
+    ],
+    answer:0
+  },
+  {
+    word:"contrast",
+    question:"What does contrast mean?",
+    options:[
+      "to tell how things are different",
+      "to give someone a gift",
+      "to count words"
+    ],
+    answer:0
+  }
+];
+
+const readingData = [
+  {
+    question:"How is Yeh-Shen treated at first?",
+    options:[
+      "She is treated unfairly.",
+      "She is treated like a queen by everyone.",
+      "She has no problems."
+    ],
+    answer:0
+  },
+  {
+    question:"Which character trait best describes Yeh-Shen?",
+    options:[
+      "kind and patient",
+      "cruel and selfish",
+      "lazy and careless"
+    ],
+    answer:0
+  },
+  {
+    question:"What kind of story is Yeh-Shen?",
+    options:[
+      "A Cinderella tale from China",
+      "A science report about birds",
+      "A story about a sly thief"
+    ],
+    answer:0
+  },
+  {
+    question:"Which skill helps with this worksheet?",
+    options:[
+      "Character traits and compare/contrast",
+      "Only spelling words",
+      "Counting pages"
+    ],
+    answer:0
+  }
+];
+
+function saveProgress(){
+  const stars = calculateStars();
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      progress,
+      stars
+    })
+  );
+}
+
+function loadProgress(){
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(!saved) return;
+
+  try{
+    const data = JSON.parse(saved);
+
+    if(data.progress){
+      progress = {...progress,...data.progress};
+    }
+  }catch(e){}
+}
+
+function calculateStars(){
+  const done = Object.values(progress).filter(Boolean).length;
+
+  if(done >= Object.keys(progress).length) return 3;
+  if(done >= 7) return 2;
+  if(done >= 3) return 1;
+
+  return 0;
+}
+
+function updateProgress(){
+  const total = Object.keys(progress).length;
+  const done = Object.values(progress).filter(Boolean).length;
+  const percent = Math.round((done / total) * 100);
+  const stars = calculateStars();
+
+  document.getElementById("progressBar").style.width = percent + "%";
+
+  document.getElementById("starDisplay").textContent =
+    stars===0 ? "☆☆☆" :
+    stars===1 ? "⭐☆☆" :
+    stars===2 ? "⭐⭐☆" :
+    "⭐⭐⭐";
+
+  const badgeTitle = document.getElementById("badgeTitle");
+  const badgeMessage = document.getElementById("badgeMessage");
+
+  if(stars===3){
+    badgeTitle.textContent = "Completed!";
+    badgeMessage.textContent = "You earned 3 stars and completed Yeh-Shen practice.";
+  }else if(stars===2){
+    badgeTitle.textContent = "Almost there!";
+    badgeMessage.textContent = "You earned 2 stars. Finish the remaining parts to earn your badge.";
+  }else if(stars===1){
+    badgeTitle.textContent = "Good start!";
+    badgeMessage.textContent = "You earned 1 star. Keep going to complete the reading practice.";
+  }else{
+    badgeTitle.textContent = "Keep going!";
+    badgeMessage.textContent = "Finish the activities to earn stars and a completion badge.";
+  }
+
+  saveProgress();
+}
+
+function markDone(section){
+  progress[section] = true;
+  updateProgress();
+
+  if(section==="read"){
+    document.getElementById("readFeedback").textContent =
+      "Great. Now complete the after-reading quick check.";
+  }
+}
+
+function renderQuiz(data,containerId,progressKey){
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  data.forEach((item,index)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.boxShadow = "none";
+    card.style.border = "1px solid #d8e6ef";
+
+    let html =
+      `<h3>${item.word ? item.word : "Question " + (index+1)}</h3>`;
+
+    html += `<p>${item.question}</p>`;
+    html += `<div class="grid">`;
+
+    item.options.forEach((opt,i)=>{
+      html += `
+      <div class="option"
+      onclick="selectQuizOption(this, ${i}, ${item.answer}, '${progressKey}')">
+      ${opt}
+      </div>`;
+    });
+
+    html += `</div><div class="feedback"></div>`;
+
+    card.innerHTML = html;
+    container.appendChild(card);
+  });
+}
+
+function selectQuizOption(el,chosen,answer,progressKey){
+  const parent = el.parentElement;
+  const card = parent.parentElement;
+
+  if(card.dataset.answered==="true") return;
+
+  [...parent.children].forEach(child=>{
+    child.classList.remove("selected","correct","wrong");
+  });
+
+  if(chosen===answer){
+    el.classList.add("correct");
+    parent.nextElementSibling.textContent = "Correct.";
+  }else{
+    el.classList.add("wrong");
+    parent.children[answer].classList.add("correct");
+    parent.nextElementSibling.textContent =
+      "Not quite. Look at the correct answer.";
+  }
+
+  card.dataset.answered = "true";
+
+  if(progressKey==="vocab"){
+    vocabAnswered++;
+    if(vocabAnswered >= vocabData.length){
+      progress.vocab = true;
+    }
+  }
+
+  if(progressKey==="quiz"){
+    quizAnswered++;
+    if(quizAnswered >= readingData.length){
+      progress.quiz = true;
+    }
+  }
+
+  updateProgress();
+}
+
+function setupSingleChoice(containerId){
+  document.querySelectorAll(`#${containerId} .option`).forEach(opt=>{
+    opt.addEventListener("click",function(){
+      document.querySelectorAll(`#${containerId} .option`).forEach(o=>{
+        o.classList.remove("selected","correct","wrong");
+      });
+
+      this.classList.add("selected");
+    });
+  });
+}
+
+function checkSingleChoice(containerId,feedbackId,progressKey,correctMsg,wrongMsg){
+  const selected = document.querySelector(`#${containerId} .selected`);
+  const feedback = document.getElementById(feedbackId);
+
+  if(!selected){
+    feedback.textContent = "Choose an answer first.";
+    return;
+  }
+
+  if(selected.dataset.answer==="correct"){
+    selected.classList.add("correct");
+    feedback.textContent = correctMsg;
+    progress[progressKey] = true;
+  }else{
+    selected.classList.add("wrong");
+    feedback.textContent = wrongMsg;
+  }
+
+  updateProgress();
+}
+
+function checkPrediction(){
+  checkSingleChoice(
+    "predictionOptions",
+    "predictionFeedback",
+    "prediction",
+    "Good prediction. You used the Cinderella-story clues to predict the problem and change.",
+    "Not quite. Think about unfair treatment, magical help, and a better future."
+  );
+}
+
+function checkSkill(){
+  checkSingleChoice(
+    "skillOptions",
+    "skillFeedback",
+    "skill",
+    "Correct. This trait fits Yeh-Shen because she stays gentle and kind.",
+    "Not quite. Look at how Yeh-Shen acts even when she is treated unfairly."
+  );
+}
+
+function checkCompare(){
+  checkSingleChoice(
+    "compareOptions",
+    "compareFeedback",
+    "compare",
+    "Correct. This answer clearly contrasts Yeh-Shen and the stepmother.",
+    "Not quite. Compare and contrast should explain similarities or differences."
+  );
+}
+
+function checkStoryElement(){
+  checkSingleChoice(
+    "storyElementOptions",
+    "storyElementFeedback",
+    "storyElement",
+    "Correct. This identifies important Cinderella-tale story elements.",
+    "Not quite. Think about the problem, magical help, and changed future."
+  );
+}
+
+function checkTheme(){
+  checkSingleChoice(
+    "themeOptions",
+    "themeFeedback",
+    "theme",
+    "Correct. This theme explains the story’s message.",
+    "Not quite. A theme should be a lesson, not just one detail."
+  );
+}
+
+function checkWorksheet(){
+  checkSingleChoice(
+    "worksheetOptions",
+    "worksheetFeedback",
+    "worksheet",
+    "Correct. This answer gives a trait, evidence, and explanation.",
+    "Not quite. Choose the answer that supports an idea with evidence."
+  );
+}
+
+function chooseIdea(el,id){
+  document.querySelectorAll(".ideaCard").forEach(c=>{
+    c.classList.remove("selected","correct","wrong");
+  });
+
+  el.classList.add("selected");
+  chosenIdea = id;
+}
+
+function chooseEvidence(el,id){
+  document.querySelectorAll(".evidenceCard").forEach(c=>{
+    c.classList.remove("selected","correct","wrong");
+  });
+
+  el.classList.add("selected");
+  chosenEvidence = id;
+}
+
+function checkMatch(){
+  const feedback = document.getElementById("matchFeedback");
+
+  if(!chosenIdea || !chosenEvidence){
+    feedback.textContent = "Choose one character idea and one evidence card.";
+    return;
+  }
+
+  const selectedCards =
+    document.querySelectorAll(".ideaCard.selected,.evidenceCard.selected");
+
+  if(chosenIdea===chosenEvidence){
+    selectedCards.forEach(card=>{
+      card.classList.add("correct");
+    });
+
+    feedback.textContent =
+      "Correct match. The evidence supports the character idea.";
+    progress.match = true;
+  }else{
+    selectedCards.forEach(card=>{
+      card.classList.add("wrong");
+    });
+
+    feedback.textContent =
+      "Try again. Ask: Which story clue supports this character idea?";
+  }
+
+  updateProgress();
+}
+
+loadProgress();
+
+renderQuiz(vocabData,"vocabQuiz","vocab");
+renderQuiz(readingData,"readingQuiz","quiz");
+
+setupSingleChoice("predictionOptions");
+setupSingleChoice("skillOptions");
+setupSingleChoice("compareOptions");
+setupSingleChoice("storyElementOptions");
+setupSingleChoice("themeOptions");
+setupSingleChoice("worksheetOptions");
+
+updateProgress();
+</script>
+
+</body>
+</html>
