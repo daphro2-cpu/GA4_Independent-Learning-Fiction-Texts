@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The Sly Thief - GA4 Independent Reading</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Century Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #e8f7ff 0%, transparent 34%),
+        linear-gradient(135deg, #f7fbff 0%, #fff8ec 100%);
+      color: #243447;
+    }
+
+    header {
+      background: linear-gradient(135deg, #23395d, #406e8e);
+      color: white;
+      padding: 34px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+    }
+
+    header p {
+      max-width: 800px;
+      margin: 12px auto 0;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.18);
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: bold;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 22px 16px 90px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      margin: 18px 0;
+      box-shadow: 0 12px 30px rgba(35, 57, 93, 0.12);
+      border: 1px solid rgba(64,110,142,0.12);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #23395d;
+      font-size: clamp(1.35rem, 4vw, 1.8rem);
+    }
+
+    h3 {
+      color: #406e8e;
+      margin-bottom: 8px;
+    }
+
+    p, li { line-height: 1.55; }
+
+    .tag {
+      display: inline-block;
+      background: #e8f7ff;
+      color: #23395d;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      margin: 4px 4px 4px 0;
+      font-weight: bold;
+    }
+
+    .tag.gold {
+      background: #fff0d6;
+      color: #8a5a00;
+    }
+
+    .instruction {
+      background: #fff6db;
+      border-left: 6px solid #f4b942;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin: 14px 0;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .option, .match-card, .clue-card {
+      border: 2px solid #d8e6ef;
+      border-radius: 16px;
+      padding: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: #fbfdff;
+      line-height: 1.45;
+      min-height: 68px;
+    }
+
+    .clue-card {
+      cursor: default;
+      background: #f7fbff;
+    }
+
+    .option:hover, .match-card:hover {
+      transform: translateY(-2px);
+      border-color: #406e8e;
+    }
+
+    .selected {
+      border-color: #406e8e !important;
+      background: #e8f7ff !important;
+    }
+
+    .correct {
+      border-color: #42a66b !important;
+      background: #ecfff2 !important;
+    }
+
+    .wrong {
+      border-color: #d9534f !important;
+      background: #fff0f0 !important;
+    }
+
+    button {
+      border: none;
+      background: #23395d;
+      color: white;
+      padding: 13px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 12px;
+      font-family: inherit;
+      font-weight: bold;
+      min-height: 46px;
+    }
+
+    button:hover { background: #406e8e; }
+
+    .gold-btn {
+      background: #f4b942;
+      color: #243447;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      font-weight: bold;
+      min-height: 24px;
+    }
+
+    .progress-card {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #d8e6ef;
+      padding: 12px 16px;
+      box-shadow: 0 6px 20px rgba(35, 57, 93, 0.08);
+    }
+
+    .progress-inner {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stars {
+      font-size: 1.2rem;
+      white-space: nowrap;
+    }
+
+    .progress-wrap {
+      background: #d8e6ef;
+      border-radius: 999px;
+      height: 14px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f4b942, #42a66b);
+      transition: width 0.3s;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .badge-box {
+      text-align: center;
+      padding: 20px;
+      border: 2px dashed #f4b942;
+      border-radius: 20px;
+      background: #fffaf0;
+      margin-top: 16px;
+    }
+
+    .badge {
+      font-size: 3rem;
+      margin: 10px 0;
+    }
+
+    .bottom-home {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      background: #23395d;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: bold;
+      box-shadow: 0 8px 24px rgba(35,57,93,0.28);
+    }
+
+    @media (max-width: 720px) {
+      header { padding: 28px 14px; }
+      .container { padding: 16px 12px 90px; }
+      .card { padding: 18px; border-radius: 18px; }
+      .grid, .two-col { grid-template-columns: 1fr; }
+      .option, .match-card, .clue-card {
+        padding: 16px;
+        min-height: 72px;
+        font-size: 1rem;
+      }
+      button { width: 100%; }
+      .bottom-home {
+        width: calc(100% - 30px);
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>The Sly Thief</h1>
+    <p>GA4 Independent Reading Practice: vocabulary, prediction, problem and solution, sequence, clever thinking, and worksheet preparation.</p>
+
+    <div class="top-nav">
+      <a class="nav-btn" href="index.html">← Reading Hub</a>
+      <a class="nav-btn" href="emperors-new-clothes.html">← Previous Reading</a>
+      <a class="nav-btn" href="too-too.html">Next Reading →</a>
+    </div>
+  </header>
+
+  <div class="progress-card">
+    <div class="progress-inner">
+      <div class="progress-row">
+        <strong>Progress</strong>
+        <span class="stars" id="starDisplay">☆☆☆</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <section class="card">
+      <h2>Learning Goal</h2>
+
+      <span class="tag gold">Fiction Reading 4</span>
+      <span class="tag">Problem & Solution</span>
+      <span class="tag">Sequence</span>
+      <span class="tag">Clever Thinking</span>
+
+      <div class="instruction">
+        In this story, a thief uses tricks to steal from the king.
+        As you read, pay attention to the problem, the order of events, and how characters use clever thinking to solve the problem.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Part 1: Vocabulary Preview</h2>
+      <p>Choose the best meaning for each word. These words will help you understand the story and the worksheet.</p>
+      <div id="vocabQuiz"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 2: Prediction</h2>
+
+      <div class="instruction">
+        <strong>Reading Strategy: Prediction</strong><br><br>
+        Good readers make predictions before and during reading.
+        A prediction is a smart guess based on the title, pictures, story clues, and what we already know.
+        <br><br>
+        Prediction helps us focus on the problem and think about how the characters may try to solve it.
+      </div>
+
+      <h3>Look at the Clues</h3>
+
+      <div class="grid">
+        <div class="clue-card">
+          <strong>Clue 1</strong><br><br>
+          The title is <em>The Sly Thief</em>.
+        </div>
+
+        <div class="clue-card">
+          <strong>Clue 2</strong><br><br>
+          A thief uses tricks to steal things.
+        </div>
+
+        <div class="clue-card">
+          <strong>Clue 3</strong><br><br>
+          The king and his people need to catch the thief.
+        </div>
+      </div>
+
+      <h3>Which prediction is BEST?</h3>
+
+      <div id="predictionOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          The thief will teach everyone how to farm.
+        </div>
+
+        <div class="option" data-answer="correct">
+          The thief may use clever tricks, and the king’s people will need a clever plan to catch him.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          The story will mostly explain how to cook food.
+        </div>
+      </div>
+
+      <button onclick="checkPrediction()">Check Prediction</button>
+      <div class="feedback" id="predictionFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 3: Reading Skill Prep — Problem & Solution</h2>
+
+      <div class="instruction">
+        <strong>Reading Skill: Problem & Solution</strong><br><br>
+        A <strong>problem</strong> is something that needs to be fixed.
+        A <strong>solution</strong> is what characters do to try to fix the problem.
+        <br><br>
+        In a trickster or clever story, the solution often needs careful thinking.
+        Good readers ask:
+        <ul>
+          <li>What is the problem?</li>
+          <li>Who is trying to solve it?</li>
+          <li>What plan do they use?</li>
+          <li>Does the plan work?</li>
+        </ul>
+      </div>
+
+      <h3>Practice</h3>
+      <p><strong>Problem:</strong> A thief keeps stealing from the king.</p>
+      <p>Which solution makes the most sense?</p>
+
+      <div id="skillOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          The king ignores the thief forever.
+        </div>
+
+        <div class="option" data-answer="correct">
+          The king’s people make a clever plan to catch the thief.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          The thief receives a prize for stealing.
+        </div>
+      </div>
+
+      <button onclick="checkSkill()">Check Answer</button>
+      <div class="feedback" id="skillFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Now Read the Story</h2>
+
+      <div class="instruction">
+        Read <strong>The Sly Thief</strong>. While reading, look for:
+        <ul>
+          <li>what the thief steals</li>
+          <li>how the thief tricks people</li>
+          <li>what problem the king has</li>
+          <li>what plan is used to catch the thief</li>
+          <li>whether the solution works</li>
+        </ul>
+      </div>
+
+      <button class="gold-btn" onclick="markDone('read')">I finished reading</button>
+      <div class="feedback" id="readFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 4: After-Reading Quick Check</h2>
+
+      <div class="instruction">
+        <strong>After Reading Strategy: Check and Think Again</strong><br><br>
+        After we read, good readers check the order of events and the problem-solution structure.
+        For this story, ask: <strong>What did the thief do?</strong>, <strong>how did people respond?</strong>, and
+        <strong>what clever solution helped solve the problem?</strong>
+      </div>
+
+      <div id="readingQuiz"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 5: Sequence Practice</h2>
+      <p>Choose the event that happened at each point in the story.</p>
+
+      <h3>1. What is the main problem?</h3>
+      <div id="problemOptions" class="grid">
+        <div class="option" data-answer="wrong">The king wants to learn a song.</div>
+        <div class="option" data-answer="correct">A thief is stealing and tricking people.</div>
+        <div class="option" data-answer="wrong">The town has too many birds.</div>
+      </div>
+      <button onclick="checkProblem()">Check Problem</button>
+      <div class="feedback" id="problemFeedback"></div>
+
+      <h3>2. What happens as the story continues?</h3>
+      <div id="middleOptions" class="grid">
+        <div class="option" data-answer="wrong">Everyone forgets about the thief.</div>
+        <div class="option" data-answer="correct">The thief keeps using tricks, so people need a better plan.</div>
+        <div class="option" data-answer="wrong">The thief stops stealing immediately.</div>
+      </div>
+      <button onclick="checkMiddle()">Check Middle Event</button>
+      <div class="feedback" id="middleFeedback"></div>
+
+      <h3>3. What kind of solution is needed?</h3>
+      <div id="solutionOptions" class="grid">
+        <div class="option" data-answer="correct">A clever solution that can outsmart the thief.</div>
+        <div class="option" data-answer="wrong">A solution that lets the thief steal more.</div>
+        <div class="option" data-answer="wrong">A solution that has nothing to do with the thief.</div>
+      </div>
+      <button onclick="checkSolution()">Check Solution</button>
+      <div class="feedback" id="solutionFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 6: Problem → Solution Match</h2>
+
+      <div class="instruction">
+        The worksheet may ask you to identify the problem, the attempted solution, and the final result.
+        Matching these ideas helps you prepare stronger answers.
+      </div>
+
+      <p>Choose one problem/action and one matching solution/result.</p>
+
+      <div class="two-col">
+        <div>
+          <h3>Problem / Action</h3>
+          <div class="match-card problem-card" onclick="chooseProblemCard(this, 'A')">
+            The thief steals from the king.
+          </div>
+          <div class="match-card problem-card" onclick="chooseProblemCard(this, 'B')">
+            The thief uses tricks and lies.
+          </div>
+          <div class="match-card problem-card" onclick="chooseProblemCard(this, 'C')">
+            The king wants the stealing to stop.
+          </div>
+        </div>
+
+        <div>
+          <h3>Solution / Result</h3>
+          <div class="match-card result-card" onclick="chooseResultCard(this, 'B')">
+            People need to think carefully instead of trusting too quickly.
+          </div>
+          <div class="match-card result-card" onclick="chooseResultCard(this, 'C')">
+            A clever plan is needed to catch the thief.
+          </div>
+          <div class="match-card result-card" onclick="chooseResultCard(this, 'A')">
+            This creates the main problem of the story.
+          </div>
+        </div>
+      </div>
+
+      <button onclick="checkMatch()">Check Match</button>
+      <div class="feedback" id="matchFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 7: Clever Thinking Practice</h2>
+
+      <div class="instruction">
+        Clever thinking means solving a problem by noticing details, making a plan, and not being tricked easily.
+      </div>
+
+      <h3>Which character action shows clever thinking?</h3>
+
+      <div id="cleverOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          Believing everything the thief says without checking.
+        </div>
+
+        <div class="option" data-answer="correct">
+          Making a plan that uses the thief’s own tricks against him.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          Giving the thief more chances to steal.
+        </div>
+      </div>
+
+      <button onclick="checkClever()">Check Answer</button>
+      <div class="feedback" id="cleverFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 8: Worksheet Preparation</h2>
+
+      <div class="instruction">
+        Your worksheet may ask you to explain the problem, the solution, and how clever thinking helped.
+        A strong answer should include:
+        <ul>
+          <li>the problem</li>
+          <li>the solution or plan</li>
+          <li>why the plan worked</li>
+          <li>a clue from the story</li>
+        </ul>
+      </div>
+
+      <h3>Choose the strongest worksheet answer.</h3>
+
+      <div id="worksheetOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          The thief was sly. The story was interesting.
+        </div>
+
+        <div class="option" data-answer="correct">
+          The main problem was that the thief used tricks to steal. The solution needed clever thinking because the characters had to notice the thief’s tricks and make a plan to stop him.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          The king should let the thief keep stealing because he is clever.
+        </div>
+      </div>
+
+      <button onclick="checkWorksheet()">Check Answer</button>
+      <div class="feedback" id="worksheetFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Completion Badge</h2>
+
+      <div class="badge-box">
+        <div class="badge">🏅</div>
+        <h3 id="badgeTitle">Keep going!</h3>
+        <p id="badgeMessage">Finish all parts to earn your completion badge.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <a class="bottom-home" href="index.html">← Back to Reading Hub</a>
+
+  <script>
+    const STORAGE_KEY = "ga4_sly_thief_progress_v1";
+
+    let progress = {
+      vocab: false,
+      prediction: false,
+      skill: false,
+      read: false,
+      quiz: false,
+      problem: false,
+      middle: false,
+      solution: false,
+      match: false,
+      clever: false,
+      worksheet: false
+    };
+
+    let vocabAnswered = 0;
+    let quizAnswered = 0;
+    let chosenProblemCard = null;
+    let chosenResultCard = null;
+
+    const vocabData = [
+      {
+        word: "sly",
+        question: "What does sly mean?",
+        options: ["clever in a tricky or dishonest way", "very sleepy", "very loud"],
+        answer: 0
+      },
+      {
+        word: "thief",
+        question: "What is a thief?",
+        options: ["a person who steals", "a person who teaches", "a person who grows crops"],
+        answer: 0
+      },
+      {
+        word: "trick",
+        question: "What does trick mean?",
+        options: ["to fool someone", "to help someone honestly", "to carry something carefully"],
+        answer: 0
+      },
+      {
+        word: "steal",
+        question: "What does steal mean?",
+        options: ["to take something that is not yours", "to give someone a gift", "to build something"],
+        answer: 0
+      },
+      {
+        word: "catch",
+        question: "In this story, what does catch the thief mean?",
+        options: ["to stop or find the thief", "to play a game with the thief", "to help the thief escape"],
+        answer: 0
+      },
+      {
+        word: "plan",
+        question: "What is a plan?",
+        options: ["an idea for what to do", "a type of food", "a small animal"],
+        answer: 0
+      }
+    ];
+
+    const readingData = [
+      {
+        question: "What kind of character is the thief?",
+        options: [
+          "Tricky and clever",
+          "Honest and generous",
+          "Quiet and afraid of everyone"
+        ],
+        answer: 0
+      },
+      {
+        question: "What is the main problem?",
+        options: [
+          "The thief steals and tricks people.",
+          "The birds leave town.",
+          "Hans loses his gifts."
+        ],
+        answer: 0
+      },
+      {
+        question: "What kind of solution is needed?",
+        options: [
+          "A clever plan",
+          "A louder song",
+          "A bigger farm"
+        ],
+        answer: 0
+      },
+      {
+        question: "Which skill helps you understand this story best?",
+        options: [
+          "Problem-solution and sequence",
+          "Rhyming words",
+          "Animal classification"
+        ],
+        answer: 0
+      }
+    ];
+
+    function saveProgress() {
+      const stars = calculateStars();
+      const completed = stars === 3;
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        progress,
+        stars,
+        completed,
+        updatedAt: new Date().toISOString()
+      }));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+
+      try {
+        const data = JSON.parse(saved);
+        if (data.progress) {
+          progress = { ...progress, ...data.progress };
+        }
+      } catch (e) {
+        console.log("No saved progress.");
+      }
+    }
+
+    function calculateStars() {
+      const done = Object.values(progress).filter(Boolean).length;
+
+      if (done >= Object.keys(progress).length) return 3;
+      if (done >= 7) return 2;
+      if (done >= 3) return 1;
+      return 0;
+    }
+
+    function updateProgress() {
+      const total = Object.keys(progress).length;
+      const done = Object.values(progress).filter(Boolean).length;
+      const percent = Math.round((done / total) * 100);
+      const stars = calculateStars();
+
+      document.getElementById("progressBar").style.width = percent + "%";
+
+      document.getElementById("starDisplay").textContent =
+        stars === 0 ? "☆☆☆" :
+        stars === 1 ? "⭐☆☆" :
+        stars === 2 ? "⭐⭐☆" :
+        "⭐⭐⭐";
+
+      const badgeTitle = document.getElementById("badgeTitle");
+      const badgeMessage = document.getElementById("badgeMessage");
+
+      if (stars === 3) {
+        badgeTitle.textContent = "Completed!";
+        badgeMessage.textContent = "You earned 3 stars and completed The Sly Thief practice.";
+      } else if (stars === 2) {
+        badgeTitle.textContent = "Almost there!";
+        badgeMessage.textContent = "You earned 2 stars. Finish the remaining parts to earn your badge.";
+      } else if (stars === 1) {
+        badgeTitle.textContent = "Good start!";
+        badgeMessage.textContent = "You earned 1 star. Keep going to complete the reading practice.";
+      } else {
+        badgeTitle.textContent = "Keep going!";
+        badgeMessage.textContent = "Finish the activities to earn stars and a completion badge.";
+      }
+
+      saveProgress();
+    }
+
+    function markDone(section) {
+      progress[section] = true;
+      updateProgress();
+
+      if (section === "read") {
+        document.getElementById("readFeedback").textContent = "Great. Now complete the after-reading quick check.";
+      }
+    }
+
+    function renderQuiz(data, containerId, progressKey) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      data.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.style.boxShadow = "none";
+        card.style.border = "1px solid #d8e6ef";
+
+        let html = `<h3>${item.word ? item.word : "Question " + (index + 1)}</h3>`;
+        html += `<p>${item.question}</p>`;
+        html += `<div class="grid">`;
+
+        item.options.forEach((opt, i) => {
+          html += `<div class="option" onclick="selectQuizOption(this, ${i}, ${item.answer}, '${progressKey}')">${opt}</div>`;
+        });
+
+        html += `</div><div class="feedback"></div>`;
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+    }
+
+    function selectQuizOption(el, chosen, answer, progressKey) {
+      const parent = el.parentElement;
+      const card = parent.parentElement;
+
+      if (card.dataset.answered === "true") return;
+
+      [...parent.children].forEach(child => {
+        child.classList.remove("selected", "correct", "wrong");
+      });
+
+      if (chosen === answer) {
+        el.classList.add("correct");
+        parent.nextElementSibling.textContent = "Correct.";
+      } else {
+        el.classList.add("wrong");
+        parent.children[answer].classList.add("correct");
+        parent.nextElementSibling.textContent = "Not quite. Look at the correct answer.";
+      }
+
+      card.dataset.answered = "true";
+
+      if (progressKey === "vocab") {
+        vocabAnswered++;
+        if (vocabAnswered >= vocabData.length) progress.vocab = true;
+      }
+
+      if (progressKey === "quiz") {
+        quizAnswered++;
+        if (quizAnswered >= readingData.length) progress.quiz = true;
+      }
+
+      updateProgress();
+    }
+
+    function setupSingleChoice(containerId) {
+      document.querySelectorAll(`#${containerId} .option`).forEach(opt => {
+        opt.addEventListener("click", function () {
+          document.querySelectorAll(`#${containerId} .option`).forEach(o => {
+            o.classList.remove("selected", "correct", "wrong");
+          });
+          this.classList.add("selected");
+        });
+      });
+    }
+
+    function checkSingleChoice(containerId, feedbackId, progressKey, correctMsg, wrongMsg) {
+      const selected = document.querySelector(`#${containerId} .selected`);
+      const feedback = document.getElementById(feedbackId);
+
+      if (!selected) {
+        feedback.textContent = "Choose an answer first.";
+        return;
+      }
+
+      if (selected.dataset.answer === "correct") {
+        selected.classList.add("correct");
+        feedback.textContent = correctMsg;
+        progress[progressKey] = true;
+      } else {
+        selected.classList.add("wrong");
+        feedback.textContent = wrongMsg;
+      }
+
+      updateProgress();
+    }
+
+    function checkPrediction() {
+      checkSingleChoice(
+        "predictionOptions",
+        "predictionFeedback",
+        "prediction",
+        "Good prediction. You used the title and clues to think about the problem and possible solution.",
+        "Not quite. Think about a sly thief and how the king’s people might stop him."
+      );
+    }
+
+    function checkSkill() {
+      checkSingleChoice(
+        "skillOptions",
+        "skillFeedback",
+        "skill",
+        "Correct. A clever thief needs a clever solution.",
+        "Not quite. Think about what kind of plan would solve the stealing problem."
+      );
+    }
+
+    function checkProblem() {
+      checkSingleChoice(
+        "problemOptions",
+        "problemFeedback",
+        "problem",
+        "Correct. The main problem is the thief’s stealing and tricks.",
+        "Not quite. Choose the answer that shows what needs to be fixed."
+      );
+    }
+
+    function checkMiddle() {
+      checkSingleChoice(
+        "middleOptions",
+        "middleFeedback",
+        "middle",
+        "Correct. The thief keeps tricking people, so the problem becomes harder.",
+        "Not quite. Think about what happens while the problem continues."
+      );
+    }
+
+    function checkSolution() {
+      checkSingleChoice(
+        "solutionOptions",
+        "solutionFeedback",
+        "solution",
+        "Correct. The characters need a clever plan to outsmart the thief.",
+        "Not quite. Think about what kind of solution can stop a tricky character."
+      );
+    }
+
+    function checkClever() {
+      checkSingleChoice(
+        "cleverOptions",
+        "cleverFeedback",
+        "clever",
+        "Correct. Clever thinking uses a smart plan to solve the problem.",
+        "Not quite. Choose the action that shows smart problem-solving."
+      );
+    }
+
+    function checkWorksheet() {
+      checkSingleChoice(
+        "worksheetOptions",
+        "worksheetFeedback",
+        "worksheet",
+        "Correct. This answer explains the problem, solution, and why clever thinking matters.",
+        "Not quite. Choose the answer that explains the problem and how it can be solved."
+      );
+    }
+
+    function chooseProblemCard(el, id) {
+      document.querySelectorAll(".problem-card").forEach(c => c.classList.remove("selected", "correct", "wrong"));
+      el.classList.add("selected");
+      chosenProblemCard = id;
+    }
+
+    function chooseResultCard(el, id) {
+      document.querySelectorAll(".result-card").forEach(c => c.classList.remove("selected", "correct", "wrong"));
+      el.classList.add("selected");
+      chosenResultCard = id;
+    }
+
+    function checkMatch() {
+      const feedback = document.getElementById("matchFeedback");
+
+      if (!chosenProblemCard || !chosenResultCard) {
+        feedback.textContent = "Choose one problem/action and one solution/result.";
+        return;
+      }
+
+      const selectedCards = document.querySelectorAll(".problem-card.selected, .result-card.selected");
+
+      if (chosenProblemCard === chosenResultCard) {
+        selectedCards.forEach(card => card.classList.add("correct"));
+        feedback.textContent = "Correct match. You connected the problem/action with the best solution or result.";
+        progress.match = true;
+      } else {
+        selectedCards.forEach(card => card.classList.add("wrong"));
+        feedback.textContent = "Try again. Ask: What happens because of this? What solution is needed?";
+      }
+
+      updateProgress();
+    }
+
+    loadProgress();
+
+    renderQuiz(vocabData, "vocabQuiz", "vocab");
+    renderQuiz(readingData, "readingQuiz", "quiz");
+
+    setupSingleChoice("predictionOptions");
+    setupSingleChoice("skillOptions");
+    setupSingleChoice("problemOptions");
+    setupSingleChoice("middleOptions");
+    setupSingleChoice("solutionOptions");
+    setupSingleChoice("cleverOptions");
+    setupSingleChoice("worksheetOptions");
+
+    updateProgress();
+  </script>
+
+</body>
+</html>
