@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Hans in Luck - GA4 Independent Reading</title>
+
+  <style>
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:"Century Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left,#e8f7ff 0%,transparent 34%),
+        linear-gradient(135deg,#f7fbff 0%,#fff8ec 100%);
+      color:#243447;
+    }
+
+    header{
+      background:linear-gradient(135deg,#23395d,#406e8e);
+      color:white;
+      padding:34px 18px;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0;
+      font-size:clamp(1.8rem,5vw,2.6rem);
+    }
+
+    header p{
+      max-width:800px;
+      margin:12px auto 0;
+      line-height:1.6;
+      font-size:1rem;
+    }
+
+    .top-nav{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .nav-btn{
+      background:rgba(255,255,255,0.18);
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:bold;
+      border:1px solid rgba(255,255,255,0.25);
+    }
+
+    .container{
+      max-width:1050px;
+      margin:0 auto;
+      padding:22px 16px 90px;
+    }
+
+    .card{
+      background:white;
+      border-radius:22px;
+      padding:22px;
+      margin:18px 0;
+      box-shadow:0 12px 30px rgba(35,57,93,0.12);
+      border:1px solid rgba(64,110,142,0.12);
+    }
+
+    h2{
+      margin-top:0;
+      color:#23395d;
+      font-size:clamp(1.35rem,4vw,1.8rem);
+    }
+
+    h3{
+      color:#406e8e;
+      margin-bottom:8px;
+    }
+
+    p,li{ line-height:1.55; }
+
+    .tag{
+      display:inline-block;
+      background:#e8f7ff;
+      color:#23395d;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:0.82rem;
+      margin:4px 4px 4px 0;
+      font-weight:bold;
+    }
+
+    .tag.gold{
+      background:#fff0d6;
+      color:#8a5a00;
+    }
+
+    .instruction{
+      background:#fff6db;
+      border-left:6px solid #f4b942;
+      padding:14px 16px;
+      border-radius:14px;
+      margin:14px 0;
+      line-height:1.5;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+    }
+
+    .option,.match-card,.clue-card{
+      border:2px solid #d8e6ef;
+      border-radius:16px;
+      padding:15px;
+      cursor:pointer;
+      transition:0.2s;
+      background:#fbfdff;
+      line-height:1.45;
+      min-height:68px;
+    }
+
+    .clue-card{
+      cursor:default;
+      background:#f7fbff;
+    }
+
+    .option:hover,.match-card:hover{
+      transform:translateY(-2px);
+      border-color:#406e8e;
+    }
+
+    .selected{
+      border-color:#406e8e !important;
+      background:#e8f7ff !important;
+    }
+
+    .correct{
+      border-color:#42a66b !important;
+      background:#ecfff2 !important;
+    }
+
+    .wrong{
+      border-color:#d9534f !important;
+      background:#fff0f0 !important;
+    }
+
+    button{
+      border:none;
+      background:#23395d;
+      color:white;
+      padding:13px 18px;
+      border-radius:14px;
+      cursor:pointer;
+      font-size:1rem;
+      margin-top:12px;
+      font-family:inherit;
+      font-weight:bold;
+      min-height:46px;
+    }
+
+    button:hover{ background:#406e8e; }
+
+    .gold-btn{
+      background:#f4b942;
+      color:#243447;
+    }
+
+    .feedback{
+      margin-top:12px;
+      font-weight:bold;
+      min-height:24px;
+    }
+
+    .progress-card{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid #d8e6ef;
+      padding:12px 16px;
+      box-shadow:0 6px 20px rgba(35,57,93,0.08);
+    }
+
+    .progress-inner{
+      max-width:1050px;
+      margin:0 auto;
+    }
+
+    .progress-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .stars{
+      font-size:1.2rem;
+      white-space:nowrap;
+    }
+
+    .progress-wrap{
+      background:#d8e6ef;
+      border-radius:999px;
+      height:14px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#f4b942,#42a66b);
+      transition:width 0.3s;
+    }
+
+    .badge-box{
+      text-align:center;
+      padding:20px;
+      border:2px dashed #f4b942;
+      border-radius:20px;
+      background:#fffaf0;
+      margin-top:16px;
+    }
+
+    .badge{
+      font-size:3rem;
+      margin:10px 0;
+    }
+
+    .bottom-home{
+      position:fixed;
+      bottom:14px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:30;
+      background:#23395d;
+      color:white;
+      text-decoration:none;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:bold;
+      box-shadow:0 8px 24px rgba(35,57,93,0.28);
+    }
+
+    @media (max-width:720px){
+      header{ padding:28px 14px; }
+      .container{ padding:16px 12px 90px; }
+      .card{ padding:18px; border-radius:18px; }
+      .grid{ grid-template-columns:1fr; }
+
+      .option,.match-card,.clue-card{
+        padding:16px;
+        min-height:72px;
+        font-size:1rem;
+      }
+
+      button{ width:100%; }
+
+      .bottom-home{
+        width:calc(100% - 30px);
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Hans in Luck</h1>
+
+  <p>
+    GA4 Independent Reading Practice:
+    vocabulary, prediction, sequence, good and bad points,
+    value judgement, theme, and worksheet preparation.
+  </p>
+
+  <div class="top-nav">
+    <a class="nav-btn" href="index.html">← Reading Hub</a>
+    <a class="nav-btn" href="good-luck-bad-luck.html">← Previous Reading</a>
+    <a class="nav-btn" href="yeh-shen.html">Next Reading →</a>
+  </div>
+</header>
+
+<div class="progress-card">
+  <div class="progress-inner">
+    <div class="progress-row">
+      <strong>Progress</strong>
+      <span class="stars" id="starDisplay">☆☆☆</span>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<section class="card">
+  <h2>Learning Goal</h2>
+
+  <span class="tag gold">Fiction Reading 7</span>
+  <span class="tag">Sequence</span>
+  <span class="tag">Good & Bad Points</span>
+  <span class="tag">Value Judgement</span>
+  <span class="tag">Theme</span>
+
+  <div class="instruction">
+    In this story, Hans keeps trading one thing for another.
+    Each trade changes his situation. As you read, think about the order of the trades,
+    whether each trade is good or bad, and why Hans may still feel lucky or happy.
+  </div>
+</section>
+
+<section class="card">
+  <h2>Part 1: Vocabulary Preview</h2>
+
+  <p>
+    Choose the best meaning for each word.
+    These words will help you understand the story and the worksheet.
+  </p>
+
+  <div id="vocabQuiz"></div>
+</section>
+
+<section class="card">
+  <h2>Part 2: Prediction</h2>
+
+  <div class="instruction">
+    <strong>Reading Strategy: Prediction</strong><br><br>
+
+    Good readers make predictions using the title, story clues, and what they already know.
+    Predictions help readers focus on what may happen next.
+    <br><br>
+    In this story, think about whether Hans’s choices will make him more lucky, less lucky, or simply happier.
+  </div>
+
+  <h3>Look at the Clues</h3>
+
+  <div class="grid">
+    <div class="clue-card">
+      <strong>Clue 1</strong><br><br>
+      The title is <em>Hans in Luck</em>.
+    </div>
+
+    <div class="clue-card">
+      <strong>Clue 2</strong><br><br>
+      Hans keeps trading one thing for another.
+    </div>
+
+    <div class="clue-card">
+      <strong>Clue 3</strong><br><br>
+      A trade can look bad to one person but good to another.
+    </div>
+  </div>
+
+  <h3>Which prediction is BEST?</h3>
+
+  <div id="predictionOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Hans will never make any choices.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Hans may make trades that look foolish, but he may still feel lucky or happy.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      The story will mostly explain how to build houses.
+    </div>
+  </div>
+
+  <button onclick="checkPrediction()">Check Prediction</button>
+  <div class="feedback" id="predictionFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 3: Reading Skill Prep — Sequence + Value Judgement</h2>
+
+  <div class="instruction">
+    <strong>Reading Skill: Sequence</strong><br><br>
+    Sequence means the order that events happen in a story.
+    In this story, you need to follow Hans’s trades carefully.
+    <br><br>
+
+    <strong>Value judgement</strong> means deciding whether something is good, bad,
+    helpful, harmful, wise, or foolish — and explaining why.
+    <br><br>
+
+    Good readers ask:
+    <ul>
+      <li>What did Hans have first?</li>
+      <li>What did he trade it for?</li>
+      <li>Was the trade good or bad?</li>
+      <li>Why did Hans feel happy about it?</li>
+    </ul>
+  </div>
+
+  <h3>Practice</h3>
+
+  <p>
+    <strong>Situation:</strong> Hans trades something valuable for something easier to carry.
+  </p>
+
+  <p>Which is the best value judgement?</p>
+
+  <div id="skillOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      It must be good for everyone because all trades are good.
+    </div>
+
+    <div class="option" data-answer="correct">
+      It may be bad because he loses value, but good from Hans’s view because it feels easier for him.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      It has no effect on Hans at all.
+    </div>
+  </div>
+
+  <button onclick="checkSkill()">Check Answer</button>
+  <div class="feedback" id="skillFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Now Read the Story</h2>
+
+  <div class="instruction">
+    Read <strong>Hans in Luck</strong>. While reading, look for:
+    <ul>
+      <li>what Hans has at the beginning</li>
+      <li>what he trades each thing for</li>
+      <li>why he agrees to each trade</li>
+      <li>whether the trade seems good or bad</li>
+      <li>why Hans feels lucky or happy</li>
+    </ul>
+  </div>
+
+  <button class="gold-btn" onclick="markDone('read')">I finished reading</button>
+  <div class="feedback" id="readFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 4: After-Reading Quick Check</h2>
+
+  <div class="instruction">
+    <strong>After Reading Strategy: Check the Pattern</strong><br><br>
+
+    After reading, good readers check the pattern of the story.
+    For this story, ask:
+    <strong>What did Hans trade?</strong>,
+    <strong>why did he trade it?</strong>, and
+    <strong>how did Hans feel after each trade?</strong>
+  </div>
+
+  <div id="readingQuiz"></div>
+</section>
+
+<section class="card">
+  <h2>Part 5: Sequence Practice</h2>
+
+  <p>Choose the event that happened at each point in the story.</p>
+
+  <h3>1. What happens first?</h3>
+
+  <div id="firstOptions" class="grid">
+    <div class="option" data-answer="correct">
+      Hans begins with something valuable after working for a long time.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Hans starts with nothing and finds treasure.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Hans immediately returns home without making any trades.
+    </div>
+  </div>
+
+  <button onclick="checkFirst()">Check First Event</button>
+  <div class="feedback" id="firstFeedback"></div>
+
+  <h3>2. What happens again and again?</h3>
+
+  <div id="patternOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Hans refuses to trade anything.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Hans trades what he has for something else and feels pleased with the change.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Hans becomes angry after every trade.
+    </div>
+  </div>
+
+  <button onclick="checkPattern()">Check Pattern</button>
+  <div class="feedback" id="patternFeedback"></div>
+
+  <h3>3. What is important to understand at the end?</h3>
+
+  <div id="endOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Hans clearly becomes richer and richer.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Hans learns to stop helping people.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Hans may have lost valuable things, but he still feels free and happy.
+    </div>
+  </div>
+
+  <button onclick="checkEnd()">Check Ending Idea</button>
+  <div class="feedback" id="endFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 6: Trade → Result Match</h2>
+
+  <div class="instruction">
+    The worksheet may ask you to follow Hans’s choices and explain whether his trades were good or bad.
+    Matching trades with results helps you prepare stronger answers.
+  </div>
+
+  <p>Choose one trade idea and one matching result.</p>
+
+  <div class="grid">
+    <div>
+      <h3>Trade / Choice</h3>
+
+      <div class="match-card tradeCard" onclick="chooseTrade(this,'A')">
+        Hans trades something valuable for something easier to manage.
+      </div>
+
+      <div class="match-card tradeCard" onclick="chooseTrade(this,'B')">
+        Hans keeps agreeing to new trades.
+      </div>
+
+      <div class="match-card tradeCard" onclick="chooseTrade(this,'C')">
+        Hans ends with much less than he had before.
+      </div>
+    </div>
+
+    <div>
+      <h3>Result / Meaning</h3>
+
+      <div class="match-card resultCard" onclick="chooseResult(this,'B')">
+        The story creates a pattern of repeated choices and changes.
+      </div>
+
+      <div class="match-card resultCard" onclick="chooseResult(this,'C')">
+        Readers must decide whether Hans is foolish, lucky, or happy in his own way.
+      </div>
+
+      <div class="match-card resultCard" onclick="chooseResult(this,'A')">
+        The trade may lower the value, but it may feel better to Hans.
+      </div>
+    </div>
+  </div>
+
+  <button onclick="checkMatch()">Check Match</button>
+  <div class="feedback" id="matchFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 7: Good or Bad Point?</h2>
+
+  <div class="instruction">
+    Some choices can have both good and bad points.
+    A strong reader explains both sides before making a judgement.
+  </div>
+
+  <h3>Which answer gives both sides?</h3>
+
+  <div id="bothSidesOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Every trade Hans makes is completely perfect.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Hans’s trades may be bad because he loses value, but good for him because he feels lighter, freer, or happier.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Hans’s choices do not matter in the story.
+    </div>
+  </div>
+
+  <button onclick="checkBothSides()">Check Answer</button>
+  <div class="feedback" id="bothSidesFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 8: Theme Practice</h2>
+
+  <div class="instruction">
+    A theme is the lesson or message of a story.
+    In this story, the lesson may depend on how we understand Hans’s happiness.
+  </div>
+
+  <h3>Which theme BEST fits this story?</h3>
+
+  <div id="themeOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Having more expensive things always makes people happier.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Happiness can depend on how a person sees their situation, not only on what they own.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      People should never travel home.
+    </div>
+  </div>
+
+  <button onclick="checkTheme()">Check Theme</button>
+  <div class="feedback" id="themeFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Part 9: Worksheet Preparation</h2>
+
+  <div class="instruction">
+    Your worksheet may ask you to explain Hans’s choices, sequence the trades,
+    or decide whether Hans was truly lucky.
+    A strong answer should include:
+    <ul>
+      <li>a clear opinion</li>
+      <li>one story example</li>
+      <li>an explanation of why the example supports your idea</li>
+    </ul>
+  </div>
+
+  <h3>Choose the strongest worksheet answer.</h3>
+
+  <div id="worksheetOptions" class="grid">
+    <div class="option" data-answer="wrong">
+      Hans is lucky because the title says luck.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Hans may seem foolish because he loses valuable things, but he feels lucky because each trade makes him feel happier or freer. This shows that Hans values comfort and happiness more than money.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Hans is unlucky because everyone else is bad.
+    </div>
+  </div>
+
+  <button onclick="checkWorksheet()">Check Answer</button>
+  <div class="feedback" id="worksheetFeedback"></div>
+</section>
+
+<section class="card">
+  <h2>Completion Badge</h2>
+
+  <div class="badge-box">
+    <div class="badge">🏅</div>
+    <h3 id="badgeTitle">Keep going!</h3>
+    <p id="badgeMessage">Finish all parts to earn your completion badge.</p>
+  </div>
+</section>
+
+</div>
+
+<a class="bottom-home" href="index.html">← Back to Reading Hub</a>
+
+<script>
+const STORAGE_KEY = "ga4_hans_in_luck_progress_v1";
+
+let progress = {
+  vocab:false,
+  prediction:false,
+  skill:false,
+  read:false,
+  quiz:false,
+  first:false,
+  pattern:false,
+  end:false,
+  match:false,
+  bothSides:false,
+  theme:false,
+  worksheet:false
+};
+
+let vocabAnswered = 0;
+let quizAnswered = 0;
+let chosenTrade = null;
+let chosenResult = null;
+
+const vocabData = [
+  {
+    word:"trade",
+    question:"What does trade mean?",
+    options:[
+      "to give one thing and receive another",
+      "to hide something forever",
+      "to sing a song"
+    ],
+    answer:0
+  },
+  {
+    word:"valuable",
+    question:"What does valuable mean?",
+    options:[
+      "worth a lot",
+      "very small",
+      "easy to forget"
+    ],
+    answer:0
+  },
+  {
+    word:"comfort",
+    question:"What does comfort mean?",
+    options:[
+      "a feeling of ease or relief",
+      "a loud noise",
+      "a difficult question"
+    ],
+    answer:0
+  },
+  {
+    word:"foolish",
+    question:"What does foolish mean?",
+    options:[
+      "not showing good sense",
+      "very careful",
+      "very expensive"
+    ],
+    answer:0
+  },
+  {
+    word:"free",
+    question:"In this story, what can free mean?",
+    options:[
+      "not feeling burdened or trapped",
+      "very heavy",
+      "full of gold"
+    ],
+    answer:0
+  },
+  {
+    word:"satisfied",
+    question:"What does satisfied mean?",
+    options:[
+      "pleased or happy enough",
+      "angry and upset",
+      "lost and confused"
+    ],
+    answer:0
+  }
+];
+
+const readingData = [
+  {
+    question:"What does Hans keep doing in the story?",
+    options:[
+      "He keeps trading one thing for another.",
+      "He keeps building houses.",
+      "He keeps refusing to talk."
+    ],
+    answer:0
+  },
+  {
+    question:"Why might some readers think Hans is foolish?",
+    options:[
+      "He loses valuable things through his trades.",
+      "He never leaves home.",
+      "He steals from people."
+    ],
+    answer:0
+  },
+  {
+    question:"Why might Hans think he is lucky?",
+    options:[
+      "He feels happier or freer after his choices.",
+      "He becomes a king.",
+      "He never has any problems."
+    ],
+    answer:0
+  },
+  {
+    question:"Which skill helps you understand this story best?",
+    options:[
+      "Sequence and value judgement",
+      "Rhyming words",
+      "Animal facts"
+    ],
+    answer:0
+  }
+];
+
+function saveProgress(){
+  const stars = calculateStars();
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify({
+      progress,
+      stars
+    })
+  );
+}
+
+function loadProgress(){
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(!saved) return;
+
+  try{
+    const data = JSON.parse(saved);
+
+    if(data.progress){
+      progress = {...progress,...data.progress};
+    }
+  }catch(e){}
+}
+
+function calculateStars(){
+  const done = Object.values(progress).filter(Boolean).length;
+
+  if(done >= Object.keys(progress).length) return 3;
+  if(done >= 8) return 2;
+  if(done >= 4) return 1;
+
+  return 0;
+}
+
+function updateProgress(){
+  const total = Object.keys(progress).length;
+  const done = Object.values(progress).filter(Boolean).length;
+  const percent = Math.round((done / total) * 100);
+  const stars = calculateStars();
+
+  document.getElementById("progressBar").style.width = percent + "%";
+
+  document.getElementById("starDisplay").textContent =
+    stars===0 ? "☆☆☆" :
+    stars===1 ? "⭐☆☆" :
+    stars===2 ? "⭐⭐☆" :
+    "⭐⭐⭐";
+
+  const badgeTitle = document.getElementById("badgeTitle");
+  const badgeMessage = document.getElementById("badgeMessage");
+
+  if(stars===3){
+    badgeTitle.textContent = "Completed!";
+    badgeMessage.textContent = "You earned 3 stars and completed Hans in Luck practice.";
+  }else if(stars===2){
+    badgeTitle.textContent = "Almost there!";
+    badgeMessage.textContent = "You earned 2 stars. Finish the remaining parts to earn your badge.";
+  }else if(stars===1){
+    badgeTitle.textContent = "Good start!";
+    badgeMessage.textContent = "You earned 1 star. Keep going to complete the reading practice.";
+  }else{
+    badgeTitle.textContent = "Keep going!";
+    badgeMessage.textContent = "Finish the activities to earn stars and a completion badge.";
+  }
+
+  saveProgress();
+}
+
+function markDone(section){
+  progress[section] = true;
+  updateProgress();
+
+  if(section==="read"){
+    document.getElementById("readFeedback").textContent =
+      "Great. Now complete the after-reading quick check.";
+  }
+}
+
+function renderQuiz(data,containerId,progressKey){
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  data.forEach((item,index)=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.boxShadow = "none";
+    card.style.border = "1px solid #d8e6ef";
+
+    let html =
+      `<h3>${item.word ? item.word : "Question " + (index+1)}</h3>`;
+
+    html += `<p>${item.question}</p>`;
+    html += `<div class="grid">`;
+
+    item.options.forEach((opt,i)=>{
+      html += `
+      <div class="option"
+      onclick="selectQuizOption(this, ${i}, ${item.answer}, '${progressKey}')">
+      ${opt}
+      </div>`;
+    });
+
+    html += `</div><div class="feedback"></div>`;
+
+    card.innerHTML = html;
+    container.appendChild(card);
+  });
+}
+
+function selectQuizOption(el,chosen,answer,progressKey){
+  const parent = el.parentElement;
+  const card = parent.parentElement;
+
+  if(card.dataset.answered==="true") return;
+
+  [...parent.children].forEach(child=>{
+    child.classList.remove("selected","correct","wrong");
+  });
+
+  if(chosen===answer){
+    el.classList.add("correct");
+    parent.nextElementSibling.textContent = "Correct.";
+  }else{
+    el.classList.add("wrong");
+    parent.children[answer].classList.add("correct");
+    parent.nextElementSibling.textContent =
+      "Not quite. Look at the correct answer.";
+  }
+
+  card.dataset.answered = "true";
+
+  if(progressKey==="vocab"){
+    vocabAnswered++;
+    if(vocabAnswered >= vocabData.length){
+      progress.vocab = true;
+    }
+  }
+
+  if(progressKey==="quiz"){
+    quizAnswered++;
+    if(quizAnswered >= readingData.length){
+      progress.quiz = true;
+    }
+  }
+
+  updateProgress();
+}
+
+function setupSingleChoice(containerId){
+  document.querySelectorAll(`#${containerId} .option`).forEach(opt=>{
+    opt.addEventListener("click",function(){
+      document.querySelectorAll(`#${containerId} .option`).forEach(o=>{
+        o.classList.remove("selected","correct","wrong");
+      });
+
+      this.classList.add("selected");
+    });
+  });
+}
+
+function checkSingleChoice(containerId,feedbackId,progressKey,correctMsg,wrongMsg){
+  const selected = document.querySelector(`#${containerId} .selected`);
+  const feedback = document.getElementById(feedbackId);
+
+  if(!selected){
+    feedback.textContent = "Choose an answer first.";
+    return;
+  }
+
+  if(selected.dataset.answer==="correct"){
+    selected.classList.add("correct");
+    feedback.textContent = correctMsg;
+    progress[progressKey] = true;
+  }else{
+    selected.classList.add("wrong");
+    feedback.textContent = wrongMsg;
+  }
+
+  updateProgress();
+}
+
+function checkPrediction(){
+  checkSingleChoice(
+    "predictionOptions",
+    "predictionFeedback",
+    "prediction",
+    "Good prediction. You noticed that Hans’s trades may look foolish but feel lucky to him.",
+    "Not quite. Think about Hans trading things and how he might feel about each trade."
+  );
+}
+
+function checkSkill(){
+  checkSingleChoice(
+    "skillOptions",
+    "skillFeedback",
+    "skill",
+    "Correct. A choice can have both good and bad points depending on the perspective.",
+    "Not quite. Think about both value and Hans’s feelings."
+  );
+}
+
+function checkFirst(){
+  checkSingleChoice(
+    "firstOptions",
+    "firstFeedback",
+    "first",
+    "Correct. Hans starts with something valuable after working.",
+    "Not quite. Choose the event that begins the story pattern."
+  );
+}
+
+function checkPattern(){
+  checkSingleChoice(
+    "patternOptions",
+    "patternFeedback",
+    "pattern",
+    "Correct. Hans keeps trading and feeling pleased with each change.",
+    "Not quite. Look for what happens repeatedly in the story."
+  );
+}
+
+function checkEnd(){
+  checkSingleChoice(
+    "endOptions",
+    "endFeedback",
+    "end",
+    "Correct. The ending asks readers to think about happiness and value.",
+    "Not quite. Think about how Hans feels, even after losing value."
+  );
+}
+
+function checkBothSides(){
+  checkSingleChoice(
+    "bothSidesOptions",
+    "bothSidesFeedback",
+    "bothSides",
+    "Correct. This answer explains both the good and bad sides of Hans’s choices.",
+    "Not quite. Choose the answer that gives two sides."
+  );
+}
+
+function checkTheme(){
+  checkSingleChoice(
+    "themeOptions",
+    "themeFeedback",
+    "theme",
+    "Correct. This theme explains the deeper message of the story.",
+    "Not quite. A theme should be a lesson, not only a story detail."
+  );
+}
+
+function checkWorksheet(){
+  checkSingleChoice(
+    "worksheetOptions",
+    "worksheetFeedback",
+    "worksheet",
+    "Correct. This answer gives an opinion, story evidence, and explanation.",
+    "Not quite. Choose the answer that explains Hans’s choices with evidence."
+  );
+}
+
+function chooseTrade(el,id){
+  document.querySelectorAll(".tradeCard")
+    .forEach(c=>{
+      c.classList.remove("selected","correct","wrong");
+    });
+
+  el.classList.add("selected");
+  chosenTrade = id;
+}
+
+function chooseResult(el,id){
+  document.querySelectorAll(".resultCard")
+    .forEach(c=>{
+      c.classList.remove("selected","correct","wrong");
+    });
+
+  el.classList.add("selected");
+  chosenResult = id;
+}
+
+function checkMatch(){
+  const feedback = document.getElementById("matchFeedback");
+
+  if(!chosenTrade || !chosenResult){
+    feedback.textContent = "Choose one trade and one result.";
+    return;
+  }
+
+  const selectedCards =
+    document.querySelectorAll(".tradeCard.selected,.resultCard.selected");
+
+  if(chosenTrade===chosenResult){
+    selectedCards.forEach(card=>{
+      card.classList.add("correct");
+    });
+
+    feedback.textContent =
+      "Correct match. You connected the trade with the result or meaning.";
+    progress.match = true;
+  }else{
+    selectedCards.forEach(card=>{
+      card.classList.add("wrong");
+    });
+
+    feedback.textContent =
+      "Try again. Ask: What changed because of this trade?";
+  }
+
+  updateProgress();
+}
+
+loadProgress();
+
+renderQuiz(vocabData,"vocabQuiz","vocab");
+renderQuiz(readingData,"readingQuiz","quiz");
+
+setupSingleChoice("predictionOptions");
+setupSingleChoice("skillOptions");
+setupSingleChoice("firstOptions");
+setupSingleChoice("patternOptions");
+setupSingleChoice("endOptions");
+setupSingleChoice("bothSidesOptions");
+setupSingleChoice("themeOptions");
+setupSingleChoice("worksheetOptions");
+
+updateProgress();
+</script>
+
+</body>
+</html>
