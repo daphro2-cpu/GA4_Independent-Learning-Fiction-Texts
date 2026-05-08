@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The Emperor’s New Clothes - GA4 Independent Reading</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Century Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #e8f7ff 0%, transparent 34%),
+        linear-gradient(135deg, #f7fbff 0%, #fff8ec 100%);
+      color: #243447;
+    }
+
+    header {
+      background: linear-gradient(135deg, #23395d, #406e8e);
+      color: white;
+      padding: 34px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+    }
+
+    header p {
+      max-width: 800px;
+      margin: 12px auto 0;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.18);
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: bold;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 22px 16px 90px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      margin: 18px 0;
+      box-shadow: 0 12px 30px rgba(35, 57, 93, 0.12);
+      border: 1px solid rgba(64,110,142,0.12);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #23395d;
+      font-size: clamp(1.35rem, 4vw, 1.8rem);
+    }
+
+    h3 {
+      color: #406e8e;
+      margin-bottom: 8px;
+    }
+
+    p, li { line-height: 1.55; }
+
+    .tag {
+      display: inline-block;
+      background: #e8f7ff;
+      color: #23395d;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      margin: 4px 4px 4px 0;
+      font-weight: bold;
+    }
+
+    .tag.gold {
+      background: #fff0d6;
+      color: #8a5a00;
+    }
+
+    .instruction {
+      background: #fff6db;
+      border-left: 6px solid #f4b942;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin: 14px 0;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .option, .match-card, .clue-card {
+      border: 2px solid #d8e6ef;
+      border-radius: 16px;
+      padding: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+      background: #fbfdff;
+      line-height: 1.45;
+      min-height: 68px;
+    }
+
+    .clue-card {
+      cursor: default;
+      background: #f7fbff;
+    }
+
+    .option:hover, .match-card:hover {
+      transform: translateY(-2px);
+      border-color: #406e8e;
+    }
+
+    .selected {
+      border-color: #406e8e !important;
+      background: #e8f7ff !important;
+    }
+
+    .correct {
+      border-color: #42a66b !important;
+      background: #ecfff2 !important;
+    }
+
+    .wrong {
+      border-color: #d9534f !important;
+      background: #fff0f0 !important;
+    }
+
+    button {
+      border: none;
+      background: #23395d;
+      color: white;
+      padding: 13px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 12px;
+      font-family: inherit;
+      font-weight: bold;
+      min-height: 46px;
+    }
+
+    button:hover { background: #406e8e; }
+
+    .gold-btn {
+      background: #f4b942;
+      color: #243447;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      font-weight: bold;
+      min-height: 24px;
+    }
+
+    .progress-card {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #d8e6ef;
+      padding: 12px 16px;
+      box-shadow: 0 6px 20px rgba(35, 57, 93, 0.08);
+    }
+
+    .progress-inner {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stars {
+      font-size: 1.2rem;
+      white-space: nowrap;
+    }
+
+    .progress-wrap {
+      background: #d8e6ef;
+      border-radius: 999px;
+      height: 14px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f4b942, #42a66b);
+      transition: width 0.3s;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .badge-box {
+      text-align: center;
+      padding: 20px;
+      border: 2px dashed #f4b942;
+      border-radius: 20px;
+      background: #fffaf0;
+      margin-top: 16px;
+    }
+
+    .badge {
+      font-size: 3rem;
+      margin: 10px 0;
+    }
+
+    .bottom-home {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      background: #23395d;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: bold;
+      box-shadow: 0 8px 24px rgba(35,57,93,0.28);
+    }
+
+    @media (max-width: 720px) {
+      header { padding: 28px 14px; }
+      .container { padding: 16px 12px 90px; }
+      .card { padding: 18px; border-radius: 18px; }
+      .grid, .two-col { grid-template-columns: 1fr; }
+      .option, .match-card, .clue-card {
+        padding: 16px;
+        min-height: 72px;
+        font-size: 1rem;
+      }
+      button { width: 100%; }
+      .bottom-home {
+        width: calc(100% - 30px);
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>The Emperor’s New Clothes</h1>
+    <p>GA4 Independent Reading Practice: vocabulary, prediction, character reactions, character motivation, theme, evidence, and worksheet preparation.</p>
+
+    <div class="top-nav">
+      <a class="nav-btn" href="index.html">← Reading Hub</a>
+      <a class="nav-btn" href="hans-the-helpful.html">← Previous Reading</a>
+      <a class="nav-btn" href="sly-thief.html">Next Reading →</a>
+    </div>
+  </header>
+
+  <div class="progress-card">
+    <div class="progress-inner">
+      <div class="progress-row">
+        <strong>Progress</strong>
+        <span class="stars" id="starDisplay">☆☆☆</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <section class="card">
+      <h2>Learning Goal</h2>
+
+      <span class="tag gold">Fiction Reading 3</span>
+      <span class="tag">Character Reactions</span>
+      <span class="tag">Character Motivation</span>
+      <span class="tag">Theme</span>
+      <span class="tag">Text Evidence</span>
+
+      <div class="instruction">
+        In this story, two weavers trick the emperor and many people pretend to see something that is not really there.
+        As you read, pay attention to how characters react, why they act that way, and what lesson the story teaches.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Part 1: Vocabulary Preview</h2>
+      <p>Choose the best meaning for each word. These words will help you understand the story and the worksheet.</p>
+      <div id="vocabQuiz"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 2: Prediction</h2>
+
+      <div class="instruction">
+        <strong>Reading Strategy: Prediction</strong><br><br>
+        Good readers make predictions before and during reading.
+        A prediction is a smart guess based on the title, pictures, story clues, and what we already know.
+        <br><br>
+        Prediction helps us focus on the characters, the problem, and what may happen next.
+      </div>
+
+      <h3>Look at the Clues</h3>
+
+      <div class="grid">
+        <div class="clue-card">
+          <strong>Clue 1</strong><br><br>
+          The title is <em>The Emperor’s New Clothes</em>.
+        </div>
+
+        <div class="clue-card">
+          <strong>Clue 2</strong><br><br>
+          The emperor cares a lot about beautiful clothes.
+        </div>
+
+        <div class="clue-card">
+          <strong>Clue 3</strong><br><br>
+          Some people may be afraid to say what they really think.
+        </div>
+      </div>
+
+      <h3>Which prediction is BEST?</h3>
+
+      <div id="predictionOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          The emperor will become a farmer and grow crops.
+        </div>
+
+        <div class="option" data-answer="correct">
+          The emperor may be tricked because he cares too much about clothes and what others think.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          The story will only explain how to sew normal clothes.
+        </div>
+      </div>
+
+      <button onclick="checkPrediction()">Check Prediction</button>
+      <div class="feedback" id="predictionFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 3: Reading Skill Prep — Character Motivation</h2>
+
+      <div class="instruction">
+        <strong>Reading Skill: Character Motivation</strong><br><br>
+        A character’s motivation is the reason why the character says or does something.
+        Sometimes the reason is directly stated. Sometimes we infer it from actions, reactions, and clues.
+        <br><br>
+        Good readers ask:
+        <ul>
+          <li>What does this character want?</li>
+          <li>What is this character afraid of?</li>
+          <li>Why does the character pretend or stay quiet?</li>
+          <li>What clue supports my idea?</li>
+        </ul>
+      </div>
+
+      <h3>Practice</h3>
+      <p><strong>Text clue:</strong> A person cannot see the cloth, but says it is beautiful.</p>
+      <p>Why might the person say this?</p>
+
+      <div id="skillOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          The person wants to eat the cloth.
+        </div>
+
+        <div class="option" data-answer="correct">
+          The person is afraid others will think they are foolish or unfit for their job.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          The person wants to sleep.
+        </div>
+      </div>
+
+      <button onclick="checkSkill()">Check Answer</button>
+      <div class="feedback" id="skillFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Now Read the Story</h2>
+
+      <div class="instruction">
+        Read <strong>The Emperor’s New Clothes</strong>. While reading, look for:
+        <ul>
+          <li>what the weavers claim about the cloth</li>
+          <li>why the emperor believes them</li>
+          <li>why the officials pretend to see the cloth</li>
+          <li>who finally tells the truth</li>
+          <li>what lesson the story teaches</li>
+        </ul>
+      </div>
+
+      <button class="gold-btn" onclick="markDone('read')">I finished reading</button>
+      <div class="feedback" id="readFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 4: After-Reading Quick Check</h2>
+
+      <div class="instruction">
+        <strong>After Reading Strategy: Check and Think Again</strong><br><br>
+        After we read, good readers check what happened and why it happened.
+        For this story, ask: <strong>Who was tricked?</strong>, <strong>why did people pretend?</strong>, and
+        <strong>what lesson can readers learn?</strong>
+      </div>
+
+      <div id="readingQuiz"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 5: Character Reaction → Reason</h2>
+
+      <div class="instruction">
+        The worksheet may ask you to explain character reactions and support your ideas with evidence.
+        Match what a character does with the best reason.
+      </div>
+
+      <p>Choose one reaction and one matching reason.</p>
+
+      <div class="two-col">
+        <div>
+          <h3>Character Reactions</h3>
+          <div class="match-card reaction" onclick="chooseReaction(this, 'A')">
+            The emperor wants the special cloth.
+          </div>
+          <div class="match-card reaction" onclick="chooseReaction(this, 'B')">
+            The officials say the cloth is beautiful even though they cannot see it.
+          </div>
+          <div class="match-card reaction" onclick="chooseReaction(this, 'C')">
+            A child says the emperor has no clothes.
+          </div>
+        </div>
+
+        <div>
+          <h3>Reasons</h3>
+          <div class="match-card reason" onclick="chooseReason(this, 'B')">
+            They are afraid people will think they are foolish or bad at their jobs.
+          </div>
+          <div class="match-card reason" onclick="chooseReason(this, 'C')">
+            The child is honest and says what everyone can see.
+          </div>
+          <div class="match-card reason" onclick="chooseReason(this, 'A')">
+            He loves fine clothing and wants to seem wise and important.
+          </div>
+        </div>
+      </div>
+
+      <button onclick="checkMatch()">Check Match</button>
+      <div class="feedback" id="matchFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 6: Evidence Practice</h2>
+      <p>Choose the best evidence for each idea.</p>
+
+      <h3>1. Which evidence shows the emperor is proud?</h3>
+      <div id="prideOptions" class="grid">
+        <div class="option" data-answer="wrong">The child tells the truth.</div>
+        <div class="option" data-answer="correct">The emperor cares a lot about having wonderful clothes.</div>
+        <div class="option" data-answer="wrong">The people walk in the street.</div>
+      </div>
+      <button onclick="checkPride()">Check Evidence</button>
+      <div class="feedback" id="prideFeedback"></div>
+
+      <h3>2. Which evidence shows people are afraid to tell the truth?</h3>
+      <div id="fearOptions" class="grid">
+        <div class="option" data-answer="wrong">The emperor walks in a parade.</div>
+        <div class="option" data-answer="wrong">The weavers ask for fine materials.</div>
+        <div class="option" data-answer="correct">People pretend to see the cloth because they do not want to look foolish.</div>
+      </div>
+      <button onclick="checkFear()">Check Evidence</button>
+      <div class="feedback" id="fearFeedback"></div>
+
+      <h3>3. Which evidence shows honesty?</h3>
+      <div id="honestyOptions" class="grid">
+        <div class="option" data-answer="correct">The child says the emperor is not wearing any clothes.</div>
+        <div class="option" data-answer="wrong">The officials praise the cloth.</div>
+        <div class="option" data-answer="wrong">The weavers pretend to work.</div>
+      </div>
+      <button onclick="checkHonesty()">Check Evidence</button>
+      <div class="feedback" id="honestyFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 7: Theme Practice</h2>
+
+      <div class="instruction">
+        A theme is the message or lesson in a story.
+        A theme is not just what happened. It explains what the story teaches us about people, choices, or life.
+      </div>
+
+      <h3>Which theme best fits this story?</h3>
+
+      <div id="themeOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          Expensive clothes are always the most important thing.
+        </div>
+
+        <div class="option" data-answer="correct">
+          People should be honest instead of pretending because they are afraid of what others think.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          Children should never speak in public.
+        </div>
+      </div>
+
+      <button onclick="checkTheme()">Check Theme</button>
+      <div class="feedback" id="themeFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Part 8: Worksheet Preparation</h2>
+
+      <div class="instruction">
+        Your worksheet may ask you to explain why characters acted the way they did,
+        how they reacted, or what lesson the story teaches.
+        A strong answer should include:
+        <ul>
+          <li>a clear idea</li>
+          <li>one story clue</li>
+          <li>an explanation of what the clue shows</li>
+        </ul>
+      </div>
+
+      <h3>Choose the strongest worksheet answer.</h3>
+
+      <div id="worksheetOptions" class="grid">
+        <div class="option" data-answer="wrong">
+          The emperor likes clothes. The story is funny.
+        </div>
+
+        <div class="option" data-answer="correct">
+          The story teaches that people should be honest. Many people pretended to see the cloth because they were afraid of looking foolish, but the child told the truth.
+        </div>
+
+        <div class="option" data-answer="wrong">
+          The weavers made good clothes, and everyone liked them.
+        </div>
+      </div>
+
+      <button onclick="checkWorksheet()">Check Answer</button>
+      <div class="feedback" id="worksheetFeedback"></div>
+    </section>
+
+    <section class="card">
+      <h2>Completion Badge</h2>
+
+      <div class="badge-box">
+        <div class="badge">🏅</div>
+        <h3 id="badgeTitle">Keep going!</h3>
+        <p id="badgeMessage">Finish all parts to earn your completion badge.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <a class="bottom-home" href="index.html">← Back to Reading Hub</a>
+
+  <script>
+    const STORAGE_KEY = "ga4_emperors_new_clothes_progress_v1";
+
+    let progress = {
+      vocab: false,
+      prediction: false,
+      skill: false,
+      read: false,
+      quiz: false,
+      match: false,
+      pride: false,
+      fear: false,
+      honesty: false,
+      theme: false,
+      worksheet: false
+    };
+
+    let vocabAnswered = 0;
+    let quizAnswered = 0;
+    let chosenReaction = null;
+    let chosenReason = null;
+
+    const vocabData = [
+      {
+        word: "emperor",
+        question: "What is an emperor?",
+        options: ["a ruler of an empire", "a person who fixes shoes", "a small animal"],
+        answer: 0
+      },
+      {
+        word: "weaver",
+        question: "What is a weaver?",
+        options: ["a person who makes cloth", "a person who grows apples", "a person who sails ships"],
+        answer: 0
+      },
+      {
+        word: "pretend",
+        question: "What does pretend mean?",
+        options: ["to act like something is true when it is not", "to tell the truth clearly", "to sew carefully"],
+        answer: 0
+      },
+      {
+        word: "foolish",
+        question: "What does foolish mean?",
+        options: ["not showing good sense", "very brave", "very expensive"],
+        answer: 0
+      },
+      {
+        word: "invisible",
+        question: "What does invisible mean?",
+        options: ["cannot be seen", "very colourful", "very heavy"],
+        answer: 0
+      },
+      {
+        word: "honest",
+        question: "What does honest mean?",
+        options: ["telling the truth", "hiding the truth", "feeling sleepy"],
+        answer: 0
+      }
+    ];
+
+    const readingData = [
+      {
+        question: "What do the weavers claim about the cloth?",
+        options: [
+          "Only certain people can see it.",
+          "It can grow food.",
+          "It is made by birds."
+        ],
+        answer: 0
+      },
+      {
+        question: "Why do many people pretend to see the cloth?",
+        options: [
+          "They are afraid of looking foolish.",
+          "They want to become weavers.",
+          "They cannot hear the emperor."
+        ],
+        answer: 0
+      },
+      {
+        question: "Who finally tells the truth?",
+        options: [
+          "A child",
+          "The weavers",
+          "The emperor first"
+        ],
+        answer: 0
+      },
+      {
+        question: "Which skill helps you understand this story best?",
+        options: [
+          "Character motivation and theme",
+          "Counting syllables",
+          "Finding animal facts"
+        ],
+        answer: 0
+      }
+    ];
+
+    function saveProgress() {
+      const stars = calculateStars();
+      const completed = stars === 3;
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        progress,
+        stars,
+        completed,
+        updatedAt: new Date().toISOString()
+      }));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+
+      try {
+        const data = JSON.parse(saved);
+        if (data.progress) {
+          progress = { ...progress, ...data.progress };
+        }
+      } catch (e) {
+        console.log("No saved progress.");
+      }
+    }
+
+    function calculateStars() {
+      const done = Object.values(progress).filter(Boolean).length;
+
+      if (done >= Object.keys(progress).length) return 3;
+      if (done >= 7) return 2;
+      if (done >= 3) return 1;
+      return 0;
+    }
+
+    function updateProgress() {
+      const total = Object.keys(progress).length;
+      const done = Object.values(progress).filter(Boolean).length;
+      const percent = Math.round((done / total) * 100);
+      const stars = calculateStars();
+
+      document.getElementById("progressBar").style.width = percent + "%";
+
+      document.getElementById("starDisplay").textContent =
+        stars === 0 ? "☆☆☆" :
+        stars === 1 ? "⭐☆☆" :
+        stars === 2 ? "⭐⭐☆" :
+        "⭐⭐⭐";
+
+      const badgeTitle = document.getElementById("badgeTitle");
+      const badgeMessage = document.getElementById("badgeMessage");
+
+      if (stars === 3) {
+        badgeTitle.textContent = "Completed!";
+        badgeMessage.textContent = "You earned 3 stars and completed The Emperor’s New Clothes practice.";
+      } else if (stars === 2) {
+        badgeTitle.textContent = "Almost there!";
+        badgeMessage.textContent = "You earned 2 stars. Finish the remaining parts to earn your badge.";
+      } else if (stars === 1) {
+        badgeTitle.textContent = "Good start!";
+        badgeMessage.textContent = "You earned 1 star. Keep going to complete the reading practice.";
+      } else {
+        badgeTitle.textContent = "Keep going!";
+        badgeMessage.textContent = "Finish the activities to earn stars and a completion badge.";
+      }
+
+      saveProgress();
+    }
+
+    function markDone(section) {
+      progress[section] = true;
+      updateProgress();
+
+      if (section === "read") {
+        document.getElementById("readFeedback").textContent = "Great. Now complete the after-reading quick check.";
+      }
+    }
+
+    function renderQuiz(data, containerId, progressKey) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      data.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.style.boxShadow = "none";
+        card.style.border = "1px solid #d8e6ef";
+
+        let html = `<h3>${item.word ? item.word : "Question " + (index + 1)}</h3>`;
+        html += `<p>${item.question}</p>`;
+        html += `<div class="grid">`;
+
+        item.options.forEach((opt, i) => {
+          html += `<div class="option" onclick="selectQuizOption(this, ${i}, ${item.answer}, '${progressKey}')">${opt}</div>`;
+        });
+
+        html += `</div><div class="feedback"></div>`;
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+    }
+
+    function selectQuizOption(el, chosen, answer, progressKey) {
+      const parent = el.parentElement;
+      const card = parent.parentElement;
+
+      if (card.dataset.answered === "true") return;
+
+      [...parent.children].forEach(child => {
+        child.classList.remove("selected", "correct", "wrong");
+      });
+
+      if (chosen === answer) {
+        el.classList.add("correct");
+        parent.nextElementSibling.textContent = "Correct.";
+      } else {
+        el.classList.add("wrong");
+        parent.children[answer].classList.add("correct");
+        parent.nextElementSibling.textContent = "Not quite. Look at the correct answer.";
+      }
+
+      card.dataset.answered = "true";
+
+      if (progressKey === "vocab") {
+        vocabAnswered++;
+        if (vocabAnswered >= vocabData.length) progress.vocab = true;
+      }
+
+      if (progressKey === "quiz") {
+        quizAnswered++;
+        if (quizAnswered >= readingData.length) progress.quiz = true;
+      }
+
+      updateProgress();
+    }
+
+    function setupSingleChoice(containerId) {
+      document.querySelectorAll(`#${containerId} .option`).forEach(opt => {
+        opt.addEventListener("click", function () {
+          document.querySelectorAll(`#${containerId} .option`).forEach(o => {
+            o.classList.remove("selected", "correct", "wrong");
+          });
+          this.classList.add("selected");
+        });
+      });
+    }
+
+    function checkSingleChoice(containerId, feedbackId, progressKey, correctMsg, wrongMsg) {
+      const selected = document.querySelector(`#${containerId} .selected`);
+      const feedback = document.getElementById(feedbackId);
+
+      if (!selected) {
+        feedback.textContent = "Choose an answer first.";
+        return;
+      }
+
+      if (selected.dataset.answer === "correct") {
+        selected.classList.add("correct");
+        feedback.textContent = correctMsg;
+        progress[progressKey] = true;
+      } else {
+        selected.classList.add("wrong");
+        feedback.textContent = wrongMsg;
+      }
+
+      updateProgress();
+    }
+
+    function checkPrediction() {
+      checkSingleChoice(
+        "predictionOptions",
+        "predictionFeedback",
+        "prediction",
+        "Good prediction. You used the title and character clues to think about the problem.",
+        "Not quite. Think about the emperor’s pride and why people might pretend."
+      );
+    }
+
+    function checkSkill() {
+      checkSingleChoice(
+        "skillOptions",
+        "skillFeedback",
+        "skill",
+        "Correct. The person may lie because they are afraid of looking foolish.",
+        "Not quite. Think about what the person fears other people will think."
+      );
+    }
+
+    function checkPride() {
+      checkSingleChoice(
+        "prideOptions",
+        "prideFeedback",
+        "pride",
+        "Correct. This evidence shows the emperor cares too much about clothes.",
+        "Not quite. Choose the clue that shows pride or vanity."
+      );
+    }
+
+    function checkFear() {
+      checkSingleChoice(
+        "fearOptions",
+        "fearFeedback",
+        "fear",
+        "Correct. This evidence shows people are afraid to tell the truth.",
+        "Not quite. Choose the clue that shows pretending because of fear."
+      );
+    }
+
+    function checkHonesty() {
+      checkSingleChoice(
+        "honestyOptions",
+        "honestyFeedback",
+        "honesty",
+        "Correct. The child’s words show honesty.",
+        "Not quite. Choose the clue where someone tells the truth."
+      );
+    }
+
+    function checkTheme() {
+      checkSingleChoice(
+        "themeOptions",
+        "themeFeedback",
+        "theme",
+        "Correct. This theme explains the lesson of the story.",
+        "Not quite. A theme should be a lesson, not just a story detail."
+      );
+    }
+
+    function checkWorksheet() {
+      checkSingleChoice(
+        "worksheetOptions",
+        "worksheetFeedback",
+        "worksheet",
+        "Correct. This answer includes the lesson, story evidence, and explanation.",
+        "Not quite. Choose the answer that explains the lesson and uses a story clue."
+      );
+    }
+
+    function chooseReaction(el, id) {
+      document.querySelectorAll(".reaction").forEach(c => c.classList.remove("selected", "correct", "wrong"));
+      el.classList.add("selected");
+      chosenReaction = id;
+    }
+
+    function chooseReason(el, id) {
+      document.querySelectorAll(".reason").forEach(c => c.classList.remove("selected", "correct", "wrong"));
+      el.classList.add("selected");
+      chosenReason = id;
+    }
+
+    function checkMatch() {
+      const feedback = document.getElementById("matchFeedback");
+
+      if (!chosenReaction || !chosenReason) {
+        feedback.textContent = "Choose one reaction and one reason.";
+        return;
+      }
+
+      const selectedCards = document.querySelectorAll(".reaction.selected, .reason.selected");
+
+      if (chosenReaction === chosenReason) {
+        selectedCards.forEach(card => card.classList.add("correct"));
+        feedback.textContent = "Correct match. You connected the reaction with the character’s reason.";
+        progress.match = true;
+      } else {
+        selectedCards.forEach(card => card.classList.add("wrong"));
+        feedback.textContent = "Try again. Ask: Why did this character act this way?";
+      }
+
+      updateProgress();
+    }
+
+    loadProgress();
+
+    renderQuiz(vocabData, "vocabQuiz", "vocab");
+    renderQuiz(readingData, "readingQuiz", "quiz");
+
+    setupSingleChoice("predictionOptions");
+    setupSingleChoice("skillOptions");
+    setupSingleChoice("prideOptions");
+    setupSingleChoice("fearOptions");
+    setupSingleChoice("honestyOptions");
+    setupSingleChoice("themeOptions");
+    setupSingleChoice("worksheetOptions");
+
+    updateProgress();
+  </script>
+
+</body>
+</html>
