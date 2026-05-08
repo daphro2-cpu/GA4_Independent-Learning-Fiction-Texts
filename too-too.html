@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Too-Too the Listener - GA4 Independent Reading</title>
+
+  <style>
+    * { box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:"Century Gothic", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left,#e8f7ff 0%,transparent 34%),
+        linear-gradient(135deg,#f7fbff 0%,#fff8ec 100%);
+      color:#243447;
+    }
+
+    header{
+      background:linear-gradient(135deg,#23395d,#406e8e);
+      color:white;
+      padding:34px 18px;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0;
+      font-size:clamp(1.8rem,5vw,2.6rem);
+    }
+
+    header p{
+      max-width:800px;
+      margin:12px auto 0;
+      line-height:1.6;
+      font-size:1rem;
+    }
+
+    .top-nav{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .nav-btn{
+      background:rgba(255,255,255,0.18);
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:bold;
+      border:1px solid rgba(255,255,255,0.25);
+    }
+
+    .container{
+      max-width:1050px;
+      margin:0 auto;
+      padding:22px 16px 90px;
+    }
+
+    .card{
+      background:white;
+      border-radius:22px;
+      padding:22px;
+      margin:18px 0;
+      box-shadow:0 12px 30px rgba(35,57,93,0.12);
+      border:1px solid rgba(64,110,142,0.12);
+    }
+
+    h2{
+      margin-top:0;
+      color:#23395d;
+      font-size:clamp(1.35rem,4vw,1.8rem);
+    }
+
+    h3{
+      color:#406e8e;
+      margin-bottom:8px;
+    }
+
+    p, li{
+      line-height:1.55;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#e8f7ff;
+      color:#23395d;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:0.82rem;
+      margin:4px 4px 4px 0;
+      font-weight:bold;
+    }
+
+    .tag.gold{
+      background:#fff0d6;
+      color:#8a5a00;
+    }
+
+    .instruction{
+      background:#fff6db;
+      border-left:6px solid #f4b942;
+      padding:14px 16px;
+      border-radius:14px;
+      margin:14px 0;
+      line-height:1.5;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+    }
+
+    .option,.match-card,.clue-card{
+      border:2px solid #d8e6ef;
+      border-radius:16px;
+      padding:15px;
+      cursor:pointer;
+      transition:0.2s;
+      background:#fbfdff;
+      line-height:1.45;
+      min-height:68px;
+    }
+
+    .clue-card{
+      cursor:default;
+      background:#f7fbff;
+    }
+
+    .option:hover,.match-card:hover{
+      transform:translateY(-2px);
+      border-color:#406e8e;
+    }
+
+    .selected{
+      border-color:#406e8e !important;
+      background:#e8f7ff !important;
+    }
+
+    .correct{
+      border-color:#42a66b !important;
+      background:#ecfff2 !important;
+    }
+
+    .wrong{
+      border-color:#d9534f !important;
+      background:#fff0f0 !important;
+    }
+
+    button{
+      border:none;
+      background:#23395d;
+      color:white;
+      padding:13px 18px;
+      border-radius:14px;
+      cursor:pointer;
+      font-size:1rem;
+      margin-top:12px;
+      font-family:inherit;
+      font-weight:bold;
+      min-height:46px;
+    }
+
+    button:hover{
+      background:#406e8e;
+    }
+
+    .gold-btn{
+      background:#f4b942;
+      color:#243447;
+    }
+
+    .feedback{
+      margin-top:12px;
+      font-weight:bold;
+      min-height:24px;
+    }
+
+    .progress-card{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid #d8e6ef;
+      padding:12px 16px;
+      box-shadow:0 6px 20px rgba(35,57,93,0.08);
+    }
+
+    .progress-inner{
+      max-width:1050px;
+      margin:0 auto;
+    }
+
+    .progress-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .stars{
+      font-size:1.2rem;
+      white-space:nowrap;
+    }
+
+    .progress-wrap{
+      background:#d8e6ef;
+      border-radius:999px;
+      height:14px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#f4b942,#42a66b);
+      transition:width 0.3s;
+    }
+
+    .badge-box{
+      text-align:center;
+      padding:20px;
+      border:2px dashed #f4b942;
+      border-radius:20px;
+      background:#fffaf0;
+      margin-top:16px;
+    }
+
+    .badge{
+      font-size:3rem;
+      margin:10px 0;
+    }
+
+    .bottom-home{
+      position:fixed;
+      bottom:14px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:30;
+      background:#23395d;
+      color:white;
+      text-decoration:none;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:bold;
+      box-shadow:0 8px 24px rgba(35,57,93,0.28);
+    }
+
+    @media (max-width:720px){
+
+      header{
+        padding:28px 14px;
+      }
+
+      .container{
+        padding:16px 12px 90px;
+      }
+
+      .card{
+        padding:18px;
+        border-radius:18px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .option,.match-card,.clue-card{
+        padding:16px;
+        min-height:72px;
+        font-size:1rem;
+      }
+
+      button{
+        width:100%;
+      }
+
+      .bottom-home{
+        width:calc(100% - 30px);
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Too-Too the Listener</h1>
+
+  <p>
+    GA4 Independent Reading Practice: vocabulary, prediction,
+    inference, text evidence, character clues, and worksheet preparation.
+  </p>
+
+  <div class="top-nav">
+    <a class="nav-btn" href="index.html">← Reading Hub</a>
+    <a class="nav-btn" href="sly-thief.html">← Previous Reading</a>
+    <a class="nav-btn" href="good-luck-bad-luck.html">Next Reading →</a>
+  </div>
+</header>
+
+<div class="progress-card">
+  <div class="progress-inner">
+
+    <div class="progress-row">
+      <strong>Progress</strong>
+      <span class="stars" id="starDisplay">☆☆☆</span>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+
+<section class="card">
+
+  <h2>Learning Goal</h2>
+
+  <span class="tag gold">Fiction Reading 5</span>
+  <span class="tag">Inference</span>
+  <span class="tag">Text Evidence</span>
+  <span class="tag">Character Clues</span>
+
+  <div class="instruction">
+    In this story, readers must pay close attention to clues,
+    character behaviour, and important details.
+    As you read, think about what characters say and do,
+    and use evidence to make smart inferences.
+  </div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 1: Vocabulary Preview</h2>
+
+  <p>
+    Choose the best meaning for each word.
+    These words will help you understand the story and the worksheet.
+  </p>
+
+  <div id="vocabQuiz"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 2: Prediction</h2>
+
+  <div class="instruction">
+
+    <strong>Reading Strategy: Prediction</strong><br><br>
+
+    Good readers make predictions before and during reading.
+    A prediction is a smart guess based on the title,
+    story clues, and what we already know.
+
+    <br><br>
+
+    Predictions help us focus on possible problems,
+    clues, and character actions.
+
+  </div>
+
+  <h3>Look at the Clues</h3>
+
+  <div class="grid">
+
+    <div class="clue-card">
+      <strong>Clue 1</strong><br><br>
+      The title is <em>Too-Too the Listener</em>.
+    </div>
+
+    <div class="clue-card">
+      <strong>Clue 2</strong><br><br>
+      Listening carefully is very important in the story.
+    </div>
+
+    <div class="clue-card">
+      <strong>Clue 3</strong><br><br>
+      There may be a mystery or problem that needs clues.
+    </div>
+
+  </div>
+
+  <h3>Which prediction is BEST?</h3>
+
+  <div id="predictionOptions" class="grid">
+
+    <div class="option" data-answer="wrong">
+      Too-Too will learn how to cook.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Too-Too may solve a problem by listening carefully and noticing clues.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      The story will mostly explain farming tools.
+    </div>
+
+  </div>
+
+  <button onclick="checkPrediction()">Check Prediction</button>
+
+  <div class="feedback" id="predictionFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 3: Reading Skill Prep — Inference</h2>
+
+  <div class="instruction">
+
+    <strong>Reading Skill: Inference</strong><br><br>
+
+    An inference is a smart idea readers figure out
+    using clues and evidence from the story.
+
+    <br><br>
+
+    The answer is not always directly stated.
+
+    <br><br>
+
+    Good readers ask:
+    <ul>
+      <li>What clues do I notice?</li>
+      <li>What does the character say or do?</li>
+      <li>What does this probably mean?</li>
+    </ul>
+
+  </div>
+
+  <h3>Practice</h3>
+
+  <p>
+    <strong>Clue:</strong>
+    A character keeps listening carefully instead of speaking quickly.
+  </p>
+
+  <p>What can readers infer?</p>
+
+  <div id="skillOptions" class="grid">
+
+    <div class="option" data-answer="wrong">
+      The character dislikes all people.
+    </div>
+
+    <div class="option" data-answer="correct">
+      The character believes listening carefully helps understand the problem.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      The character wants to sleep all day.
+    </div>
+
+  </div>
+
+  <button onclick="checkSkill()">Check Answer</button>
+
+  <div class="feedback" id="skillFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Now Read the Story</h2>
+
+  <div class="instruction">
+
+    Read <strong>Too-Too the Listener</strong>.
+
+    While reading, look for:
+    <ul>
+      <li>important clues</li>
+      <li>what characters say</li>
+      <li>what characters do</li>
+      <li>details that help solve the mystery/problem</li>
+      <li>evidence that supports your ideas</li>
+    </ul>
+
+  </div>
+
+  <button class="gold-btn" onclick="markDone('read')">
+    I finished reading
+  </button>
+
+  <div class="feedback" id="readFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 4: After-Reading Quick Check</h2>
+
+  <div class="instruction">
+
+    <strong>After Reading Strategy: Check the Clues</strong><br><br>
+
+    After reading, good readers look back at the clues,
+    the character actions, and the evidence.
+
+    <br><br>
+
+    For this story, ask:
+    <strong>
+      What clues mattered most?
+      What can readers infer?
+      What evidence supports the answer?
+    </strong>
+
+  </div>
+
+  <div id="readingQuiz"></div>
+
+</section>
+<section class="card">
+
+  <h2>Part 5: Character Clues</h2>
+
+  <div class="instruction">
+
+    Readers learn about characters from:
+    <ul>
+      <li>what they say</li>
+      <li>what they do</li>
+      <li>how they react</li>
+      <li>how other characters respond to them</li>
+    </ul>
+
+  </div>
+
+  <h3>Which clue BEST shows Too-Too is thoughtful?</h3>
+
+  <div id="characterOptions" class="grid">
+
+    <div class="option" data-answer="wrong">
+      Too-Too talks loudly all the time.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Too-Too listens carefully before making decisions.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Too-Too ignores every clue.
+    </div>
+
+  </div>
+
+  <button onclick="checkCharacter()">Check Answer</button>
+
+  <div class="feedback" id="characterFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 6: Clue → Inference Match</h2>
+
+  <div class="instruction">
+
+    The worksheet may ask you to explain:
+    <ul>
+      <li>what a clue means</li>
+      <li>what readers can infer</li>
+      <li>what evidence supports the idea</li>
+    </ul>
+
+  </div>
+
+  <p>Choose one clue and one matching inference.</p>
+
+  <div class="grid">
+
+    <div>
+      <h3>Clues</h3>
+
+      <div class="match-card clueMatch"
+        onclick="chooseClue(this,'A')">
+        Too-Too keeps listening instead of rushing.
+      </div>
+
+      <div class="match-card clueMatch"
+        onclick="chooseClue(this,'B')">
+        Characters are confused by the mystery/problem.
+      </div>
+
+      <div class="match-card clueMatch"
+        onclick="chooseClue(this,'C')">
+        Too-Too notices details others miss.
+      </div>
+    </div>
+
+    <div>
+      <h3>Inference</h3>
+
+      <div class="match-card inferMatch"
+        onclick="chooseInfer(this,'B')">
+        The problem is difficult and needs careful thinking.
+      </div>
+
+      <div class="match-card inferMatch"
+        onclick="chooseInfer(this,'C')">
+        Paying attention carefully can help solve problems.
+      </div>
+
+      <div class="match-card inferMatch"
+        onclick="chooseInfer(this,'A')">
+        Too-Too believes listening is important.
+      </div>
+    </div>
+
+  </div>
+
+  <button onclick="checkMatch()">Check Match</button>
+
+  <div class="feedback" id="matchFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 7: Text Evidence Practice</h2>
+
+  <div class="instruction">
+
+    Text evidence means using clues from the story
+    to support your answer.
+
+    <br><br>
+
+    Strong answers use:
+    <ul>
+      <li>a clear idea</li>
+      <li>a story clue</li>
+      <li>an explanation</li>
+    </ul>
+
+  </div>
+
+  <h3>Which answer uses the BEST evidence?</h3>
+
+  <div id="evidenceOptions" class="grid">
+
+    <div class="option" data-answer="wrong">
+      Too-Too is smart because I think so.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Too-Too listens carefully and notices clues that other characters miss. This evidence shows Too-Too solves problems by paying attention.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Too-Too likes stories and food.
+    </div>
+
+  </div>
+
+  <button onclick="checkEvidence()">Check Answer</button>
+
+  <div class="feedback" id="evidenceFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Part 8: Worksheet Preparation</h2>
+
+  <div class="instruction">
+
+    Your worksheet may ask you to:
+    <ul>
+      <li>make an inference</li>
+      <li>identify clues</li>
+      <li>explain character behaviour</li>
+      <li>use text evidence</li>
+    </ul>
+
+    A strong worksheet answer should:
+    <ul>
+      <li>answer the question clearly</li>
+      <li>use a clue from the story</li>
+      <li>explain what the clue means</li>
+    </ul>
+
+  </div>
+
+  <h3>Choose the strongest worksheet answer.</h3>
+
+  <div id="worksheetOptions" class="grid">
+
+    <div class="option" data-answer="wrong">
+      Too-Too is nice. The story is interesting.
+    </div>
+
+    <div class="option" data-answer="correct">
+      Too-Too solves problems by listening carefully and noticing clues. For example, Too-Too pays attention to details that other characters ignore.
+    </div>
+
+    <div class="option" data-answer="wrong">
+      Too-Too never thinks carefully.
+    </div>
+
+  </div>
+
+  <button onclick="checkWorksheet()">Check Answer</button>
+
+  <div class="feedback" id="worksheetFeedback"></div>
+
+</section>
+
+<section class="card">
+
+  <h2>Completion Badge</h2>
+
+  <div class="badge-box">
+
+    <div class="badge">🏅</div>
+
+    <h3 id="badgeTitle">Keep going!</h3>
+
+    <p id="badgeMessage">
+      Finish all parts to earn your completion badge.
+    </p>
+
+  </div>
+
+</section>
+
+</div>
+
+<a class="bottom-home" href="index.html">
+  ← Back to Reading Hub
+</a>
+
+<script>
+
+const STORAGE_KEY = "ga4_too_too_progress_v1";
+
+let progress = {
+  vocab:false,
+  prediction:false,
+  skill:false,
+  read:false,
+  quiz:false,
+  character:false,
+  match:false,
+  evidence:false,
+  worksheet:false
+};
+
+let vocabAnswered = 0;
+let quizAnswered = 0;
+let chosenClue = null;
+let chosenInfer = null;
+
+const vocabData = [
+
+{
+  word:"listener",
+  question:"What is a listener?",
+  options:[
+    "a person who pays attention to sounds or people",
+    "a person who steals things",
+    "a person who never speaks"
+  ],
+  answer:0
+},
+
+{
+  word:"clue",
+  question:"What is a clue?",
+  options:[
+    "a detail that helps solve something",
+    "a kind of animal",
+    "a large building"
+  ],
+  answer:0
+},
+
+{
+  word:"evidence",
+  question:"What is evidence?",
+  options:[
+    "information that supports an idea",
+    "a funny joke",
+    "a type of clothing"
+  ],
+  answer:0
+},
+
+{
+  word:"infer",
+  question:"What does infer mean?",
+  options:[
+    "to figure something out using clues",
+    "to shout loudly",
+    "to forget information"
+  ],
+  answer:0
+},
+
+{
+  word:"carefully",
+  question:"What does carefully mean?",
+  options:[
+    "with attention and thought",
+    "very quickly",
+    "without looking"
+  ],
+  answer:0
+},
+
+{
+  word:"mystery",
+  question:"What is a mystery?",
+  options:[
+    "something difficult to explain or solve",
+    "a type of farm tool",
+    "a small bird"
+  ],
+  answer:0
+}
+
+];
+
+const readingData = [
+
+{
+  question:"What skill is most important in this story?",
+  options:[
+    "Listening carefully and noticing clues",
+    "Planting crops",
+    "Cooking food"
+  ],
+  answer:0
+},
+
+{
+  question:"Why is Too-Too a good listener?",
+  options:[
+    "Too-Too pays attention carefully before deciding.",
+    "Too-Too ignores every clue.",
+    "Too-Too never listens."
+  ],
+  answer:0
+},
+
+{
+  question:"What helps solve the problem?",
+  options:[
+    "Using clues and evidence",
+    "Guessing without thinking",
+    "Forgetting details"
+  ],
+  answer:0
+},
+
+{
+  question:"Which reading skill helps most with this story?",
+  options:[
+    "Inference and text evidence",
+    "Rhyming words",
+    "Multiplication"
+  ],
+  answer:0
+}
+
+];
+
+function saveProgress(){
+
+  const stars = calculateStars();
+
+  localStorage.setItem(STORAGE_KEY,JSON.stringify({
+    progress,
+    stars
+  }));
+
+}
+
+function loadProgress(){
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(!saved) return;
+
+  try{
+
+    const data = JSON.parse(saved);
+
+    if(data.progress){
+      progress = {...progress,...data.progress};
+    }
+
+  }catch(e){}
+
+}
+
+function calculateStars(){
+
+  const done =
+    Object.values(progress).filter(Boolean).length;
+
+  if(done >= Object.keys(progress).length) return 3;
+  if(done >= 6) return 2;
+  if(done >= 3) return 1;
+
+  return 0;
+}
+
+function updateProgress(){
+
+  const total = Object.keys(progress).length;
+  const done =
+    Object.values(progress).filter(Boolean).length;
+
+  const percent =
+    Math.round((done / total) * 100);
+
+  const stars = calculateStars();
+
+  document.getElementById("progressBar").style.width =
+    percent + "%";
+
+  document.getElementById("starDisplay").textContent =
+    stars===0 ? "☆☆☆" :
+    stars===1 ? "⭐☆☆" :
+    stars===2 ? "⭐⭐☆" :
+    "⭐⭐⭐";
+
+  saveProgress();
+}
+
+function markDone(section){
+
+  progress[section] = true;
+
+  updateProgress();
+
+  if(section==="read"){
+    document.getElementById("readFeedback").textContent =
+      "Great. Now complete the after-reading quick check.";
+  }
+
+}
+
+function renderQuiz(data,containerId,progressKey){
+
+  const container =
+    document.getElementById(containerId);
+
+  container.innerHTML = "";
+
+  data.forEach((item,index)=>{
+
+    const card = document.createElement("div");
+
+    card.className = "card";
+
+    card.style.boxShadow = "none";
+    card.style.border = "1px solid #d8e6ef";
+
+    let html =
+      `<h3>${item.word ? item.word :
+      "Question " + (index+1)}</h3>`;
+
+    html += `<p>${item.question}</p>`;
+    html += `<div class="grid">`;
+
+    item.options.forEach((opt,i)=>{
+
+      html += `
+      <div class="option"
+      onclick="selectQuizOption(this,
+      ${i},
+      ${item.answer},
+      '${progressKey}')">
+      ${opt}
+      </div>`;
+
+    });
+
+    html += `</div><div class="feedback"></div>`;
+
+    card.innerHTML = html;
+
+    container.appendChild(card);
+
+  });
+
+}
+
+function selectQuizOption(el,chosen,answer,progressKey){
+
+  const parent = el.parentElement;
+  const card = parent.parentElement;
+
+  if(card.dataset.answered==="true") return;
+
+  [...parent.children].forEach(child=>{
+    child.classList.remove(
+      "selected","correct","wrong");
+  });
+
+  if(chosen===answer){
+
+    el.classList.add("correct");
+
+    parent.nextElementSibling.textContent =
+      "Correct.";
+
+  }else{
+
+    el.classList.add("wrong");
+
+    parent.children[answer].classList.add("correct");
+
+    parent.nextElementSibling.textContent =
+      "Not quite. Look at the correct answer.";
+
+  }
+
+  card.dataset.answered = "true";
+
+  if(progressKey==="vocab"){
+
+    vocabAnswered++;
+
+    if(vocabAnswered >= vocabData.length){
+      progress.vocab = true;
+    }
+
+  }
+
+  if(progressKey==="quiz"){
+
+    quizAnswered++;
+
+    if(quizAnswered >= readingData.length){
+      progress.quiz = true;
+    }
+
+  }
+
+  updateProgress();
+
+}
+
+function setupSingleChoice(containerId){
+
+  document.querySelectorAll(
+    `#${containerId} .option`
+  ).forEach(opt=>{
+
+    opt.addEventListener("click",function(){
+
+      document.querySelectorAll(
+        `#${containerId} .option`
+      ).forEach(o=>{
+        o.classList.remove(
+          "selected","correct","wrong");
+      });
+
+      this.classList.add("selected");
+
+    });
+
+  });
+
+}
+
+function checkSingleChoice(
+  containerId,
+  feedbackId,
+  progressKey,
+  correctMsg,
+  wrongMsg
+){
+
+  const selected =
+    document.querySelector(
+      `#${containerId} .selected`
+    );
+
+  const feedback =
+    document.getElementById(feedbackId);
+
+  if(!selected){
+
+    feedback.textContent =
+      "Choose an answer first.";
+
+    return;
+  }
+
+  if(selected.dataset.answer==="correct"){
+
+    selected.classList.add("correct");
+
+    feedback.textContent = correctMsg;
+
+    progress[progressKey] = true;
+
+  }else{
+
+    selected.classList.add("wrong");
+
+    feedback.textContent = wrongMsg;
+
+  }
+
+  updateProgress();
+
+}
+
+function checkPrediction(){
+
+  checkSingleChoice(
+    "predictionOptions",
+    "predictionFeedback",
+    "prediction",
+    "Good prediction. You used the clues to think about the story problem.",
+    "Not quite. Think about why listening carefully matters."
+  );
+
+}
+
+function checkSkill(){
+
+  checkSingleChoice(
+    "skillOptions",
+    "skillFeedback",
+    "skill",
+    "Correct. Listening carefully helps understand clues and solve problems.",
+    "Not quite. Think about why careful listening is important."
+  );
+
+}
+
+function checkCharacter(){
+
+  checkSingleChoice(
+    "characterOptions",
+    "characterFeedback",
+    "character",
+    "Correct. This clue shows Too-Too is thoughtful and careful.",
+    "Not quite. Choose the clue that best shows careful thinking."
+  );
+
+}
+
+function checkEvidence(){
+
+  checkSingleChoice(
+    "evidenceOptions",
+    "evidenceFeedback",
+    "evidence",
+    "Correct. Strong evidence includes a clue and explanation.",
+    "Not quite. Choose the answer that uses story evidence."
+  );
+
+}
+
+function checkWorksheet(){
+
+  checkSingleChoice(
+    "worksheetOptions",
+    "worksheetFeedback",
+    "worksheet",
+    "Correct. This answer explains the character using clues from the story.",
+    "Not quite. Choose the answer with evidence and explanation."
+  );
+
+}
+
+function chooseClue(el,id){
+
+  document.querySelectorAll(".clueMatch")
+    .forEach(c=>{
+      c.classList.remove(
+        "selected","correct","wrong");
+    });
+
+  el.classList.add("selected");
+
+  chosenClue = id;
+
+}
+
+function chooseInfer(el,id){
+
+  document.querySelectorAll(".inferMatch")
+    .forEach(c=>{
+      c.classList.remove(
+        "selected","correct","wrong");
+    });
+
+  el.classList.add("selected");
+
+  chosenInfer = id;
+
+}
+
+function checkMatch(){
+
+  const feedback =
+    document.getElementById("matchFeedback");
+
+  if(!chosenClue || !chosenInfer){
+
+    feedback.textContent =
+      "Choose one clue and one inference.";
+
+    return;
+  }
+
+  const selectedCards =
+    document.querySelectorAll(
+      ".clueMatch.selected,.inferMatch.selected"
+    );
+
+  if(chosenClue===chosenInfer){
+
+    selectedCards.forEach(card=>{
+      card.classList.add("correct");
+    });
+
+    feedback.textContent =
+      "Correct match. The inference matches the clue.";
+
+    progress.match = true;
+
+  }else{
+
+    selectedCards.forEach(card=>{
+      card.classList.add("wrong");
+    });
+
+    feedback.textContent =
+      "Try again. Think about what the clue suggests.";
+
+  }
+
+  updateProgress();
+
+}
+
+loadProgress();
+
+renderQuiz(vocabData,"vocabQuiz","vocab");
+renderQuiz(readingData,"readingQuiz","quiz");
+
+setupSingleChoice("predictionOptions");
+setupSingleChoice("skillOptions");
+setupSingleChoice("characterOptions");
+setupSingleChoice("evidenceOptions");
+setupSingleChoice("worksheetOptions");
+
+updateProgress();
+
+</script>
+
+</body>
+</html>
