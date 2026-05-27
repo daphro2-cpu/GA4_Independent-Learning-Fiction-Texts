@@ -2,952 +2,986 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>GA4 Independent Reading Hub</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
 
-    :root {
-      --navy: #172a57;
-      --blue: #2f63b7;
-      --cream: #fff8ea;
-      --sage: #cfe4ca;
-      --mint: #dcefdc;
-      --coral: #f8755b;
-      --pink: #f4a7c7;
-      --mustard: #f7c84b;
-      --sky: #b9dded;
-      --ink: #243447;
-      --paper: #ffffff;
+    *{
+      box-sizing:border-box;
     }
 
-    body {
-      margin: 0;
-      font-family: "Nunito", "Century Gothic", Arial, sans-serif;
+    :root{
+      --navy:#172a57;
+      --blue:#2f63b7;
+      --cream:#fff8ea;
+      --sage:#cfe4ca;
+      --mint:#dcefdc;
+      --coral:#f8755b;
+      --pink:#f4a7c7;
+      --mustard:#f7c84b;
+      --sky:#b9dded;
+      --ink:#243447;
+      --paper:#ffffff;
+    }
+
+    body{
+      margin:0;
+      font-family:"Nunito", sans-serif;
       background:
         radial-gradient(circle at 8% 12%, rgba(248,117,91,0.18), transparent 20%),
         radial-gradient(circle at 88% 8%, rgba(247,200,75,0.22), transparent 18%),
         linear-gradient(135deg, #f8f1df 0%, #dcefdc 48%, #b9dded 100%);
-      color: var(--ink);
-      overflow-x: hidden;
+      color:var(--ink);
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
       background-image:
-        radial-gradient(circle, rgba(23,42,87,0.09) 1.5px, transparent 1.5px);
-      background-size: 28px 28px;
-      pointer-events: none;
-      opacity: 0.35;
+        radial-gradient(circle, rgba(23,42,87,0.07) 1.5px, transparent 1.5px);
+      background-size:28px 28px;
+      pointer-events:none;
     }
 
-    .page {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 34px 22px 50px;
-      position: relative;
-      z-index: 2;
+    .page{
+      max-width:1280px;
+      margin:0 auto;
+      padding:34px 22px 50px;
+      position:relative;
+      z-index:2;
     }
 
-    .hero {
-      background: var(--navy);
-      color: white;
-      border-radius: 42px;
-      padding: 42px;
-      min-height: 285px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 22px 45px rgba(23,42,87,0.22);
+    .hero{
+      background:var(--navy);
+      color:white;
+      border-radius:42px;
+      padding:42px;
+      min-height:285px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 22px 45px rgba(23,42,87,0.22);
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 360px;
-      height: 360px;
-      right: -90px;
-      top: -120px;
-      background: var(--coral);
-      border-radius: 48% 52% 45% 55%;
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:360px;
+      height:360px;
+      right:-90px;
+      top:-120px;
+      background:var(--coral);
+      border-radius:48% 52% 45% 55%;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      right: 190px;
-      bottom: -135px;
-      background: var(--mustard);
-      border-radius: 50%;
-      opacity: 0.85;
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:250px;
+      height:250px;
+      right:190px;
+      bottom:-135px;
+      background:var(--mustard);
+      border-radius:50%;
+      opacity:0.85;
     }
 
-    .small-label {
-      display: inline-block;
-      background: var(--cream);
-      color: var(--navy);
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 2;
+    .small-label{
+      display:inline-block;
+      background:var(--cream);
+      color:var(--navy);
+      padding:10px 20px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:0.85rem;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+      position:relative;
+      z-index:2;
     }
 
-    header h1 {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(3rem, 7vw, 6.8rem);
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      position: relative;
-      z-index: 2;
-      max-width: 780px;
+    header h1{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      font-size:clamp(3rem, 7vw, 6.8rem);
+      line-height:0.9;
+      letter-spacing:-0.04em;
+      position:relative;
+      z-index:2;
+      max-width:780px;
     }
 
-    header p {
-      max-width: 720px;
-      margin: 22px 0 0;
-      line-height: 1.6;
-      font-size: 1.25rem;
-      position: relative;
-      z-index: 2;
-      color: #eef5ff;
+    header p{
+      max-width:720px;
+      margin:22px 0 0;
+      line-height:1.6;
+      font-size:1.25rem;
+      position:relative;
+      z-index:2;
+      color:#eef5ff;
     }
 
-    .hero-flower {
-      position: absolute;
-      right: 70px;
-      bottom: 35px;
-      width: 165px;
-      height: 165px;
-      z-index: 3;
+    .hero-flower{
+      position:absolute;
+      right:70px;
+      bottom:35px;
+      width:165px;
+      height:165px;
+      z-index:3;
     }
 
-    .intro {
-      margin: -42px auto 38px;
-      background: rgba(255,255,255,0.93);
-      backdrop-filter: blur(10px);
-      padding: 28px 32px;
-      border-radius: 34px;
-      box-shadow: 0 18px 35px rgba(23,42,87,0.14);
-      position: relative;
-      z-index: 5;
-      max-width: 1040px;
-      border: 4px solid white;
+    .intro{
+      margin:-42px auto 38px;
+      background:rgba(255,255,255,0.93);
+      backdrop-filter:blur(10px);
+      padding:28px 32px;
+      border-radius:34px;
+      box-shadow:0 18px 35px rgba(23,42,87,0.14);
+      position:relative;
+      z-index:5;
+      max-width:1040px;
+      border:4px solid white;
     }
 
-    .intro h2 {
-      margin: 0 0 12px;
-      color: var(--navy);
-      font-size: 2rem;
+    .intro h2{
+      margin:0 0 12px;
+      color:var(--navy);
+      font-size:2rem;
     }
 
-    .intro ul {
-      margin: 0;
-      padding-left: 22px;
-      line-height: 1.85;
-      font-size: 1rem;
+    .intro ul{
+      margin:0;
+      padding-left:22px;
+      line-height:1.85;
+      font-size:1rem;
     }
 
-    .map-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin: 16px 0 20px;
+    .map-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      margin:16px 0 20px;
     }
 
-    .map-title h2 {
-      margin: 0;
-      font-family: "Playfair Display", serif;
-      color: var(--navy);
-      font-size: clamp(2.2rem, 5vw, 4.4rem);
-      line-height: 1;
+    .map-title h2{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      color:var(--navy);
+      font-size:clamp(2.2rem, 5vw, 4.4rem);
+      line-height:1;
     }
 
-    .map-note {
-      background: var(--cream);
-      color: var(--navy);
-      border-radius: 999px;
-      padding: 12px 20px;
-      font-weight: 900;
-      box-shadow: 0 10px 22px rgba(23,42,87,0.10);
-      white-space: nowrap;
+    .map-note{
+      background:var(--cream);
+      color:var(--navy);
+      border-radius:999px;
+      padding:12px 20px;
+      font-weight:900;
+      box-shadow:0 10px 22px rgba(23,42,87,0.10);
+      white-space:nowrap;
     }
 
-    .reading-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      position: relative;
-      padding: 20px;
-      background: rgba(255,248,234,0.55);
-      border-radius: 46px;
-      border: 4px solid rgba(255,255,255,0.7);
-      box-shadow: 0 20px 45px rgba(23,42,87,0.13);
-      overflow: hidden;
+    .reading-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      position:relative;
+      padding:20px;
+      background:rgba(255,248,234,0.55);
+      border-radius:46px;
+      border:4px solid rgba(255,255,255,0.7);
+      box-shadow:0 20px 45px rgba(23,42,87,0.13);
+      overflow:hidden;
     }
 
-    .reading-grid::before {
-      content: "";
-      position: absolute;
-      inset: 50px;
-      background:
-        linear-gradient(90deg, transparent 0 30%, rgba(47,99,183,0.18) 30% 33%, transparent 33% 63%, rgba(47,99,183,0.18) 63% 66%, transparent 66%),
-        linear-gradient(0deg, transparent 0 30%, rgba(47,99,183,0.18) 30% 33%, transparent 33% 63%, rgba(47,99,183,0.18) 63% 66%, transparent 66%);
-      border-radius: 40px;
-      pointer-events: none;
-      opacity: 0.35;
+    .reading-card{
+      background:var(--paper);
+      border-radius:34px;
+      padding:22px 22px 24px;
+      text-decoration:none;
+      color:var(--ink);
+      box-shadow:0 12px 26px rgba(23,42,87,0.13);
+      border:4px solid white;
+      min-height:430px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+      transition:0.25s ease;
+      isolation:isolate;
     }
 
-    .reading-card {
-      background: var(--paper);
-      border-radius: 34px;
-      padding: 22px;
-      text-decoration: none;
-      color: var(--ink);
-      box-shadow: 0 12px 26px rgba(23,42,87,0.13);
-      border: 4px solid white;
-      min-height: 430px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-      transition: 0.25s ease;
-      isolation: isolate;
+    .reading-card:hover{
+      transform:translateY(-7px) rotate(-1deg);
+      box-shadow:0 18px 38px rgba(23,42,87,0.18);
     }
 
-    .reading-card:hover {
-      transform: translateY(-7px) rotate(-1deg);
-      box-shadow: 0 18px 38px rgba(23,42,87,0.18);
+    .reading-card:nth-child(even):hover{
+      transform:translateY(-7px) rotate(1deg);
     }
 
-    .reading-card:nth-child(even):hover {
-      transform: translateY(-7px) rotate(1deg);
+    .reading-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      height:170px;
+      z-index:-1;
     }
 
-    .reading-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      height: 145px;
-      background: var(--sage);
-      z-index: -1;
+    .reading-card:nth-child(1)::before{ background:#dcefdc; }
+    .reading-card:nth-child(2)::before{ background:#f9d7aa; }
+    .reading-card:nth-child(3)::before{ background:#f4a7c7; }
+    .reading-card:nth-child(4)::before{ background:#b9dded; }
+    .reading-card:nth-child(5)::before{ background:#cab8f6; }
+    .reading-card:nth-child(6)::before{ background:#f7c84b; }
+    .reading-card:nth-child(7)::before{ background:#cfe4ca; }
+    .reading-card:nth-child(8)::before{ background:#ffd4df; }
+    .reading-card:nth-child(9)::before{ background:#b8dfcf; }
+
+    .art{
+      height:165px;
+      position:relative;
+      margin:-22px -22px 20px;
+      overflow:hidden;
     }
 
-    .reading-card:nth-child(1)::before { background: #dcefdc; }
-    .reading-card:nth-child(2)::before { background: #f9d7aa; }
-    .reading-card:nth-child(3)::before { background: #f4a7c7; }
-    .reading-card:nth-child(4)::before { background: #b9dded; }
-    .reading-card:nth-child(5)::before { background: #cab8f6; }
-    .reading-card:nth-child(6)::before { background: #f7c84b; }
-    .reading-card:nth-child(7)::before { background: #cfe4ca; }
-    .reading-card:nth-child(8)::before { background: #ffd4df; }
-    .reading-card:nth-child(9)::before { background: #b8dfcf; }
-
-    .art {
-      height: 124px;
-      position: relative;
-      margin-bottom: 16px;
+    .sun{
+      position:absolute;
+      width:72px;
+      height:72px;
+      right:28px;
+      top:24px;
+      background:var(--mustard);
+      border-radius:50%;
+      box-shadow:0 0 0 16px rgba(247,200,75,0.2);
     }
 
-    .sun {
-      position: absolute;
-      width: 72px;
-      height: 72px;
-      right: 10px;
-      top: 8px;
-      background: var(--mustard);
-      border-radius: 50%;
-      box-shadow: 0 0 0 12px rgba(247,200,75,0.25);
+    .hill{
+      position:absolute;
+      left:-35px;
+      right:-35px;
+      bottom:-18px;
+      height:80px;
+      background:#74ad76;
+      border-radius:50% 50% 0 0;
     }
 
-    .hill {
-      position: absolute;
-      left: -35px;
-      right: -35px;
-      bottom: -18px;
-      height: 80px;
-      background: #74ad76;
-      border-radius: 50% 50% 0 0;
+    .hill.two{
+      background:#9fca86;
+      bottom:-34px;
+      left:40px;
+      right:-50px;
+      height:86px;
     }
 
-    .hill.two {
-      background: #9fca86;
-      bottom: -34px;
-      left: 40px;
-      right: -50px;
-      height: 86px;
+    .tree{
+      position:absolute;
+      bottom:38px;
+      width:22px;
+      height:58px;
+      background:#7b5738;
+      border-radius:10px;
     }
 
-    .tree {
-      position: absolute;
-      bottom: 22px;
-      width: 22px;
-      height: 58px;
-      background: #7b5738;
-      border-radius: 10px;
+    .tree::before{
+      content:"";
+      position:absolute;
+      width:72px;
+      height:72px;
+      background:#3f8f5a;
+      border-radius:50% 46% 52% 45%;
+      left:-25px;
+      top:-42px;
     }
 
-    .tree::before {
-      content: "";
-      position: absolute;
-      width: 72px;
-      height: 72px;
-      background: #3f8f5a;
-      border-radius: 50% 46% 52% 45%;
-      left: -25px;
-      top: -42px;
+    .bird{
+      position:absolute;
+      width:42px;
+      height:24px;
+      border-top:5px solid var(--navy);
+      border-radius:50%;
+      transform:rotate(-8deg);
     }
 
-    .bird {
-      position: absolute;
-      width: 42px;
-      height: 24px;
-      border-top: 5px solid var(--navy);
-      border-radius: 50%;
-      transform: rotate(-8deg);
+    .bird::after{
+      content:"";
+      position:absolute;
+      width:42px;
+      height:24px;
+      border-top:5px solid var(--navy);
+      border-radius:50%;
+      left:28px;
+      top:-5px;
+      transform:rotate(18deg);
     }
 
-    .bird::after {
-      content: "";
-      position: absolute;
-      width: 42px;
-      height: 24px;
-      border-top: 5px solid var(--navy);
-      border-radius: 50%;
-      left: 28px;
-      top: -5px;
-      transform: rotate(18deg);
+    .figure{
+      position:absolute;
+      bottom:26px;
+      left:42%;
+      width:35px;
+      height:70px;
+      background:var(--coral);
+      border-radius:18px 18px 8px 8px;
     }
 
-    .figure {
-      position: absolute;
-      bottom: 16px;
-      left: 42%;
-      width: 35px;
-      height: 70px;
-      background: var(--coral);
-      border-radius: 18px 18px 8px 8px;
+    .figure::before{
+      content:"";
+      position:absolute;
+      width:28px;
+      height:28px;
+      background:#8b5a3b;
+      border-radius:50%;
+      top:-24px;
+      left:4px;
     }
 
-    .figure::before {
-      content: "";
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      background: #8b5a3b;
-      border-radius: 50%;
-      top: -24px;
-      left: 4px;
+    .crown{
+      position:absolute;
+      width:86px;
+      height:58px;
+      left:42%;
+      bottom:36px;
+      background:var(--mustard);
+      clip-path:polygon(0 100%, 0 35%, 24% 68%, 50% 10%, 76% 68%, 100% 35%, 100% 100%);
+      border-radius:0 0 12px 12px;
     }
 
-    .crown {
-      position: absolute;
-      width: 86px;
-      height: 58px;
-      left: 42%;
-      bottom: 36px;
-      background: var(--mustard);
-      clip-path: polygon(0 100%, 0 35%, 24% 68%, 50% 10%, 76% 68%, 100% 35%, 100% 100%);
-      border-radius: 0 0 12px 12px;
+    .cloth{
+      position:absolute;
+      width:86px;
+      height:68px;
+      right:18px;
+      bottom:20px;
+      background:white;
+      border:4px dashed var(--blue);
+      border-radius:20px;
+      transform:rotate(6deg);
     }
 
-    .cloth {
-      position: absolute;
-      width: 86px;
-      height: 68px;
-      right: 18px;
-      bottom: 20px;
-      background: white;
-      border: 4px dashed var(--blue);
-      border-radius: 20px;
-      transform: rotate(6deg);
+    .mask{
+      position:absolute;
+      width:92px;
+      height:54px;
+      left:42%;
+      bottom:38px;
+      background:var(--navy);
+      border-radius:50% 50% 45% 45%;
     }
 
-    .mask {
-      position: absolute;
-      width: 92px;
-      height: 54px;
-      left: 42%;
-      bottom: 38px;
-      background: var(--navy);
-      border-radius: 50% 50% 45% 45%;
+    .mask::before,
+    .mask::after{
+      content:"";
+      position:absolute;
+      width:18px;
+      height:14px;
+      background:white;
+      border-radius:50%;
+      top:20px;
     }
 
-    .mask::before, .mask::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 14px;
-      background: white;
-      border-radius: 50%;
-      top: 20px;
+    .mask::before{ left:18px; }
+    .mask::after{ right:18px; }
+
+    .owl{
+      position:absolute;
+      width:90px;
+      height:100px;
+      left:42%;
+      bottom:15px;
+      background:#6d5a9e;
+      border-radius:48% 48% 40% 40%;
     }
 
-    .mask::before { left: 18px; }
-    .mask::after { right: 18px; }
-
-    .owl {
-      position: absolute;
-      width: 90px;
-      height: 100px;
-      left: 42%;
-      bottom: 15px;
-      background: #6d5a9e;
-      border-radius: 48% 48% 40% 40%;
+    .owl::before,
+    .owl::after{
+      content:"";
+      position:absolute;
+      width:26px;
+      height:26px;
+      background:white;
+      border-radius:50%;
+      top:28px;
     }
 
-    .owl::before, .owl::after {
-      content: "";
-      position: absolute;
-      width: 26px;
-      height: 26px;
-      background: white;
-      border-radius: 50%;
-      top: 28px;
+    .owl::before{ left:16px; }
+    .owl::after{ right:16px; }
+
+    .horseshoe{
+      position:absolute;
+      width:100px;
+      height:100px;
+      border:16px solid var(--coral);
+      border-bottom-color:transparent;
+      border-radius:50%;
+      left:40%;
+      bottom:8px;
+      transform:rotate(12deg);
     }
 
-    .owl::before { left: 16px; }
-    .owl::after { right: 16px; }
-
-    .horseshoe {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      border: 16px solid var(--coral);
-      border-bottom-color: transparent;
-      border-radius: 50%;
-      left: 40%;
-      bottom: 8px;
-      transform: rotate(12deg);
+    .coin{
+      position:absolute;
+      width:88px;
+      height:88px;
+      background:var(--mustard);
+      border-radius:50%;
+      left:42%;
+      bottom:24px;
+      box-shadow:inset 0 0 0 8px rgba(255,255,255,0.35);
     }
 
-    .coin {
-      position: absolute;
-      width: 88px;
-      height: 88px;
-      background: var(--mustard);
-      border-radius: 50%;
-      left: 42%;
-      bottom: 24px;
-      box-shadow: inset 0 0 0 8px rgba(255,255,255,0.35);
+    .shoe{
+      position:absolute;
+      width:105px;
+      height:56px;
+      left:40%;
+      bottom:26px;
+      background:#5fbf9c;
+      border-radius:999px 999px 25px 25px;
+      transform:rotate(-8deg);
     }
 
-    .shoe {
-      position: absolute;
-      width: 105px;
-      height: 56px;
-      left: 40%;
-      bottom: 26px;
-      background: #5fbf9c;
-      border-radius: 999px 999px 25px 25px;
-      transform: rotate(-8deg);
+    .shoe::after{
+      content:"";
+      position:absolute;
+      width:38px;
+      height:38px;
+      right:-10px;
+      top:-22px;
+      background:var(--pink);
+      border-radius:50%;
     }
 
-    .shoe::after {
-      content: "";
-      position: absolute;
-      width: 38px;
-      height: 38px;
-      right: -10px;
-      top: -22px;
-      background: var(--pink);
-      border-radius: 50%;
+    .bear{
+      position:absolute;
+      width:104px;
+      height:86px;
+      left:40%;
+      bottom:22px;
+      background:#8c5c3f;
+      border-radius:45% 45% 40% 40%;
     }
 
-    .bear {
-      position: absolute;
-      width: 104px;
-      height: 86px;
-      left: 40%;
-      bottom: 22px;
-      background: #8c5c3f;
-      border-radius: 45% 45% 40% 40%;
+    .bear::before,
+    .bear::after{
+      content:"";
+      position:absolute;
+      width:32px;
+      height:32px;
+      background:#8c5c3f;
+      border-radius:50%;
+      top:-12px;
     }
 
-    .bear::before, .bear::after {
-      content: "";
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      background: #8c5c3f;
-      border-radius: 50%;
-      top: -12px;
+    .bear::before{ left:5px; }
+    .bear::after{ right:5px; }
+
+    .tail{
+      position:absolute;
+      width:20px;
+      height:20px;
+      background:#f1d2b8;
+      border-radius:50%;
+      right:-8px;
+      bottom:18px;
     }
 
-    .bear::before { left: 5px; }
-    .bear::after { right: 5px; }
-
-    .tail {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #f1d2b8;
-      border-radius: 50%;
-      right: -8px;
-      bottom: 18px;
+    .path{
+      position:absolute;
+      bottom:-5px;
+      left:-20px;
+      right:-20px;
+      height:35px;
+      background:rgba(255,248,234,0.75);
+      border-radius:50% 50% 0 0;
     }
 
-    .path {
-      position: absolute;
-      bottom: -5px;
-      left: -20px;
-      right: -20px;
-      height: 35px;
-      background: rgba(255,248,234,0.75);
-      border-radius: 50% 50% 0 0;
+    .label{
+      display:inline-block;
+      padding:8px 13px;
+      border-radius:999px;
+      font-size:0.76rem;
+      font-weight:900;
+      margin:8px 5px 10px 0;
+      background:var(--navy);
+      color:white;
+      letter-spacing:0.02em;
+      position:relative;
+      z-index:5;
     }
 
-    .label {
-      display: inline-block;
-      padding: 8px 13px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 900;
-      margin: 0 5px 10px 0;
-      background: var(--navy);
-      color: white;
-      letter-spacing: 0.02em;
+    .reading-card h2{
+      margin:5px 0 10px;
+      color:var(--navy);
+      font-size:1.45rem;
+      line-height:1.15;
     }
 
-    .reading-card h2 {
-      margin: 5px 0 10px;
-      color: var(--navy);
-      font-size: 1.45rem;
-      line-height: 1.15;
+    .reading-card p{
+      line-height:1.48;
+      font-size:0.94rem;
+      margin:9px 0;
     }
 
-    .reading-card p {
-      line-height: 1.48;
-      font-size: 0.94rem;
-      margin: 9px 0;
+    .skills{
+      margin-top:12px;
+      background:#fff8ea;
+      padding:12px;
+      border-radius:18px;
+      font-size:0.88rem;
+      border:2px dashed rgba(23,42,87,0.18);
     }
 
-    .skills {
-      margin-top: 12px;
-      background: #fff8ea;
-      padding: 12px;
-      border-radius: 18px;
-      font-size: 0.88rem;
-      border: 2px dashed rgba(23,42,87,0.18);
+    .button{
+      margin-top:16px;
+      background:var(--navy);
+      color:white;
+      padding:12px 18px;
+      border-radius:999px;
+      text-align:center;
+      font-weight:900;
+      box-shadow:0 6px 0 rgba(0,0,0,0.16);
     }
 
-    .button {
-      margin-top: 16px;
-      background: var(--navy);
-      color: white;
-      padding: 12px 18px;
-      border-radius: 999px;
-      text-align: center;
-      font-weight: 900;
-      box-shadow: 0 6px 0 rgba(0,0,0,0.16);
+    .button::after{
+      content:"  →";
     }
 
-    .button::after {
-      content: "  →";
+    footer{
+      text-align:center;
+      padding:28px;
+      color:var(--navy);
+      font-size:0.95rem;
+      font-weight:800;
     }
 
-    footer {
-      text-align: center;
-      padding: 28px;
-      color: var(--navy);
-      font-size: 0.95rem;
-      font-weight: 800;
-    }
+    @media (max-width:950px){
 
-    @media (max-width: 950px) {
-      .reading-grid {
-        grid-template-columns: 1fr 1fr;
+      .reading-grid{
+        grid-template-columns:1fr 1fr;
       }
 
-      .hero-flower {
-        opacity: 0.4;
-      }
     }
 
-    @media (max-width: 650px) {
-      .page {
-        padding: 18px 12px 34px;
+    @media (max-width:650px){
+
+      .page{
+        padding:18px 12px 34px;
       }
 
-      .hero {
-        padding: 30px 24px;
-        border-radius: 30px;
+      .reading-grid{
+        grid-template-columns:1fr;
       }
 
-      header p {
-        font-size: 1rem;
+      .map-title{
+        display:block;
       }
 
-      .intro {
-        margin-top: -24px;
-        padding: 22px;
+      .map-note{
+        display:inline-block;
+        margin-top:12px;
       }
 
-      .map-title {
-        display: block;
-      }
-
-      .map-note {
-        display: inline-block;
-        margin-top: 12px;
-        white-space: normal;
-      }
-
-      .reading-grid {
-        grid-template-columns: 1fr;
-        padding: 12px;
-        border-radius: 30px;
-      }
-
-      .reading-card {
-        min-height: auto;
-      }
     }
+
   </style>
 </head>
 
 <body>
 
-  <div class="page">
-
-    <header class="hero">
-      <span class="small-label">Short Reads Plus Practice</span>
-
-      <h1>GA4 Independent Reading Hub</h1>
-
-      <p>
-        Complete the pre-reading and post-reading activities before finishing your Short Reads Plus worksheet.
-      </p>
-
-      <svg class="hero-flower" viewBox="0 0 200 200" aria-hidden="true">
-        <circle cx="100" cy="100" r="18" fill="#f7c84b"/>
-        <ellipse cx="100" cy="45" rx="25" ry="48" fill="#f4a7c7"/>
-        <ellipse cx="100" cy="155" rx="25" ry="48" fill="#f8755b"/>
-        <ellipse cx="45" cy="100" rx="48" ry="25" fill="#b9dded"/>
-        <ellipse cx="155" cy="100" rx="48" ry="25" fill="#cfe4ca"/>
-        <ellipse cx="62" cy="62" rx="22" ry="42" fill="#fff8ea" transform="rotate(-45 62 62)"/>
-        <ellipse cx="138" cy="62" rx="22" ry="42" fill="#fff8ea" transform="rotate(45 138 62)"/>
-        <ellipse cx="62" cy="138" rx="22" ry="42" fill="#fff8ea" transform="rotate(45 62 138)"/>
-        <ellipse cx="138" cy="138" rx="22" ry="42" fill="#fff8ea" transform="rotate(-45 138 138)"/>
-      </svg>
-    </header>
-
-    <section class="intro">
-      <h2>How to Use This Page</h2>
-
-      <ul>
-        <li><strong>Before reading:</strong> learn key vocabulary and prepare one useful reading strategy.</li>
-        <li><strong>Read the story:</strong> look carefully for clues, actions, problems, and results.</li>
-        <li><strong>After reading:</strong> complete the quick check and worksheet skill practice.</li>
-        <li><strong>Then:</strong> finish your paper worksheet using evidence from the text.</li>
-      </ul>
-    </section>
-
-    <div class="map-title">
-      <h2>Choose Your Reading Path</h2>
-      <div class="map-note">9 stories · 1 reading garden</div>
-    </div>
-
-    <section class="reading-grid">
-
-      <a class="reading-card" href="birds-of-killingsworth.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="tree" style="left:28px;"></div>
-            <div class="bird" style="left:115px; top:32px;"></div>
-            <div class="bird" style="left:175px; top:55px; transform:scale(.7) rotate(-4deg);"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 1</span>
-
-          <h2>The Birds of Killingsworth</h2>
-
-          <p>
-            The people of Killingsworth think birds are causing trouble for their crops.
-            After they drive the birds away, they discover that the birds were actually helping the town.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Problem & Solution, Cause & Effect, Different Points of View
-          </p>
-
-          <p>
-            Vocabulary, prediction, problem-solution, cause-and-effect, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="hans-the-helpful.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="tree" style="left:35px;"></div>
-            <div class="figure"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 2</span>
-
-          <h2>Hans the Helpful</h2>
-
-          <p>
-            Hans wants to help others, but each gift he receives becomes a new problem.
-            Readers follow what Hans carries, how he carries it, and what happens next.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Sequence, Action & Result, Character Understanding
-          </p>
-
-          <p>
-            Vocabulary, sequence, action-result matching, character thinking, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="emperors-new-clothes.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="crown"></div>
-            <div class="cloth"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 3</span>
-
-          <h2>The Emperor’s New Clothes</h2>
-
-          <p>
-            Two weavers trick a proud emperor, and many people pretend to believe the lie because they are afraid.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Character Reactions, Character Motivation, Theme
-          </p>
-
-          <p>
-            Vocabulary, character reaction, evidence, theme, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="sly-thief.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="tree" style="left:45px;"></div>
-            <div class="mask"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 4</span>
-
-          <h2>The Sly Thief</h2>
-
-          <p>
-            A clever thief uses tricks to steal from the king, but the king’s people need an equally clever plan to catch him.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Problem & Solution, Sequence, Clever Thinking
-          </p>
-
-          <p>
-            Vocabulary, problem-solution, event order, clever solutions, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="too-too.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="owl"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 5</span>
-
-          <h2>Too-Too the Listener</h2>
-
-          <p>
-            A doctor, an owl, and a locked room lead to a mystery where careful listening becomes the key to understanding the problem.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Inference, Text Evidence, Character Clues
-          </p>
-
-          <p>
-            Vocabulary, prediction, inference, evidence matching, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="good-luck-bad-luck.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="horseshoe"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 6</span>
-
-          <h2>Good Luck, Bad Luck</h2>
-
-          <p>
-            Events that seem lucky or unlucky may change later, helping readers think about perspective and quick judgements.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Perspective, Good & Bad Outcomes, Theme
-          </p>
-
-          <p>
-            Vocabulary, lucky-unlucky sorting, perspective, theme, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="hans-in-luck.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="coin"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 7</span>
-
-          <h2>Hans in Luck</h2>
-
-          <p>
-            Hans keeps trading one thing for another as he travels, making readers decide whether he is lucky, unlucky, foolish, or happy.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Sequence, Good & Bad Points, Value Judgement
-          </p>
-
-          <p>
-            Vocabulary, sequencing, good-bad analysis, value judgement, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="yeh-shen.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="shoe"></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 8</span>
-
-          <h2>Yeh-Shen: A Cinderella Tale from China</h2>
-
-          <p>
-            Yeh-Shen is treated unfairly by her stepmother, but kindness, courage, and magic help change her future.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Compare & Contrast, Story Elements, Character Traits
-          </p>
-
-          <p>
-            Vocabulary, story structure, comparison, character traits, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-      <a class="reading-card" href="why-the-bear-has-a-short-tail.html">
-        <div>
-          <div class="art">
-            <div class="sun"></div>
-            <div class="hill"></div>
-            <div class="hill two"></div>
-            <div class="bear"><div class="tail"></div></div>
-            <div class="path"></div>
-          </div>
-
-          <span class="label">Fiction Reading 9</span>
-
-          <h2>Why the Bear Has a Short Tail</h2>
-
-          <p>
-            Bear is tricked into trying a foolish fishing method, and the story explains in a funny way why bears have short tails.
-          </p>
-
-          <p class="skills">
-            <strong>Worksheet Skills:</strong> Cause & Effect, Sequence, New Ending
-          </p>
-
-          <p>
-            Vocabulary, sequence, cause-and-effect, trickster tale, and worksheet preparation activities.
-          </p>
-        </div>
-
-        <div class="button">Start Reading Practice</div>
-      </a>
-
-    </section>
-
-  </div>
-
-  <footer>
-    GA4 Independent Learning · Short Reads Plus Practice
-  </footer>
+<div class="page">
+
+<header class="hero">
+
+  <span class="small-label">Short Reads Plus Practice</span>
+
+  <h1>GA4 Independent Reading Hub</h1>
+
+  <p>
+    Complete the pre-reading and post-reading activities before finishing your Short Reads Plus worksheet.
+  </p>
+
+  <svg class="hero-flower" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="18" fill="#f7c84b"/>
+    <ellipse cx="100" cy="45" rx="25" ry="48" fill="#f4a7c7"/>
+    <ellipse cx="100" cy="155" rx="25" ry="48" fill="#f8755b"/>
+    <ellipse cx="45" cy="100" rx="48" ry="25" fill="#b9dded"/>
+    <ellipse cx="155" cy="100" rx="48" ry="25" fill="#cfe4ca"/>
+  </svg>
+
+</header>
+
+<section class="intro">
+
+  <h2>How to Use This Page</h2>
+
+  <ul>
+    <li><strong>Before reading:</strong> learn key vocabulary and prepare one useful reading strategy.</li>
+    <li><strong>Read the story:</strong> look carefully for clues, actions, problems, and results.</li>
+    <li><strong>After reading:</strong> complete the quick check and worksheet skill practice.</li>
+    <li><strong>Then:</strong> finish your paper worksheet using evidence from the text.</li>
+  </ul>
+
+</section>
+
+<div class="map-title">
+  <h2>Choose Your Reading Path</h2>
+  <div class="map-note">9 stories</div>
+</div>
+
+<section class="reading-grid">
+
+<!-- STORY 1 -->
+
+<a class="reading-card" href="birds-of-killingsworth.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="tree" style="left:40px;"></div>
+<div class="bird" style="left:140px; top:50px;"></div>
+<div class="bird" style="left:210px; top:75px; transform:scale(.7);"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 1</span>
+
+<h2>The Birds of Killingsworth</h2>
+
+<p>
+The people of Killingsworth think birds are causing trouble for their crops.
+After they drive the birds away, they discover that the birds were actually helping the town.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Problem & Solution, Cause & Effect, Different Points of View
+</p>
+
+<p>
+Vocabulary, prediction, problem-solution, cause-and-effect, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 2 -->
+
+<a class="reading-card" href="hans-the-helpful.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="tree" style="left:40px;"></div>
+<div class="figure"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 2</span>
+
+<h2>Hans the Helpful</h2>
+
+<p>
+Hans wants to help others, but each gift he receives becomes a new problem.
+Readers follow what Hans carries, how he carries it, and what happens next.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Sequence, Action & Result, Character Understanding
+</p>
+
+<p>
+Vocabulary, sequence, action-result matching, character thinking, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 3 -->
+
+<a class="reading-card" href="emperors-new-clothes.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="crown"></div>
+<div class="cloth"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 3</span>
+
+<h2>The Emperor’s New Clothes</h2>
+
+<p>
+Two weavers trick a proud emperor, and many people pretend to believe the lie because they are afraid.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Character Reactions, Character Motivation, Theme
+</p>
+
+<p>
+Vocabulary, character reaction, evidence, theme, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 4 -->
+
+<a class="reading-card" href="sly-thief.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="tree" style="left:50px;"></div>
+<div class="mask"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 4</span>
+
+<h2>The Sly Thief</h2>
+
+<p>
+A clever thief uses tricks to steal from the king, but the king’s people need an equally clever plan to catch him.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Problem & Solution, Sequence, Clever Thinking
+</p>
+
+<p>
+Vocabulary, problem-solution, event order, clever solutions, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 5 -->
+
+<a class="reading-card" href="too-too.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="owl"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 5</span>
+
+<h2>Too-Too the Listener</h2>
+
+<p>
+A doctor, an owl, and a locked room lead to a mystery where careful listening becomes the key to understanding the problem.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Inference, Text Evidence, Character Clues
+</p>
+
+<p>
+Vocabulary, prediction, inference, evidence matching, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 6 -->
+
+<a class="reading-card" href="good-luck-bad-luck.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="horseshoe"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 6</span>
+
+<h2>Good Luck, Bad Luck</h2>
+
+<p>
+Events that seem lucky or unlucky may change later, helping readers think about perspective and quick judgements.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Perspective, Good & Bad Outcomes, Theme
+</p>
+
+<p>
+Vocabulary, lucky-unlucky sorting, perspective, theme, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 7 -->
+
+<a class="reading-card" href="hans-in-luck.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="coin"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 7</span>
+
+<h2>Hans in Luck</h2>
+
+<p>
+Hans keeps trading one thing for another as he travels, making readers decide whether he is lucky, unlucky, foolish, or happy.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Sequence, Good & Bad Points, Value Judgement
+</p>
+
+<p>
+Vocabulary, sequencing, good-bad analysis, value judgement, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 8 -->
+
+<a class="reading-card" href="yeh-shen.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+<div class="shoe"></div>
+<div class="path"></div>
+</div>
+
+<span class="label">Fiction Reading 8</span>
+
+<h2>Yeh-Shen: A Cinderella Tale from China</h2>
+
+<p>
+Yeh-Shen is treated unfairly by her stepmother, but kindness, courage, and magic help change her future.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Compare & Contrast, Story Elements, Character Traits
+</p>
+
+<p>
+Vocabulary, story structure, comparison, character traits, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+<!-- STORY 9 -->
+
+<a class="reading-card" href="why-the-bear-has-a-short-tail.html">
+
+<div>
+
+<div class="art">
+<div class="sun"></div>
+<div class="hill"></div>
+<div class="hill two"></div>
+
+<div class="bear">
+<div class="tail"></div>
+</div>
+
+<div class="path"></div>
+
+</div>
+
+<span class="label">Fiction Reading 9</span>
+
+<h2>Why the Bear Has a Short Tail</h2>
+
+<p>
+Bear is tricked into trying a foolish fishing method, and the story explains in a funny way why bears have short tails.
+</p>
+
+<p class="skills">
+<strong>Worksheet Skills:</strong> Cause & Effect, Sequence, New Ending
+</p>
+
+<p>
+Vocabulary, sequence, cause-and-effect, trickster tale, and worksheet preparation activities.
+</p>
+
+</div>
+
+<div class="button">Start Reading Practice</div>
+
+</a>
+
+</section>
+
+</div>
+
+<footer>
+GA4 Independent Learning · Short Reads Plus Practice
+</footer>
 
 </body>
 </html>
