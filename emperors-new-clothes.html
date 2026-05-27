@@ -857,8 +857,8 @@
           <div class="badge-crown"></div>
           <div class="badge-cloth"></div>
         </div>
-        <h3 id="badgeTitle">Truth is waiting!</h3>
-        <p id="badgeMessage">Start the activities and look for what each character is really thinking.</p>
+        <h3 id="badgeTitle">Story Progress</h3>
+        <p id="badgeMessage">Complete activities to unlock the story ending badge.</p>
       </div>
     </section>
 
@@ -1018,18 +1018,19 @@
       const badgeTitle = document.getElementById("badgeTitle");
       const badgeMessage = document.getElementById("badgeMessage");
 
-      if (stars === 3) {
-        badgeTitle.textContent = "Truth teller!";
+      
+if (stars === 3) {
+        badgeTitle.textContent = "Truth Revealed!";
         badgeMessage.textContent = "You completed The Emperor’s New Clothes and followed the clues about pride, fear, and honesty.";
       } else if (stars === 2) {
-        badgeTitle.textContent = "Almost revealed!";
-        badgeMessage.textContent = "You are close. Finish a few more parts to uncover the full lesson.";
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "You are almost at the story ending badge.";
       } else if (stars === 1) {
-        badgeTitle.textContent = "Good eye!";
-        badgeMessage.textContent = "You are starting to notice what characters say, feel, and hide.";
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Keep reading to unlock the story ending badge.";
       } else {
-        badgeTitle.textContent = "Truth is waiting!";
-        badgeMessage.textContent = "Start the activities and look for what each character is really thinking.";
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Complete activities to unlock the story ending badge.";
       }
 
       saveProgress();
