@@ -1058,8 +1058,8 @@
           </div>
           <div class="badge-leaf"></div>
         </div>
-        <h3 id="badgeTitle">Bird clues ahead!</h3>
-        <p id="badgeMessage">Start the activities and watch how one solution changes the whole town.</p>
+        <h3 id="badgeTitle">Story Progress</h3>
+        <p id="badgeMessage">Complete activities to unlock the story ending badge.</p>
       </div>
     </section>
 
@@ -1214,18 +1214,19 @@
       const badgeTitle = document.getElementById("badgeTitle");
       const badgeMessage = document.getElementById("badgeMessage");
 
-      if (stars === 3) {
-        badgeTitle.textContent = "Bird helper!";
+      
+if (stars === 3) {
+        badgeTitle.textContent = "Killingsworth Restored!";
         badgeMessage.textContent = "You completed The Birds of Killingsworth and followed the problem, solution, and result.";
       } else if (stars === 2) {
-        badgeTitle.textContent = "Almost flying!";
-        badgeMessage.textContent = "You are close. Finish a few more parts to see how the town changes.";
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "You are almost at the story ending badge.";
       } else if (stars === 1) {
-        badgeTitle.textContent = "Good noticing!";
-        badgeMessage.textContent = "You are starting to connect the birds, crops, insects, and people.";
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Keep reading to unlock the story ending badge.";
       } else {
-        badgeTitle.textContent = "Bird clues ahead!";
-        badgeMessage.textContent = "Start the activities and watch how one solution changes the whole town.";
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Complete activities to unlock the story ending badge.";
       }
 
       saveProgress();
