@@ -11,15 +11,15 @@
 
     body {
       margin: 0;
-      font-family: "Century Gothic", Arial, sans-serif;
+      font-family: "Nunito", sans-serif;
       background:
         radial-gradient(circle at top left, #e8f7ff 0%, transparent 34%),
-        linear-gradient(135deg, #f7fbff 0%, #fff8ec 100%);
+        linear-gradient(135deg, #f8f1df 0%, #dcefdc 48%, #b9dded 100%);
       color: #243447;
     }
 
     header {
-      background: linear-gradient(135deg, #23395d, #406e8e);
+      background:#172a57;
       color: white;
       padding: 34px 18px;
       text-align: center;
@@ -45,7 +45,7 @@
       margin-top: 18px;
     }
 
-    .nav-btn {
+    .nav-btn { box-shadow:0 8px 18px rgba(0,0,0,0.12);
       background: rgba(255,255,255,0.18);
       color: white;
       text-decoration: none;
@@ -61,7 +61,7 @@
       padding: 22px 16px 90px;
     }
 
-    .card {
+    .card { background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border:4px solid white;
       background: white;
       border-radius: 22px;
       padding: 22px;
@@ -114,7 +114,7 @@
       gap: 14px;
     }
 
-    .option, .match-card, .clue-card {
+    .option, .match-card, .clue-card { border-radius:24px; background:#fffdf8;
       border: 2px solid #d8e6ef;
       border-radius: 16px;
       padding: 15px;
@@ -259,9 +259,9 @@
     @media (max-width: 720px) {
       header { padding: 28px 14px; }
       .container { padding: 16px 12px 90px; }
-      .card { padding: 18px; border-radius: 18px; }
+      .card { background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border:4px solid white; padding: 18px; border-radius: 18px; }
       .grid, .two-col { grid-template-columns: 1fr; }
-      .option, .match-card, .clue-card {
+      .option, .match-card, .clue-card { border-radius:24px; background:#fffdf8;
         padding: 16px;
         min-height: 72px;
         font-size: 1rem;
@@ -273,12 +273,15 @@
       }
     }
   </style>
-</head>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"></head>
 
 <body>
 
   <header>
-    <h1>The Emperor’s New Clothes</h1>
+    <div style="position:absolute;right:70px;bottom:25px;width:120px;height:120px;background:#f7c84b;border-radius:50%;opacity:.18;"></div>
+    <div style="position:absolute;right:120px;top:-40px;width:220px;height:220px;background:#f8755b;border-radius:48% 52% 45% 55%;opacity:.3;"></div>
+
+    <h1 style="font-family:Playfair Display,serif;font-size:clamp(3rem,7vw,5.8rem);line-height:.9;">The Emperor’s New Clothes</h1>
     <p>GA4 Independent Reading Practice: vocabulary, prediction, character reactions, character motivation, theme, evidence, and worksheet preparation.</p>
 
     <div class="top-nav">
