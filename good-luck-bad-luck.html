@@ -170,8 +170,8 @@
 
     header h1{
       margin:0;
-      font-family:"Nunito", sans-serif; font-weight:800;
-      font-size:clamp(3.2rem,7vw,5.8rem);
+      font-family:"Playfair Display", serif;
+      font-size:clamp(3.1rem,7vw,6rem);
       line-height:.9;
       letter-spacing:-.045em;
       position:relative;
@@ -251,8 +251,8 @@
     h2{
       margin-top:0;
       color:var(--navy);
-      font-family:"Nunito", sans-serif; font-weight:900;
-      font-size:clamp(1.9rem,4vw,2.5rem);
+      font-family:"Playfair Display", serif;
+      font-size:clamp(1.8rem,4vw,2.65rem);
       line-height:1;
       letter-spacing:-.02em;
       position:relative;
@@ -459,44 +459,9 @@
       filter:drop-shadow(0 8px 0 rgba(0,0,0,.10));
     }
 
-    
-    .badge{
-      width:140px;
-      height:140px;
-      margin:0 auto 18px;
-      position:relative;
-    }
-
-    .badge-horseshoe{
-      position:absolute;
-      inset:0;
-      width:110px;
-      height:110px;
-      margin:auto;
-      border:18px solid #f4b942;
-      border-bottom-color:transparent;
-      border-radius:50%;
-      transform:rotate(-12deg);
-      filter:drop-shadow(0 8px 0 rgba(0,0,0,.10));
-      background:transparent;
-    }
-
-    .badge-star{
-      position:absolute;
-      width:42px;
-      height:42px;
-      background:#f8755b;
-      left:50%;
-      top:48%;
-      transform:translate(-50%,-50%) rotate(12deg);
-      clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-      box-shadow:0 6px 0 rgba(0,0,0,.08);
-    }
-
-
     .badge-box h3{
       color:var(--navy);
-      font-family:"Nunito", sans-serif; font-weight:900;
+      font-family:"Playfair Display", serif;
       font-size:clamp(2rem,5vw,3.2rem);
       margin:8px 0;
       line-height:1;
@@ -991,18 +956,10 @@
 
   <div class="badge-box">
 
-    
-    <div class="badge">
-      <div class="badge-horseshoe"></div>
-      <div class="badge-star"></div>
-    </div>
-    
+    <div class="badge">👍</div>
 
-    <h3 id="badgeTitle">Luck is changing!</h3>
-
-    <p id="badgeMessage">
-      Keep checking causes, effects, and perspectives.
-    </p>
+    <h3 id="badgeTitle">Story Progress</h3>
+        <p id="badgeMessage">Complete activities to unlock the story ending badge.</p>
 
   </div>
 
@@ -1221,23 +1178,20 @@ function updateProgress(){
   const badgeIcon = document.querySelector(".badge");
 
   if (badgeTitle && badgeMessage && badgeIcon) {
-    if (stars === 3) {
-      
-      badgeTitle.textContent = "Lucky thinking!";
-      badgeMessage.textContent = "You completed Good Luck, Bad Luck and followed how events changed over time.";
-    } else if (stars === 2) {
-      
-      badgeTitle.textContent = "Almost lucky!";
-      badgeMessage.textContent = "You are close. Finish a few more parts to complete the reading path.";
-    } else if (stars === 1) {
-      
-      badgeTitle.textContent = "Good start!";
-      badgeMessage.textContent = "You are noticing causes, effects, and changing perspectives.";
-    } else {
-      
-      badgeTitle.textContent = "Luck is changing!";
-      badgeMessage.textContent = "Start the activities and watch how one event leads to another.";
-    }
+    
+if (stars === 3) {
+        badgeTitle.textContent = "Luck Understood!";
+        badgeMessage.textContent = "You completed Good Luck, Bad Luck and followed how events changed over time.";
+      } else if (stars === 2) {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "You are almost at the story ending badge.";
+      } else if (stars === 1) {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Keep reading to unlock the story ending badge.";
+      } else {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Complete activities to unlock the story ending badge.";
+      }
   }
 
   saveProgress();
