@@ -4,666 +4,605 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Why the Bear Has a Short Tail - GA4 Independent Reading</title>
+  <title>Yeh-Shen - GA4 Independent Reading</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    *{ box-sizing:border-box; }
-
-    :root{
-      --navy:#172a57;
-      --blue:#2f63b7;
-      --cream:#fff8ea;
-      --sage:#cfe4ca;
-      --mint:#dcefdc;
-      --coral:#f8755b;
-      --pink:#f4a7c7;
-      --mustard:#f7c84b;
-      --sky:#b9dded;
-      --purple:#cab8f6;
-      --green:#64a96b;
-      --soft-green:#9fca86;
-      --brown:#8c5c3f;
-      --dark-brown:#5f3c2b;
-      --ice:#dff5ff;
-      --ink:#243447;
-      --paper:#ffffff;
-      --shadow:rgba(23,42,87,.14);
-    }
-
-    body{
-      margin:0;
-      font-family:"Nunito","Century Gothic",Arial,sans-serif;
-      background:
-        radial-gradient(circle at 8% 12%, rgba(185,221,237,0.25), transparent 20%),
-        radial-gradient(circle at 88% 8%, rgba(247,200,75,0.24), transparent 18%),
-        linear-gradient(135deg,#f8f1df 0%,#dcefdc 48%,#b9dded 100%);
-      color:var(--ink);
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background-image:radial-gradient(circle, rgba(23,42,87,0.07) 1.5px, transparent 1.5px);
-      background-size:28px 28px;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    header{
-      max-width:1280px;
-      margin:34px auto 0;
-      background:var(--navy);
-      color:white;
-      padding:44px 32px;
-      text-align:left;
-      border-radius:42px;
-      position:relative;
-      overflow:hidden;
-      box-shadow:0 22px 45px rgba(23,42,87,0.22);
-      z-index:2;
-    }
-
-    header::before{
-      content:"";
-      position:absolute;
-      width:340px;
-      height:340px;
-      right:-95px;
-      top:-130px;
-      background:var(--sky);
-      border-radius:50%;
-      opacity:.95;
-    }
-
-    header::after{
-      content:"";
-      position:absolute;
-      width:240px;
-      height:240px;
-      right:210px;
-      bottom:-145px;
-      background:var(--mustard);
-      border-radius:48% 52% 45% 55%;
-      opacity:.78;
-    }
-
-    .story-art{
-      position:absolute;
-      right:54px;
-      bottom:25px;
-      width:250px;
-      height:170px;
-      z-index:3;
-      opacity:.98;
-    }
-
-    .story-art .ground{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      height:56px;
-      background:#ffffff;
-      border-radius:48% 48% 18px 18px;
-      opacity:.92;
-    }
-
-    .story-art .ice{
-      position:absolute;
-      width:120px;
-      height:34px;
-      left:65px;
-      bottom:43px;
-      background:var(--ice);
-      border:4px solid white;
-      border-radius:999px;
-      box-shadow:0 7px 0 rgba(0,0,0,.08);
-    }
-
-    .story-art .bear{
-      position:absolute;
-      width:110px;
-      height:86px;
-      left:72px;
-      bottom:62px;
-      background:var(--brown);
-      border-radius:45% 45% 38% 38%;
-      box-shadow:0 8px 0 rgba(0,0,0,.1);
-    }
-
-    .story-art .bear::before,
-    .story-art .bear::after{
-      content:"";
-      position:absolute;
-      width:34px;
-      height:34px;
-      background:var(--brown);
-      border-radius:50%;
-      top:-13px;
-    }
-
-    .story-art .bear::before{ left:8px; }
-    .story-art .bear::after{ right:8px; }
-
-    .story-art .bear-eye{
-      position:absolute;
-      width:7px;
-      height:7px;
-      background:var(--navy);
-      border-radius:50%;
-      top:34px;
-      z-index:2;
-    }
-
-    .story-art .bear-eye.left{ left:36px; }
-    .story-art .bear-eye.right{ right:36px; }
-
-    .story-art .muzzle{
-      position:absolute;
-      width:34px;
-      height:24px;
-      background:#f1d2b8;
-      border-radius:50%;
-      left:38px;
-      top:42px;
-      z-index:2;
-    }
-
-    .story-art .tail{
-      position:absolute;
-      width:20px;
-      height:20px;
-      right:-8px;
-      bottom:28px;
-      background:#f1d2b8;
-      border-radius:50%;
-      z-index:2;
-    }
-
-    .story-art .fox-tail{
-      position:absolute;
-      width:76px;
-      height:34px;
-      right:8px;
-      top:48px;
-      background:var(--coral);
-      border-radius:50% 20px 50% 20px;
-      transform:rotate(-18deg);
-      box-shadow:0 6px 0 rgba(0,0,0,.08);
-    }
-
-    .story-art .fox-tail::after{
-      content:"";
-      position:absolute;
-      width:28px;
-      height:34px;
-      right:-2px;
-      top:0;
-      background:white;
-      border-radius:50% 20px 50% 20px;
-    }
-
-    .story-art .sparkle{
-      position:absolute;
-      width:25px;
-      height:25px;
-      background:var(--pink);
-      clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-    }
-
-    .story-art .sparkle.one{ left:8px; top:12px; }
-    .story-art .sparkle.two{ right:0; top:8px; transform:scale(.75) rotate(18deg); }
-
-    header h1{
-      margin:0;
-      font-family:"Nunito","Century Gothic",Arial,sans-serif;
-      font-weight:900;
-      font-size:clamp(3rem,7vw,5.7rem);
-      line-height:.9;
-      letter-spacing:-.055em;
-      position:relative;
-      z-index:4;
-      max-width:790px;
-    }
-
-    header p{
-      max-width:720px;
-      margin:22px 0 0;
-      line-height:1.65;
-      font-size:1.17rem;
-      color:#eef5ff;
-      position:relative;
-      z-index:4;
-    }
-
-    .top-nav{
-      display:flex;
-      justify-content:flex-start;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:22px;
-      position:relative;
-      z-index:4;
-    }
-
-    .nav-btn{
-      background:rgba(255,255,255,0.18);
-      color:white;
-      text-decoration:none;
-      padding:11px 16px;
-      border-radius:999px;
-      font-weight:800;
-      border:1px solid rgba(255,255,255,0.25);
-      box-shadow:0 8px 18px rgba(0,0,0,0.12);
-      transition:.2s ease;
-    }
-
-    .nav-btn:hover{
-      transform:translateY(-2px);
-      background:rgba(255,255,255,0.28);
-    }
-
-    .container{
-      max-width:1050px;
-      margin:0 auto;
-      padding:22px 16px 100px;
-      position:relative;
-      z-index:2;
-    }
-
-    .card{
-      background:rgba(255,255,255,0.95);
-      backdrop-filter:blur(10px);
-      border-radius:32px;
-      padding:26px;
-      margin:20px 0;
-      box-shadow:0 18px 35px var(--shadow);
-      border:4px solid white;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      right:-55px;
-      top:-55px;
-      width:145px;
-      height:145px;
-      background:rgba(185,221,237,.22);
-      border-radius:48% 52% 45% 55%;
-      pointer-events:none;
-    }
-
-    .card:nth-of-type(2n)::before{
-      background:rgba(248,117,91,.12);
-    }
-
-    .card:nth-of-type(3n)::before{
-      background:rgba(116,173,118,.16);
-    }
-
-    h2{
-      margin-top:0;
-      color:var(--navy);
-      font-family:"Nunito","Century Gothic",Arial,sans-serif;
-      font-weight:900;
-      font-size:clamp(1.9rem,4vw,2.5rem);
-      line-height:1;
-      letter-spacing:-.03em;
-      position:relative;
-      z-index:1;
-    }
-
-    h3{
-      color:var(--blue);
-      margin-bottom:10px;
-      font-size:1.2rem;
-      font-weight:900;
-      position:relative;
-      z-index:1;
-    }
-
-    p,li{ line-height:1.6; }
-
-    .tag{
-      display:inline-block;
-      background:#e8f7ff;
-      color:var(--navy);
-      padding:8px 13px;
-      border-radius:999px;
-      font-size:.82rem;
-      margin:4px 4px 4px 0;
-      font-weight:900;
-      position:relative;
-      z-index:1;
-    }
-
-    .tag.gold{
-      background:var(--cream);
-      color:#8a5a00;
-    }
-
-    .instruction{
-      background:#fff8ea;
-      border-left:0;
-      border:2px dashed rgba(23,42,87,.18);
-      padding:18px 20px;
-      border-radius:24px;
-      margin:16px 0;
-      line-height:1.55;
-      position:relative;
-      z-index:1;
-    }
-
-    .instruction::before{
-      content:"✦";
-      color:var(--coral);
-      font-weight:900;
-      margin-right:8px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:14px;
-      position:relative;
-      z-index:1;
-    }
-
-    .option,.match-card,.clue-card{
-      border:3px solid #dce6f1;
-      border-radius:24px;
-      padding:17px;
-      cursor:pointer;
-      transition:.2s ease;
-      background:#fffdf8;
-      line-height:1.45;
-      min-height:76px;
-      box-shadow:0 8px 18px rgba(23,42,87,.07);
-    }
-
-    .clue-card{
-      cursor:default;
-      background:#f7fbff;
-    }
-
-    .option:hover,.match-card:hover{
-      transform:translateY(-3px) rotate(-.5deg);
-      border-color:var(--blue);
-      box-shadow:0 12px 24px rgba(23,42,87,.12);
-    }
-
-    .selected{
-      border-color:var(--blue) !important;
-      background:#e8f7ff !important;
-    }
-
-    .correct{
-      border-color:#42a66b !important;
-      background:#ecfff2 !important;
-    }
-
-    .wrong{
-      border-color:#d9534f !important;
-      background:#fff0f0 !important;
-    }
-
-    button{
-      border:none;
-      background:var(--navy);
-      color:white;
-      padding:13px 20px;
-      border-radius:999px;
-      cursor:pointer;
-      font-size:1rem;
-      margin-top:14px;
-      font-family:inherit;
-      font-weight:900;
-      min-height:48px;
-      box-shadow:0 6px 0 rgba(0,0,0,.16);
-      transition:.2s ease;
-    }
-
-    button:hover{
-      transform:translateY(-2px);
-      background:#243e77;
-    }
-
-    .gold-btn{
-      background:var(--mustard);
-      color:#243447;
-    }
-
-    .feedback{
-      margin-top:12px;
-      font-weight:900;
-      min-height:24px;
-      color:var(--navy);
-    }
-
-    .progress-card{
-      position:sticky;
-      top:0;
-      z-index:20;
-      background:rgba(255,255,255,0.95);
-      backdrop-filter:blur(8px);
-      border-bottom:1px solid #d8e6ef;
-      padding:12px 16px;
-      box-shadow:0 6px 20px rgba(35,57,93,0.08);
-      margin-top:18px;
-    }
-
-    .progress-inner{
-      max-width:1050px;
-      margin:0 auto;
-    }
-
-    .progress-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .stars{
-      font-size:1.35rem;
-      white-space:nowrap;
-    }
-
-    .progress-wrap{
-      background:#d8e6ef;
-      border-radius:999px;
-      height:16px;
-      overflow:hidden;
-      margin-top:8px;
-    }
-
-    .progress-bar{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,var(--mustard),#42a66b);
-      transition:width .3s;
-    }
-
-    .badge-box{
-      text-align:center;
-      padding:34px 22px;
-      border:4px dashed var(--mustard);
-      border-radius:32px;
-      background:linear-gradient(135deg,#fffaf0,#fff8ea);
-      margin-top:16px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .badge-box::before{
-      content:"";
-      position:absolute;
-      width:160px;
-      height:160px;
-      left:-65px;
-      top:-65px;
-      background:rgba(185,221,237,.25);
-      border-radius:50%;
-    }
-
-    .badge{
-      width:140px;
-      height:140px;
-      margin:0 auto 18px;
-      position:relative;
-    }
-
-    .badge-bear{
-      position:absolute;
-      width:108px;
-      height:88px;
-      left:16px;
-      bottom:22px;
-      background:var(--brown);
-      border-radius:45% 45% 38% 38%;
-      box-shadow:0 8px 0 rgba(0,0,0,.1);
-    }
-
-    .badge-bear::before,
-    .badge-bear::after{
-      content:"";
-      position:absolute;
-      width:34px;
-      height:34px;
-      background:var(--brown);
-      border-radius:50%;
-      top:-14px;
-    }
-
-    .badge-bear::before{ left:8px; }
-    .badge-bear::after{ right:8px; }
-
-    .badge-tail{
-      position:absolute;
-      width:20px;
-      height:20px;
-      right:-7px;
-      bottom:28px;
-      background:#f1d2b8;
-      border-radius:50%;
-    }
-
-    .badge-ice{
-      position:absolute;
-      width:106px;
-      height:28px;
-      left:17px;
-      bottom:10px;
-      background:var(--ice);
-      border:4px solid white;
-      border-radius:999px;
-      box-shadow:0 6px 0 rgba(0,0,0,.08);
-    }
-
-    .badge-box h3{
-      color:var(--navy);
-      font-family:"Nunito","Century Gothic",Arial,sans-serif;
-      font-weight:900;
-      font-size:clamp(2rem,5vw,3.2rem);
-      margin:8px 0;
-      line-height:1;
-      letter-spacing:-.03em;
-    }
-
-    .badge-box p{
-      font-size:1.1rem;
-      max-width:620px;
-      margin:12px auto 0;
-      font-weight:800;
-    }
-
-    .bottom-home{
-      position:fixed;
-      bottom:14px;
-      left:50%;
-      transform:translateX(-50%);
-      z-index:30;
-      background:var(--navy);
-      color:white;
-      text-decoration:none;
-      padding:13px 22px;
-      border-radius:999px;
-      font-weight:800;
-      box-shadow:0 8px 24px rgba(35,57,93,0.28);
-    }
-
-    @media (max-width:900px){
-      .story-art{ opacity:.35; right:20px; }
-    }
-
-    @media (max-width:720px){
-      header{
-        margin:18px 12px 0;
-        padding:32px 22px;
-        border-radius:30px;
-      }
-
-      .container{ padding:16px 12px 100px; }
-
-      .card{
-        padding:20px;
-        border-radius:24px;
-      }
-
-      .grid{ grid-template-columns:1fr; }
-
-      .option,.match-card,.clue-card{
-        padding:16px;
-        min-height:72px;
-        font-size:1rem;
-      }
-
-      button{ width:100%; }
-
-      .bottom-home{
-        width:calc(100% - 30px);
-        text-align:center;
-      }
-    }
-  </style>
+*{ box-sizing:border-box; }
+
+:root{
+  --navy:#172a57;
+  --blue:#2f63b7;
+  --cream:#fff8ea;
+  --sage:#cfe4ca;
+  --mint:#dcefdc;
+  --coral:#f8755b;
+  --pink:#f4a7c7;
+  --mustard:#f7c84b;
+  --sky:#b9dded;
+  --purple:#cab8f6;
+  --green:#64a96b;
+  --soft-green:#9fca86;
+  --ink:#243447;
+  --paper:#ffffff;
+}
+
+body{
+  margin:0;
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(202,184,246,0.18), transparent 20%),
+    radial-gradient(circle at 88% 8%, rgba(247,200,75,0.24), transparent 18%),
+    linear-gradient(135deg,#f8f1df 0%,#dcefdc 48%,#b9dded 100%);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(23,42,87,0.07) 1.5px, transparent 1.5px);
+  background-size:28px 28px;
+  pointer-events:none;
+  z-index:0;
+}
+
+header{
+  max-width:1280px;
+  margin:34px auto 0;
+  background:var(--navy);
+  color:white;
+  padding:44px 32px;
+  text-align:left;
+  border-radius:42px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 22px 45px rgba(23,42,87,0.22);
+  z-index:2;
+}
+
+header::before{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  right:-95px;
+  top:-130px;
+  background:var(--purple);
+  border-radius:50%;
+  opacity:.9;
+}
+
+header::after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:210px;
+  bottom:-145px;
+  background:var(--mustard);
+  border-radius:48% 52% 45% 55%;
+  opacity:.78;
+}
+
+.story-art{
+  position:absolute;
+  right:54px;
+  bottom:25px;
+  width:250px;
+  height:170px;
+  z-index:3;
+  opacity:.98;
+}
+
+.story-art .ground{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:54px;
+  background:#ffffff;
+  border-radius:48% 48% 18px 18px;
+  opacity:.9;
+}
+
+.story-art .dress{
+  position:absolute;
+  width:84px;
+  height:100px;
+  left:88px;
+  bottom:38px;
+  background:var(--sky);
+  border-radius:48% 48% 24% 24%;
+  box-shadow:0 8px 0 rgba(0,0,0,.1);
+}
+
+.story-art .dress::before{
+  content:"";
+  position:absolute;
+  width:40px;
+  height:40px;
+  background:#f2d0b5;
+  border-radius:50%;
+  left:22px;
+  top:-26px;
+}
+
+.story-art .dress::after{
+  content:"";
+  position:absolute;
+  width:110px;
+  height:18px;
+  left:-12px;
+  bottom:0;
+  background:rgba(255,255,255,.55);
+  border-radius:50%;
+}
+
+.story-art .shoe{
+  position:absolute;
+  width:54px;
+  height:22px;
+  right:28px;
+  bottom:52px;
+  background:var(--mustard);
+  border-radius:16px 18px 8px 8px;
+  transform:rotate(-12deg);
+  box-shadow:0 6px 0 rgba(0,0,0,.08);
+}
+
+.story-art .shoe::after{
+  content:"";
+  position:absolute;
+  width:16px;
+  height:16px;
+  right:-4px;
+  top:3px;
+  background:var(--mustard);
+  border-radius:50%;
+}
+
+.story-art .sparkle{
+  position:absolute;
+  width:25px;
+  height:25px;
+  background:var(--pink);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+
+.story-art .sparkle.one{ left:18px; top:12px; }
+.story-art .sparkle.two{ right:0; top:18px; transform:scale(.72) rotate(18deg); }
+
+header h1{
+  margin:0;
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(3rem,7vw,5.6rem);
+  line-height:.9;
+  letter-spacing:-.055em;
+  position:relative;
+  z-index:4;
+  max-width:790px;
+}
+
+header p{
+  max-width:720px;
+  margin:22px 0 0;
+  line-height:1.65;
+  font-size:1.17rem;
+  color:#eef5ff;
+  position:relative;
+  z-index:4;
+}
+
+.top-nav{
+  display:flex;
+  justify-content:flex-start;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:22px;
+  position:relative;
+  z-index:4;
+}
+
+.nav-btn{
+  background:rgba(255,255,255,0.18);
+  color:white;
+  text-decoration:none;
+  padding:11px 16px;
+  border-radius:999px;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,0.25);
+  box-shadow:0 8px 18px rgba(0,0,0,0.12);
+  transition:.2s ease;
+}
+
+.nav-btn:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,0.28);
+}
+
+.container{
+  max-width:1050px;
+  margin:0 auto;
+  padding:22px 16px 100px;
+  position:relative;
+  z-index:2;
+}
+
+.card{
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  border-radius:32px;
+  padding:26px;
+  margin:20px 0;
+  box-shadow:0 18px 35px rgba(23,42,87,.14);
+  border:4px solid white;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  right:-55px;
+  top:-55px;
+  width:145px;
+  height:145px;
+  background:rgba(202,184,246,.18);
+  border-radius:48% 52% 45% 55%;
+  pointer-events:none;
+}
+
+h2{
+  margin-top:0;
+  color:var(--navy);
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(1.9rem,4vw,2.5rem);
+  line-height:1;
+  letter-spacing:-.03em;
+  position:relative;
+  z-index:1;
+}
+
+h3{
+  color:var(--blue);
+  margin-bottom:10px;
+  font-size:1.2rem;
+  font-weight:900;
+  position:relative;
+  z-index:1;
+}
+
+p,li{ line-height:1.6; }
+
+.tag{
+  display:inline-block;
+  background:#e8f7ff;
+  color:var(--navy);
+  padding:8px 13px;
+  border-radius:999px;
+  font-size:.82rem;
+  margin:4px 4px 4px 0;
+  font-weight:900;
+}
+
+.tag.gold{
+  background:var(--cream);
+  color:#8a5a00;
+}
+
+.instruction{
+  background:#fff8ea;
+  border:2px dashed rgba(23,42,87,.18);
+  padding:18px 20px;
+  border-radius:24px;
+  margin:16px 0;
+  line-height:1.55;
+}
+
+.instruction::before{
+  content:"✦";
+  color:var(--coral);
+  font-weight:900;
+  margin-right:8px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.option,.match-card,.clue-card{
+  border:3px solid #dce6f1;
+  border-radius:24px;
+  padding:17px;
+  cursor:pointer;
+  transition:.2s ease;
+  background:#fffdf8;
+  line-height:1.45;
+  min-height:76px;
+  box-shadow:0 8px 18px rgba(23,42,87,.07);
+}
+
+.clue-card{
+  cursor:default;
+  background:#f7fbff;
+}
+
+.option:hover,.match-card:hover{
+  transform:translateY(-3px) rotate(-.5deg);
+  border-color:var(--blue);
+  box-shadow:0 12px 24px rgba(23,42,87,.12);
+}
+
+.selected{
+  border-color:var(--blue)!important;
+  background:#e8f7ff!important;
+}
+
+.correct{
+  border-color:#42a66b!important;
+  background:#ecfff2!important;
+}
+
+.wrong{
+  border-color:#d9534f!important;
+  background:#fff0f0!important;
+}
+
+button{
+  border:none;
+  background:var(--navy);
+  color:white;
+  padding:13px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:1rem;
+  margin-top:14px;
+  font-family:inherit;
+  font-weight:900;
+  min-height:48px;
+  box-shadow:0 6px 0 rgba(0,0,0,.16);
+}
+
+button:hover{
+  background:#243e77;
+  transform:translateY(-2px);
+}
+
+.gold-btn{
+  background:var(--mustard);
+  color:#243447;
+}
+
+.feedback{
+  margin-top:12px;
+  font-weight:900;
+  min-height:24px;
+  color:var(--navy);
+}
+
+.progress-card{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #d8e6ef;
+  padding:12px 16px;
+  box-shadow:0 6px 20px rgba(35,57,93,0.08);
+  margin-top:18px;
+}
+
+.progress-inner{
+  max-width:1050px;
+  margin:0 auto;
+}
+
+.progress-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.stars{
+  font-size:1.35rem;
+  white-space:nowrap;
+}
+
+.progress-wrap{
+  background:#d8e6ef;
+  border-radius:999px;
+  height:16px;
+  overflow:hidden;
+  margin-top:8px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--mustard),#42a66b);
+  transition:width .3s;
+}
+
+.badge-box{
+  text-align:center;
+  padding:34px 22px;
+  border:4px dashed var(--mustard);
+  border-radius:32px;
+  background:linear-gradient(135deg,#fffaf0,#fff8ea);
+  margin-top:16px;
+  position:relative;
+  overflow:hidden;
+}
+
+.badge-box::before{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  left:-65px;
+  top:-65px;
+  background:rgba(202,184,246,.18);
+  border-radius:50%;
+}
+
+.badge{
+  width:140px;
+  height:140px;
+  margin:0 auto 18px;
+  position:relative;
+}
+
+.badge-dress{
+  position:absolute;
+  width:84px;
+  height:92px;
+  left:28px;
+  bottom:18px;
+  background:var(--sky);
+  border-radius:48% 48% 24% 24%;
+  box-shadow:0 8px 0 rgba(0,0,0,.1);
+}
+
+.badge-dress::before{
+  content:"";
+  position:absolute;
+  width:36px;
+  height:36px;
+  background:#f2d0b5;
+  border-radius:50%;
+  left:24px;
+  top:-24px;
+}
+
+.badge-shoe{
+  position:absolute;
+  width:52px;
+  height:22px;
+  right:4px;
+  bottom:28px;
+  background:var(--mustard);
+  border-radius:16px 18px 8px 8px;
+  transform:rotate(-12deg);
+}
+
+.badge-shoe::after{
+  content:"";
+  position:absolute;
+  width:16px;
+  height:16px;
+  right:-4px;
+  top:3px;
+  background:var(--mustard);
+  border-radius:50%;
+}
+
+.badge-box h3{
+  color:var(--navy);
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(2rem,5vw,3.2rem);
+  margin:8px 0;
+  line-height:1;
+  letter-spacing:-.03em;
+}
+
+.badge-box p{
+  font-size:1.1rem;
+  max-width:620px;
+  margin:12px auto 0;
+  font-weight:800;
+}
+
+.bottom-home{
+  position:fixed;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:30;
+  background:var(--navy);
+  color:white;
+  text-decoration:none;
+  padding:13px 22px;
+  border-radius:999px;
+  font-weight:800;
+  box-shadow:0 8px 24px rgba(35,57,93,0.28);
+}
+
+@media (max-width:900px){
+  .story-art{ opacity:.35; right:20px; }
+}
+
+@media (max-width:720px){
+  header{
+    margin:18px 12px 0;
+    padding:32px 22px;
+    border-radius:30px;
+  }
+
+  .container{
+    padding:16px 12px 100px;
+  }
+
+  .card{
+    padding:20px;
+    border-radius:24px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .option,.match-card,.clue-card{
+    padding:16px;
+    min-height:72px;
+    font-size:1rem;
+  }
+
+  button{
+    width:100%;
+  }
+
+  .bottom-home{
+    width:calc(100% - 30px);
+    text-align:center;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
 
-  <div class="story-art" aria-hidden="true">
-    <div class="sparkle one"></div>
-    <div class="fox-tail"></div>
-    <div class="ice"></div>
-    <div class="bear">
-      <div class="bear-eye left"></div>
-      <div class="bear-eye right"></div>
-      <div class="muzzle"></div>
-      <div class="tail"></div>
-    </div>
-    <div class="sparkle two"></div>
-    <div class="ground"></div>
-  </div>
+<div class="story-art" aria-hidden="true">
+  <div class="sparkle one"></div>
+  <div class="dress"></div>
+  <div class="shoe"></div>
+  <div class="sparkle two"></div>
+  <div class="ground"></div>
+</div>
 
-  <h1>Why the Bear Has a Short Tail</h1>
+<h1>Yeh-Shen: A Cinderella Tale from China</h1>
 
   <p>
     GA4 Independent Reading Practice:
-    vocabulary, prediction, cause and effect, sequence,
-    trickster characters, theme, and worksheet preparation.
+    vocabulary, prediction, character traits, compare and contrast,
+    theme, evidence, and worksheet preparation.
   </p>
 
   <div class="top-nav">
     <a class="nav-btn" href="index.html">← Reading Hub</a>
-    <a class="nav-btn" href="yeh-shen.html">← Previous Reading</a>
+    <a class="nav-btn" href="hans-in-luck.html">← Previous Reading</a>
+    <a class="nav-btn" href="why-the-bear-has-a-short-tail.html">Next Reading →</a>
   </div>
 </header>
 
@@ -685,16 +624,16 @@
 <section class="card">
   <h2>Learning Goal</h2>
 
-  <span class="tag gold">Fiction Reading 9</span>
-  <span class="tag">Cause & Effect</span>
-  <span class="tag">Sequence</span>
-  <span class="tag">Trickster Tale</span>
+  <span class="tag gold">Fiction Reading 8</span>
+  <span class="tag">Character Traits</span>
+  <span class="tag">Compare & Contrast</span>
   <span class="tag">Theme</span>
+  <span class="tag">Text Evidence</span>
 
   <div class="instruction">
-    In this folktale, Bear is tricked by Fox.
-    As you read, think about the order of events, how Fox’s trick causes Bear’s problem,
-    and what lesson readers can learn from the story.
+    In this story, Yeh-Shen faces unfair treatment, but her kindness and courage help change her future.
+    As you read, think about the characters, how they are similar or different,
+    and what lesson the story teaches.
   </div>
 </section>
 
@@ -716,12 +655,12 @@
     <strong>Reading Strategy: Prediction</strong><br><br>
 
     Good readers make predictions before and during reading.
-    We use the title, story clues, and what we know about folktales.
+    A prediction is a smart guess based on the title, pictures, story clues, and what we already know.
 
     <br><br>
 
-    This title explains why something is true today.
-    That means the story will probably show how Bear’s tail became short.
+    This story is a Cinderella tale from China, so readers can use what they know about Cinderella stories
+    to predict character problems, magical help, and a change in the main character’s life.
   </div>
 
   <h3>Look at the Clues</h3>
@@ -729,17 +668,17 @@
   <div class="grid">
     <div class="clue-card">
       <strong>Clue 1</strong><br><br>
-      The title is <em>Why the Bear Has a Short Tail</em>.
+      The title is <em>Yeh-Shen: A Cinderella Tale from China</em>.
     </div>
 
     <div class="clue-card">
       <strong>Clue 2</strong><br><br>
-      Fox is often a trickster character in folktales.
+      Yeh-Shen is treated unfairly by her stepmother.
     </div>
 
     <div class="clue-card">
       <strong>Clue 3</strong><br><br>
-      Bear may trust Fox too easily.
+      Kindness, magic, and courage may help Yeh-Shen.
     </div>
   </div>
 
@@ -747,15 +686,15 @@
 
   <div id="predictionOptions" class="grid">
     <div class="option" data-answer="wrong">
-      Bear will teach Fox how to build a house.
+      Yeh-Shen will become cruel because others are cruel to her.
     </div>
 
     <div class="option" data-answer="correct">
-      Fox may trick Bear, and the trick may explain why Bear has a short tail.
+      Yeh-Shen may face unfair treatment, but magical help and her good character may lead to a better future.
     </div>
 
     <div class="option" data-answer="wrong">
-      The story will mostly explain how birds fly.
+      The story will mostly explain how to catch fish for dinner.
     </div>
   </div>
 
@@ -764,45 +703,46 @@
 </section>
 
 <section class="card">
-  <h2>Part 3: Reading Skill Prep — Cause & Effect</h2>
+  <h2>Part 3: Reading Skill Prep — Character Traits</h2>
 
   <div class="instruction">
-    <strong>Reading Skill: Cause & Effect</strong><br><br>
+    <strong>Reading Skill: Character Traits</strong><br><br>
 
-    A <strong>cause</strong> is why something happens.
-    An <strong>effect</strong> is what happens because of it.
+    Character traits describe what a character is like on the inside.
 
     <br><br>
 
-    In this story, one trick causes a big result.
-    Good readers ask:
+    Readers infer character traits by looking at:
     <ul>
-      <li>What does Fox tell Bear to do?</li>
-      <li>Why does Bear believe Fox?</li>
-      <li>What happens because Bear follows Fox’s advice?</li>
-      <li>What does this explain?</li>
+      <li>what the character says</li>
+      <li>what the character does</li>
+      <li>how the character treats others</li>
+      <li>how the character responds to problems</li>
     </ul>
+
+    A strong answer uses a trait, a story clue, and an explanation.
   </div>
 
   <h3>Practice</h3>
 
   <p>
-    <strong>Cause:</strong> Bear trusts Fox’s strange fishing advice.
+    <strong>Clue:</strong>
+    Yeh-Shen is treated unfairly, but she is still gentle and kind.
   </p>
 
-  <p>What is the most likely effect?</p>
+  <p>Which character trait best fits Yeh-Shen?</p>
 
   <div id="skillOptions" class="grid">
     <div class="option" data-answer="wrong">
-      Bear immediately becomes wiser than Fox.
+      selfish
     </div>
 
     <div class="option" data-answer="correct">
-      Bear may get into trouble because Fox is tricking him.
+      kind and patient
     </div>
 
     <div class="option" data-answer="wrong">
-      Fox forgets how to trick people.
+      careless and cruel
     </div>
   </div>
 
@@ -814,12 +754,13 @@
   <h2>Now Read the Story</h2>
 
   <div class="instruction">
-    Read <strong>Why the Bear Has a Short Tail</strong>. While reading, look for:
+    Read <strong>Yeh-Shen: A Cinderella Tale from China</strong>. While reading, look for:
     <ul>
-      <li>what Fox wants</li>
-      <li>what Fox tells Bear</li>
-      <li>why Bear believes Fox</li>
-      <li>what happens to Bear’s tail</li>
+      <li>how Yeh-Shen is treated</li>
+      <li>what Yeh-Shen is like as a character</li>
+      <li>how the stepmother and stepsister act</li>
+      <li>what magical help Yeh-Shen receives</li>
+      <li>how this story is similar to or different from other Cinderella stories</li>
       <li>what lesson the story teaches</li>
     </ul>
   </div>
@@ -832,121 +773,86 @@
   <h2>Part 4: After-Reading Quick Check</h2>
 
   <div class="instruction">
-    <strong>After Reading Strategy: Check the Cause Chain</strong><br><br>
+    <strong>After Reading Strategy: Check Characters and Story Elements</strong><br><br>
 
-    After reading, good readers check how one event leads to the next.
-    For this story, ask:
-    <strong>What did Fox do?</strong>,
-    <strong>what did Bear do?</strong>, and
-    <strong>what happened because of it?</strong>
+    After reading, good readers stop and check the important story elements:
+    <ul>
+      <li>main character</li>
+      <li>problem</li>
+      <li>helper or magical help</li>
+      <li>important object</li>
+      <li>ending</li>
+      <li>lesson/theme</li>
+    </ul>
   </div>
 
   <div id="readingQuiz"></div>
 </section>
-
 <section class="card">
-  <h2>Part 5: Sequence Practice</h2>
+  <h2>Part 5: Compare & Contrast</h2>
 
-  <p>Choose the event that happened at each point in the story.</p>
-
-  <h3>1. What happens first?</h3>
-
-  <div id="firstOptions" class="grid">
-    <div class="option" data-answer="correct">
-      Fox tricks Bear with advice about catching fish.
-    </div>
-
-    <div class="option" data-answer="wrong">
-      Bear already has a short tail before anything happens.
-    </div>
-
-    <div class="option" data-answer="wrong">
-      Bear teaches Fox a lesson.
-    </div>
+  <div class="instruction">
+    Compare means to tell how things are similar.
+    Contrast means to tell how things are different.
+    <br><br>
+    For this story, compare and contrast Yeh-Shen with the stepmother or compare this story with another Cinderella story.
   </div>
 
-  <button onclick="checkFirst()">Check First Event</button>
-  <div class="feedback" id="firstFeedback"></div>
+  <h3>Which answer shows a good comparison?</h3>
 
-  <h3>2. What happens next?</h3>
-
-  <div id="nextOptions" class="grid">
+  <div id="compareOptions" class="grid">
     <div class="option" data-answer="wrong">
-      Bear ignores Fox and walks away.
+      Yeh-Shen and her stepmother are exactly the same.
     </div>
 
     <div class="option" data-answer="correct">
-      Bear follows Fox’s advice and waits in the cold.
+      Yeh-Shen is kind and patient, but the stepmother is unfair and cruel.
     </div>
 
     <div class="option" data-answer="wrong">
-      Fox gives Bear a new tail.
+      Yeh-Shen and her stepmother are both magical fish.
     </div>
   </div>
 
-  <button onclick="checkNext()">Check Next Event</button>
-  <div class="feedback" id="nextFeedback"></div>
-
-  <h3>3. What is the result?</h3>
-
-  <div id="resultOptions" class="grid">
-    <div class="option" data-answer="wrong">
-      Fox becomes Bear’s best helper.
-    </div>
-
-    <div class="option" data-answer="wrong">
-      Bear catches hundreds of fish with no problem.
-    </div>
-
-    <div class="option" data-answer="correct">
-      Bear’s tail is hurt or broken, which explains why bears have short tails.
-    </div>
-  </div>
-
-  <button onclick="checkResult()">Check Result</button>
-  <div class="feedback" id="resultFeedback"></div>
+  <button onclick="checkCompare()">Check Answer</button>
+  <div class="feedback" id="compareFeedback"></div>
 </section>
 
 <section class="card">
-  <h2>Part 6: Cause → Effect Match</h2>
+  <h2>Part 6: Character → Evidence Match</h2>
 
-  <div class="instruction">
-    The worksheet may ask you to explain why Bear has a short tail.
-    Matching causes and effects helps you prepare a stronger answer.
-  </div>
-
-  <p>Choose one cause and one matching effect.</p>
+  <p>Choose one character idea and one matching evidence card.</p>
 
   <div class="grid">
     <div>
-      <h3>Cause</h3>
+      <h3>Character Idea</h3>
 
-      <div class="match-card causeCard" onclick="chooseCause(this,'A')">
-        Fox wants to trick Bear.
+      <div class="match-card ideaCard" onclick="chooseIdea(this,'A')">
+        Yeh-Shen is kind and gentle.
       </div>
 
-      <div class="match-card causeCard" onclick="chooseCause(this,'B')">
-        Bear believes Fox’s advice.
+      <div class="match-card ideaCard" onclick="chooseIdea(this,'B')">
+        The stepmother is unfair.
       </div>
 
-      <div class="match-card causeCard" onclick="chooseCause(this,'C')">
-        Bear leaves his tail in the cold for too long.
+      <div class="match-card ideaCard" onclick="chooseIdea(this,'C')">
+        Yeh-Shen needs help to change her situation.
       </div>
     </div>
 
     <div>
-      <h3>Effect</h3>
+      <h3>Evidence</h3>
 
-      <div class="match-card effectCard" onclick="chooseEffect(this,'B')">
-        Bear follows the foolish fishing method.
+      <div class="match-card evidenceCard" onclick="chooseEvidence(this,'B')">
+        The stepmother treats Yeh-Shen badly and favours her own daughter.
       </div>
 
-      <div class="match-card effectCard" onclick="chooseEffect(this,'C')">
-        Bear’s tail is damaged and becomes short.
+      <div class="match-card evidenceCard" onclick="chooseEvidence(this,'C')">
+        Magical help gives Yeh-Shen a chance to go to the festival.
       </div>
 
-      <div class="match-card effectCard" onclick="chooseEffect(this,'A')">
-        Fox gives Bear false advice.
+      <div class="match-card evidenceCard" onclick="chooseEvidence(this,'A')">
+        Yeh-Shen cares for the fish and does not act cruelly.
       </div>
     </div>
   </div>
@@ -956,54 +862,53 @@
 </section>
 
 <section class="card">
-  <h2>Part 7: Trickster Character Practice</h2>
+  <h2>Part 7: Story Elements Practice</h2>
 
   <div class="instruction">
-    A trickster character uses cleverness, tricks, or lies to get what they want.
-    In this story, Fox is the trickster.
+    Cinderella tales often have similar story elements, but each version has special details.
   </div>
 
-  <h3>Which answer BEST describes Fox?</h3>
+  <h3>Which story element fits Yeh-Shen?</h3>
 
-  <div id="tricksterOptions" class="grid">
+  <div id="storyElementOptions" class="grid">
     <div class="option" data-answer="wrong">
-      Fox is honest and only wants to help Bear.
+      Yeh-Shen has no problem and no unfair treatment.
     </div>
 
     <div class="option" data-answer="correct">
-      Fox is clever but dishonest because he tricks Bear with bad advice.
+      Yeh-Shen is treated unfairly, receives magical help, and her life changes.
     </div>
 
     <div class="option" data-answer="wrong">
-      Fox is careless because he never makes a plan.
+      Yeh-Shen tricks everyone and steals from the king.
     </div>
   </div>
 
-  <button onclick="checkTrickster()">Check Answer</button>
-  <div class="feedback" id="tricksterFeedback"></div>
+  <button onclick="checkStoryElement()">Check Answer</button>
+  <div class="feedback" id="storyElementFeedback"></div>
 </section>
 
 <section class="card">
   <h2>Part 8: Theme Practice</h2>
 
   <div class="instruction">
-    A theme is the lesson or message of a story.
-    In trickster tales, the lesson often teaches readers to think carefully before trusting someone.
+    A theme is the lesson or message in a story.
+    A strong theme is not just one event. It explains what the story teaches us.
   </div>
 
   <h3>Which theme BEST fits this story?</h3>
 
   <div id="themeOptions" class="grid">
     <div class="option" data-answer="wrong">
-      Bears should always believe everything foxes say.
+      Being cruel to others always makes people happy.
     </div>
 
     <div class="option" data-answer="correct">
-      People should think carefully before trusting advice, especially from someone who may trick them.
+      Kindness and courage can help people face unfair situations.
     </div>
 
     <div class="option" data-answer="wrong">
-      Fishing is always easy in winter.
+      Magic shoes are the only important thing in life.
     </div>
   </div>
 
@@ -1015,13 +920,13 @@
   <h2>Part 9: Worksheet Preparation</h2>
 
   <div class="instruction">
-    Your worksheet may ask you to explain why Bear has a short tail,
-    describe Fox’s trick, or explain the lesson of the story.
+    Your worksheet may ask you to compare characters, explain story elements, or support a character trait with evidence.
+    <br><br>
     A strong answer should include:
     <ul>
-      <li>a clear answer</li>
-      <li>one story event as evidence</li>
-      <li>an explanation of how the event caused the result</li>
+      <li>a clear idea</li>
+      <li>a story clue</li>
+      <li>an explanation of what the clue shows</li>
     </ul>
   </div>
 
@@ -1029,15 +934,15 @@
 
   <div id="worksheetOptions" class="grid">
     <div class="option" data-answer="wrong">
-      Bear has a short tail because the title says so.
+      Yeh-Shen is nice. The story has magic.
     </div>
 
     <div class="option" data-answer="correct">
-      Bear has a short tail because Fox tricked him into using a foolish fishing method. Bear trusted Fox, stayed in the cold too long, and his tail was damaged.
+      Yeh-Shen is kind and patient because she stays gentle even when her stepmother treats her unfairly. This shows she has a good heart.
     </div>
 
     <div class="option" data-answer="wrong">
-      Fox helped Bear catch many fish, so Bear was happy.
+      The stepmother is kind because she helps Yeh-Shen go to the festival.
     </div>
   </div>
 
@@ -1050,13 +955,11 @@
 
   <div class="badge-box">
     <div class="badge" aria-hidden="true">
-      <div class="badge-bear">
-        <div class="badge-tail"></div>
-      </div>
-      <div class="badge-ice"></div>
+      <div class="badge-dress"></div>
+      <div class="badge-shoe"></div>
     </div>
-    <h3 id="badgeTitle">Watch the trick!</h3>
-    <p id="badgeMessage">Start the activities and follow how Fox’s trick causes Bear’s problem.</p>
+    <h3 id="badgeTitle">Story Progress</h3>
+        <p id="badgeMessage">Complete activities to unlock the story ending badge.</p>
   </div>
 </section>
 
@@ -1065,7 +968,7 @@
 <a class="bottom-home" href="index.html">← Back to Reading Hub</a>
 
 <script>
-const STORAGE_KEY = "ga4_why_bear_short_tail_progress_v1";
+const STORAGE_KEY = "ga4_yeh_shen_progress_v1";
 
 let progress = {
   vocab:false,
@@ -1073,78 +976,76 @@ let progress = {
   skill:false,
   read:false,
   quiz:false,
-  first:false,
-  next:false,
-  result:false,
+  compare:false,
   match:false,
-  trickster:false,
+  storyElement:false,
   theme:false,
   worksheet:false
 };
 
 let vocabAnswered = 0;
 let quizAnswered = 0;
-let chosenCause = null;
-let chosenEffect = null;
+let chosenIdea = null;
+let chosenEvidence = null;
 
 const vocabData = [
   {
-    word:"trick",
-    question:"What does trick mean?",
+    word:"unfair",
+    question:"What does unfair mean?",
     options:[
-      "to fool someone",
-      "to help honestly",
-      "to sleep quietly"
+      "not treating people equally or justly",
+      "very colourful",
+      "easy to carry"
     ],
     answer:0
   },
   {
-    word:"advice",
-    question:"What is advice?",
+    word:"stepmother",
+    question:"What is a stepmother?",
     options:[
-      "an idea or suggestion about what to do",
-      "a kind of fish",
-      "a piece of clothing"
+      "a father's or mother's wife who is not the child's birth mother",
+      "a magical animal",
+      "a person who makes clothes"
     ],
     answer:0
   },
   {
-    word:"foolish",
-    question:"What does foolish mean?",
+    word:"festival",
+    question:"What is a festival?",
     options:[
-      "not showing good sense",
-      "very wise",
-      "very colourful"
+      "a special celebration or event",
+      "a small fish",
+      "a kind of shoe"
     ],
     answer:0
   },
   {
-    word:"trust",
-    question:"What does trust mean?",
+    word:"courage",
+    question:"What does courage mean?",
     options:[
-      "to believe someone is honest or right",
-      "to run away",
-      "to catch fish"
+      "bravery when something is difficult or scary",
+      "being very sleepy",
+      "a kind of food"
     ],
     answer:0
   },
   {
-    word:"damage",
-    question:"What does damage mean?",
+    word:"compare",
+    question:"What does compare mean?",
     options:[
-      "to hurt or break something",
-      "to protect something",
-      "to make something clean"
+      "to tell how things are similar",
+      "to make something disappear",
+      "to run quickly"
     ],
     answer:0
   },
   {
-    word:"folktale",
-    question:"What is a folktale?",
+    word:"contrast",
+    question:"What does contrast mean?",
     options:[
-      "a traditional story passed down over time",
-      "a science experiment",
-      "a shopping list"
+      "to tell how things are different",
+      "to give someone a gift",
+      "to count words"
     ],
     answer:0
   }
@@ -1152,38 +1053,38 @@ const vocabData = [
 
 const readingData = [
   {
-    question:"Who is the trickster in the story?",
+    question:"How is Yeh-Shen treated at first?",
     options:[
-      "Fox",
-      "Bear",
-      "A farmer"
+      "She is treated unfairly.",
+      "She is treated like a queen by everyone.",
+      "She has no problems."
     ],
     answer:0
   },
   {
-    question:"Why does Bear get into trouble?",
+    question:"Which character trait best describes Yeh-Shen?",
     options:[
-      "He trusts Fox’s bad advice.",
-      "He refuses to listen to anyone.",
-      "He wants to trick Fox first."
+      "kind and patient",
+      "cruel and selfish",
+      "lazy and careless"
     ],
     answer:0
   },
   {
-    question:"What does the story explain?",
+    question:"What kind of story is Yeh-Shen?",
     options:[
-      "Why bears have short tails",
-      "Why birds fly south",
-      "Why people wear shoes"
+      "A Cinderella tale from China",
+      "A science report about birds",
+      "A story about a sly thief"
     ],
     answer:0
   },
   {
-    question:"Which skill helps readers understand this story?",
+    question:"Which skill helps with this worksheet?",
     options:[
-      "Cause and effect",
-      "Alphabetical order",
-      "Counting syllables"
+      "Character traits and compare/contrast",
+      "Only spelling words",
+      "Counting pages"
     ],
     answer:0
   }
@@ -1219,8 +1120,8 @@ function calculateStars(){
   const done = Object.values(progress).filter(Boolean).length;
 
   if(done >= Object.keys(progress).length) return 3;
-  if(done >= 8) return 2;
-  if(done >= 4) return 1;
+  if(done >= 7) return 2;
+  if(done >= 3) return 1;
 
   return 0;
 }
@@ -1242,19 +1143,20 @@ function updateProgress(){
   const badgeTitle = document.getElementById("badgeTitle");
   const badgeMessage = document.getElementById("badgeMessage");
 
-  if(stars===3){
-    badgeTitle.textContent = "Cause-chain champion!";
-    badgeMessage.textContent = "You completed Why the Bear Has a Short Tail and followed Fox’s trick from cause to result.";
-  }else if(stars===2){
-    badgeTitle.textContent = "Almost untangled!";
-    badgeMessage.textContent = "You are close. Finish a few more parts to explain Bear’s short tail clearly.";
-  }else if(stars===1){
-    badgeTitle.textContent = "Good tracking!";
-    badgeMessage.textContent = "You are starting to follow the trick, the cause, and the effect.";
-  }else{
-    badgeTitle.textContent = "Watch the trick!";
-    badgeMessage.textContent = "Start the activities and follow how Fox’s trick causes Bear’s problem.";
-  }
+  
+if (stars === 3) {
+        badgeTitle.textContent = "Yeh-Shen’s Journey Complete!";
+        badgeMessage.textContent = "You completed Yeh-Shen and connected the characters, evidence, and lesson clearly.";
+      } else if (stars === 2) {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "You are almost at the story ending badge.";
+      } else if (stars === 1) {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Keep reading to unlock the story ending badge.";
+      } else {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Complete activities to unlock the story ending badge.";
+      }
 
   saveProgress();
 }
@@ -1377,8 +1279,8 @@ function checkPrediction(){
     "predictionOptions",
     "predictionFeedback",
     "prediction",
-    "Good prediction. You used the title and folktale clues to predict the problem.",
-    "Not quite. Think about Fox as a trickster and Bear’s tail."
+    "Good prediction. You used the Cinderella-story clues to predict the problem and change.",
+    "Not quite. Think about unfair treatment, magical help, and a better future."
   );
 }
 
@@ -1387,48 +1289,28 @@ function checkSkill(){
     "skillOptions",
     "skillFeedback",
     "skill",
-    "Correct. If Bear trusts Fox’s trick, he may get into trouble.",
-    "Not quite. Think about what can happen when a character trusts bad advice."
+    "Correct. This trait fits Yeh-Shen because she stays gentle and kind.",
+    "Not quite. Look at how Yeh-Shen acts even when she is treated unfairly."
   );
 }
 
-function checkFirst(){
+function checkCompare(){
   checkSingleChoice(
-    "firstOptions",
-    "firstFeedback",
-    "first",
-    "Correct. Fox first tricks Bear with advice.",
-    "Not quite. Choose the event that starts the cause-and-effect chain."
+    "compareOptions",
+    "compareFeedback",
+    "compare",
+    "Correct. This answer clearly contrasts Yeh-Shen and the stepmother.",
+    "Not quite. Compare and contrast should explain similarities or differences."
   );
 }
 
-function checkNext(){
+function checkStoryElement(){
   checkSingleChoice(
-    "nextOptions",
-    "nextFeedback",
-    "next",
-    "Correct. Bear follows the advice and waits in the cold.",
-    "Not quite. Think about what Bear does after hearing Fox’s advice."
-  );
-}
-
-function checkResult(){
-  checkSingleChoice(
-    "resultOptions",
-    "resultFeedback",
-    "result",
-    "Correct. This result explains the title.",
-    "Not quite. Choose the answer that explains why Bear has a short tail."
-  );
-}
-
-function checkTrickster(){
-  checkSingleChoice(
-    "tricksterOptions",
-    "tricksterFeedback",
-    "trickster",
-    "Correct. Fox is clever but dishonest because he tricks Bear.",
-    "Not quite. A trickster uses cleverness or lies to get what they want."
+    "storyElementOptions",
+    "storyElementFeedback",
+    "storyElement",
+    "Correct. This identifies important Cinderella-tale story elements.",
+    "Not quite. Think about the problem, magical help, and changed future."
   );
 }
 
@@ -1437,8 +1319,8 @@ function checkTheme(){
     "themeOptions",
     "themeFeedback",
     "theme",
-    "Correct. This theme explains the lesson of the story.",
-    "Not quite. Think about what Bear should have done before trusting Fox."
+    "Correct. This theme explains the story’s message.",
+    "Not quite. A theme should be a lesson, not just one detail."
   );
 }
 
@@ -1447,49 +1329,47 @@ function checkWorksheet(){
     "worksheetOptions",
     "worksheetFeedback",
     "worksheet",
-    "Correct. This answer explains the cause, effect, and evidence clearly.",
-    "Not quite. Choose the answer that explains why Bear’s tail became short."
+    "Correct. This answer gives a trait, evidence, and explanation.",
+    "Not quite. Choose the answer that supports an idea with evidence."
   );
 }
 
-function chooseCause(el,id){
-  document.querySelectorAll(".causeCard")
-    .forEach(c=>{
-      c.classList.remove("selected","correct","wrong");
-    });
+function chooseIdea(el,id){
+  document.querySelectorAll(".ideaCard").forEach(c=>{
+    c.classList.remove("selected","correct","wrong");
+  });
 
   el.classList.add("selected");
-  chosenCause = id;
+  chosenIdea = id;
 }
 
-function chooseEffect(el,id){
-  document.querySelectorAll(".effectCard")
-    .forEach(c=>{
-      c.classList.remove("selected","correct","wrong");
-    });
+function chooseEvidence(el,id){
+  document.querySelectorAll(".evidenceCard").forEach(c=>{
+    c.classList.remove("selected","correct","wrong");
+  });
 
   el.classList.add("selected");
-  chosenEffect = id;
+  chosenEvidence = id;
 }
 
 function checkMatch(){
   const feedback = document.getElementById("matchFeedback");
 
-  if(!chosenCause || !chosenEffect){
-    feedback.textContent = "Choose one cause and one effect.";
+  if(!chosenIdea || !chosenEvidence){
+    feedback.textContent = "Choose one character idea and one evidence card.";
     return;
   }
 
   const selectedCards =
-    document.querySelectorAll(".causeCard.selected,.effectCard.selected");
+    document.querySelectorAll(".ideaCard.selected,.evidenceCard.selected");
 
-  if(chosenCause===chosenEffect){
+  if(chosenIdea===chosenEvidence){
     selectedCards.forEach(card=>{
       card.classList.add("correct");
     });
 
     feedback.textContent =
-      "Correct match. The effect happens because of the cause.";
+      "Correct match. The evidence supports the character idea.";
     progress.match = true;
   }else{
     selectedCards.forEach(card=>{
@@ -1497,7 +1377,7 @@ function checkMatch(){
     });
 
     feedback.textContent =
-      "Try again. Ask: What happened because of this cause?";
+      "Try again. Ask: Which story clue supports this character idea?";
   }
 
   updateProgress();
@@ -1510,10 +1390,8 @@ renderQuiz(readingData,"readingQuiz","quiz");
 
 setupSingleChoice("predictionOptions");
 setupSingleChoice("skillOptions");
-setupSingleChoice("firstOptions");
-setupSingleChoice("nextOptions");
-setupSingleChoice("resultOptions");
-setupSingleChoice("tricksterOptions");
+setupSingleChoice("compareOptions");
+setupSingleChoice("storyElementOptions");
 setupSingleChoice("themeOptions");
 setupSingleChoice("worksheetOptions");
 
