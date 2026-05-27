@@ -958,8 +958,8 @@ button:hover{
       <div class="badge-dress"></div>
       <div class="badge-shoe"></div>
     </div>
-    <h3 id="badgeTitle">Follow the clues!</h3>
-    <p id="badgeMessage">Start the activities and look for character traits, evidence, and themes.</p>
+    <h3 id="badgeTitle">Story Progress</h3>
+        <p id="badgeMessage">Complete activities to unlock the story ending badge.</p>
   </div>
 </section>
 
@@ -1143,19 +1143,20 @@ function updateProgress(){
   const badgeTitle = document.getElementById("badgeTitle");
   const badgeMessage = document.getElementById("badgeMessage");
 
-  if(stars===3){
-    badgeTitle.textContent = "Theme finder!";
-    badgeMessage.textContent = "You completed Yeh-Shen and connected the characters, evidence, and lesson clearly.";
-  }else if(stars===2){
-    badgeTitle.textContent = "Almost magical!";
-    badgeMessage.textContent = "You are close. Finish a few more parts to complete the Cinderella pattern.";
-  }else if(stars===1){
-    badgeTitle.textContent = "Good noticing!";
-    badgeMessage.textContent = "You are starting to notice traits, evidence, and story elements.";
-  }else{
-    badgeTitle.textContent = "Follow the clues!";
-    badgeMessage.textContent = "Start the activities and look for character traits, evidence, and themes.";
-  }
+  
+if (stars === 3) {
+        badgeTitle.textContent = "Yeh-Shen’s Journey Complete!";
+        badgeMessage.textContent = "You completed Yeh-Shen and connected the characters, evidence, and lesson clearly.";
+      } else if (stars === 2) {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "You are almost at the story ending badge.";
+      } else if (stars === 1) {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Keep reading to unlock the story ending badge.";
+      } else {
+        badgeTitle.textContent = "Story Progress";
+        badgeMessage.textContent = "Complete activities to unlock the story ending badge.";
+      }
 
   saveProgress();
 }
