@@ -6,276 +6,592 @@
 
   <title>Yeh-Shen - GA4 Independent Reading</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    *{ box-sizing:border-box; }
+*{ box-sizing:border-box; }
 
-    body{
-      margin:0;
-      font-family:"Century Gothic", Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left,#e8f7ff 0%,transparent 34%),
-        linear-gradient(135deg,#f7fbff 0%,#fff8ec 100%);
-      color:#243447;
-    }
+:root{
+  --navy:#172a57;
+  --blue:#2f63b7;
+  --cream:#fff8ea;
+  --sage:#cfe4ca;
+  --mint:#dcefdc;
+  --coral:#f8755b;
+  --pink:#f4a7c7;
+  --mustard:#f7c84b;
+  --sky:#b9dded;
+  --purple:#cab8f6;
+  --green:#64a96b;
+  --soft-green:#9fca86;
+  --ink:#243447;
+  --paper:#ffffff;
+}
 
-    header{
-      background:linear-gradient(135deg,#23395d,#406e8e);
-      color:white;
-      padding:34px 18px;
-      text-align:center;
-    }
+body{
+  margin:0;
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(202,184,246,0.18), transparent 20%),
+    radial-gradient(circle at 88% 8%, rgba(247,200,75,0.24), transparent 18%),
+    linear-gradient(135deg,#f8f1df 0%,#dcefdc 48%,#b9dded 100%);
+  color:var(--ink);
+  overflow-x:hidden;
+}
 
-    header h1{
-      margin:0;
-      font-size:clamp(1.8rem,5vw,2.6rem);
-    }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(23,42,87,0.07) 1.5px, transparent 1.5px);
+  background-size:28px 28px;
+  pointer-events:none;
+  z-index:0;
+}
 
-    header p{
-      max-width:800px;
-      margin:12px auto 0;
-      line-height:1.6;
-      font-size:1rem;
-    }
+header{
+  max-width:1280px;
+  margin:34px auto 0;
+  background:var(--navy);
+  color:white;
+  padding:44px 32px;
+  text-align:left;
+  border-radius:42px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 22px 45px rgba(23,42,87,0.22);
+  z-index:2;
+}
 
-    .top-nav{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:18px;
-    }
+header::before{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  right:-95px;
+  top:-130px;
+  background:var(--purple);
+  border-radius:50%;
+  opacity:.9;
+}
 
-    .nav-btn{
-      background:rgba(255,255,255,0.18);
-      color:white;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:999px;
-      font-weight:bold;
-      border:1px solid rgba(255,255,255,0.25);
-    }
+header::after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:210px;
+  bottom:-145px;
+  background:var(--mustard);
+  border-radius:48% 52% 45% 55%;
+  opacity:.78;
+}
 
-    .container{
-      max-width:1050px;
-      margin:0 auto;
-      padding:22px 16px 90px;
-    }
+.story-art{
+  position:absolute;
+  right:54px;
+  bottom:25px;
+  width:250px;
+  height:170px;
+  z-index:3;
+  opacity:.98;
+}
 
-    .card{
-      background:white;
-      border-radius:22px;
-      padding:22px;
-      margin:18px 0;
-      box-shadow:0 12px 30px rgba(35,57,93,0.12);
-      border:1px solid rgba(64,110,142,0.12);
-    }
+.story-art .ground{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:54px;
+  background:#ffffff;
+  border-radius:48% 48% 18px 18px;
+  opacity:.9;
+}
 
-    h2{
-      margin-top:0;
-      color:#23395d;
-      font-size:clamp(1.35rem,4vw,1.8rem);
-    }
+.story-art .dress{
+  position:absolute;
+  width:84px;
+  height:100px;
+  left:88px;
+  bottom:38px;
+  background:var(--sky);
+  border-radius:48% 48% 24% 24%;
+  box-shadow:0 8px 0 rgba(0,0,0,.1);
+}
 
-    h3{
-      color:#406e8e;
-      margin-bottom:8px;
-    }
+.story-art .dress::before{
+  content:"";
+  position:absolute;
+  width:40px;
+  height:40px;
+  background:#f2d0b5;
+  border-radius:50%;
+  left:22px;
+  top:-26px;
+}
 
-    p,li{ line-height:1.55; }
+.story-art .dress::after{
+  content:"";
+  position:absolute;
+  width:110px;
+  height:18px;
+  left:-12px;
+  bottom:0;
+  background:rgba(255,255,255,.55);
+  border-radius:50%;
+}
 
-    .tag{
-      display:inline-block;
-      background:#e8f7ff;
-      color:#23395d;
-      padding:7px 12px;
-      border-radius:999px;
-      font-size:0.82rem;
-      margin:4px 4px 4px 0;
-      font-weight:bold;
-    }
+.story-art .shoe{
+  position:absolute;
+  width:54px;
+  height:22px;
+  right:28px;
+  bottom:52px;
+  background:var(--mustard);
+  border-radius:16px 18px 8px 8px;
+  transform:rotate(-12deg);
+  box-shadow:0 6px 0 rgba(0,0,0,.08);
+}
 
-    .tag.gold{
-      background:#fff0d6;
-      color:#8a5a00;
-    }
+.story-art .shoe::after{
+  content:"";
+  position:absolute;
+  width:16px;
+  height:16px;
+  right:-4px;
+  top:3px;
+  background:var(--mustard);
+  border-radius:50%;
+}
 
-    .instruction{
-      background:#fff6db;
-      border-left:6px solid #f4b942;
-      padding:14px 16px;
-      border-radius:14px;
-      margin:14px 0;
-      line-height:1.5;
-    }
+.story-art .sparkle{
+  position:absolute;
+  width:25px;
+  height:25px;
+  background:var(--pink);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:14px;
-    }
+.story-art .sparkle.one{ left:18px; top:12px; }
+.story-art .sparkle.two{ right:0; top:18px; transform:scale(.72) rotate(18deg); }
 
-    .option,.match-card,.clue-card{
-      border:2px solid #d8e6ef;
-      border-radius:16px;
-      padding:15px;
-      cursor:pointer;
-      transition:0.2s;
-      background:#fbfdff;
-      line-height:1.45;
-      min-height:68px;
-    }
+header h1{
+  margin:0;
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(3rem,7vw,5.6rem);
+  line-height:.9;
+  letter-spacing:-.055em;
+  position:relative;
+  z-index:4;
+  max-width:790px;
+}
 
-    .clue-card{
-      cursor:default;
-      background:#f7fbff;
-    }
+header p{
+  max-width:720px;
+  margin:22px 0 0;
+  line-height:1.65;
+  font-size:1.17rem;
+  color:#eef5ff;
+  position:relative;
+  z-index:4;
+}
 
-    .option:hover,.match-card:hover{
-      transform:translateY(-2px);
-      border-color:#406e8e;
-    }
+.top-nav{
+  display:flex;
+  justify-content:flex-start;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:22px;
+  position:relative;
+  z-index:4;
+}
 
-    .selected{
-      border-color:#406e8e !important;
-      background:#e8f7ff !important;
-    }
+.nav-btn{
+  background:rgba(255,255,255,0.18);
+  color:white;
+  text-decoration:none;
+  padding:11px 16px;
+  border-radius:999px;
+  font-weight:800;
+  border:1px solid rgba(255,255,255,0.25);
+  box-shadow:0 8px 18px rgba(0,0,0,0.12);
+  transition:.2s ease;
+}
 
-    .correct{
-      border-color:#42a66b !important;
-      background:#ecfff2 !important;
-    }
+.nav-btn:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,0.28);
+}
 
-    .wrong{
-      border-color:#d9534f !important;
-      background:#fff0f0 !important;
-    }
+.container{
+  max-width:1050px;
+  margin:0 auto;
+  padding:22px 16px 100px;
+  position:relative;
+  z-index:2;
+}
 
-    button{
-      border:none;
-      background:#23395d;
-      color:white;
-      padding:13px 18px;
-      border-radius:14px;
-      cursor:pointer;
-      font-size:1rem;
-      margin-top:12px;
-      font-family:inherit;
-      font-weight:bold;
-      min-height:46px;
-    }
+.card{
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  border-radius:32px;
+  padding:26px;
+  margin:20px 0;
+  box-shadow:0 18px 35px rgba(23,42,87,.14);
+  border:4px solid white;
+  position:relative;
+  overflow:hidden;
+}
 
-    button:hover{ background:#406e8e; }
+.card::before{
+  content:"";
+  position:absolute;
+  right:-55px;
+  top:-55px;
+  width:145px;
+  height:145px;
+  background:rgba(202,184,246,.18);
+  border-radius:48% 52% 45% 55%;
+  pointer-events:none;
+}
 
-    .gold-btn{
-      background:#f4b942;
-      color:#243447;
-    }
+h2{
+  margin-top:0;
+  color:var(--navy);
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(1.9rem,4vw,2.5rem);
+  line-height:1;
+  letter-spacing:-.03em;
+  position:relative;
+  z-index:1;
+}
 
-    .feedback{
-      margin-top:12px;
-      font-weight:bold;
-      min-height:24px;
-    }
+h3{
+  color:var(--blue);
+  margin-bottom:10px;
+  font-size:1.2rem;
+  font-weight:900;
+  position:relative;
+  z-index:1;
+}
 
-    .progress-card{
-      position:sticky;
-      top:0;
-      z-index:20;
-      background:rgba(255,255,255,0.95);
-      backdrop-filter:blur(8px);
-      border-bottom:1px solid #d8e6ef;
-      padding:12px 16px;
-      box-shadow:0 6px 20px rgba(35,57,93,0.08);
-    }
+p,li{ line-height:1.6; }
 
-    .progress-inner{
-      max-width:1050px;
-      margin:0 auto;
-    }
+.tag{
+  display:inline-block;
+  background:#e8f7ff;
+  color:var(--navy);
+  padding:8px 13px;
+  border-radius:999px;
+  font-size:.82rem;
+  margin:4px 4px 4px 0;
+  font-weight:900;
+}
 
-    .progress-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
+.tag.gold{
+  background:var(--cream);
+  color:#8a5a00;
+}
 
-    .stars{
-      font-size:1.2rem;
-      white-space:nowrap;
-    }
+.instruction{
+  background:#fff8ea;
+  border:2px dashed rgba(23,42,87,.18);
+  padding:18px 20px;
+  border-radius:24px;
+  margin:16px 0;
+  line-height:1.55;
+}
 
-    .progress-wrap{
-      background:#d8e6ef;
-      border-radius:999px;
-      height:14px;
-      overflow:hidden;
-      margin-top:8px;
-    }
+.instruction::before{
+  content:"✦";
+  color:var(--coral);
+  font-weight:900;
+  margin-right:8px;
+}
 
-    .progress-bar{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,#f4b942,#42a66b);
-      transition:width 0.3s;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
 
-    .badge-box{
-      text-align:center;
-      padding:20px;
-      border:2px dashed #f4b942;
-      border-radius:20px;
-      background:#fffaf0;
-      margin-top:16px;
-    }
+.option,.match-card,.clue-card{
+  border:3px solid #dce6f1;
+  border-radius:24px;
+  padding:17px;
+  cursor:pointer;
+  transition:.2s ease;
+  background:#fffdf8;
+  line-height:1.45;
+  min-height:76px;
+  box-shadow:0 8px 18px rgba(23,42,87,.07);
+}
 
-    .badge{
-      font-size:3rem;
-      margin:10px 0;
-    }
+.clue-card{
+  cursor:default;
+  background:#f7fbff;
+}
 
-    .bottom-home{
-      position:fixed;
-      bottom:14px;
-      left:50%;
-      transform:translateX(-50%);
-      z-index:30;
-      background:#23395d;
-      color:white;
-      text-decoration:none;
-      padding:12px 20px;
-      border-radius:999px;
-      font-weight:bold;
-      box-shadow:0 8px 24px rgba(35,57,93,0.28);
-    }
+.option:hover,.match-card:hover{
+  transform:translateY(-3px) rotate(-.5deg);
+  border-color:var(--blue);
+  box-shadow:0 12px 24px rgba(23,42,87,.12);
+}
 
-    @media (max-width:720px){
-      header{ padding:28px 14px; }
-      .container{ padding:16px 12px 90px; }
-      .card{ padding:18px; border-radius:18px; }
-      .grid{ grid-template-columns:1fr; }
+.selected{
+  border-color:var(--blue)!important;
+  background:#e8f7ff!important;
+}
 
-      .option,.match-card,.clue-card{
-        padding:16px;
-        min-height:72px;
-        font-size:1rem;
-      }
+.correct{
+  border-color:#42a66b!important;
+  background:#ecfff2!important;
+}
 
-      button{ width:100%; }
+.wrong{
+  border-color:#d9534f!important;
+  background:#fff0f0!important;
+}
 
-      .bottom-home{
-        width:calc(100% - 30px);
-        text-align:center;
-      }
-    }
-  </style>
+button{
+  border:none;
+  background:var(--navy);
+  color:white;
+  padding:13px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:1rem;
+  margin-top:14px;
+  font-family:inherit;
+  font-weight:900;
+  min-height:48px;
+  box-shadow:0 6px 0 rgba(0,0,0,.16);
+}
+
+button:hover{
+  background:#243e77;
+  transform:translateY(-2px);
+}
+
+.gold-btn{
+  background:var(--mustard);
+  color:#243447;
+}
+
+.feedback{
+  margin-top:12px;
+  font-weight:900;
+  min-height:24px;
+  color:var(--navy);
+}
+
+.progress-card{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #d8e6ef;
+  padding:12px 16px;
+  box-shadow:0 6px 20px rgba(35,57,93,0.08);
+  margin-top:18px;
+}
+
+.progress-inner{
+  max-width:1050px;
+  margin:0 auto;
+}
+
+.progress-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.stars{
+  font-size:1.35rem;
+  white-space:nowrap;
+}
+
+.progress-wrap{
+  background:#d8e6ef;
+  border-radius:999px;
+  height:16px;
+  overflow:hidden;
+  margin-top:8px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--mustard),#42a66b);
+  transition:width .3s;
+}
+
+.badge-box{
+  text-align:center;
+  padding:34px 22px;
+  border:4px dashed var(--mustard);
+  border-radius:32px;
+  background:linear-gradient(135deg,#fffaf0,#fff8ea);
+  margin-top:16px;
+  position:relative;
+  overflow:hidden;
+}
+
+.badge-box::before{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  left:-65px;
+  top:-65px;
+  background:rgba(202,184,246,.18);
+  border-radius:50%;
+}
+
+.badge{
+  width:140px;
+  height:140px;
+  margin:0 auto 18px;
+  position:relative;
+}
+
+.badge-dress{
+  position:absolute;
+  width:84px;
+  height:92px;
+  left:28px;
+  bottom:18px;
+  background:var(--sky);
+  border-radius:48% 48% 24% 24%;
+  box-shadow:0 8px 0 rgba(0,0,0,.1);
+}
+
+.badge-dress::before{
+  content:"";
+  position:absolute;
+  width:36px;
+  height:36px;
+  background:#f2d0b5;
+  border-radius:50%;
+  left:24px;
+  top:-24px;
+}
+
+.badge-shoe{
+  position:absolute;
+  width:52px;
+  height:22px;
+  right:4px;
+  bottom:28px;
+  background:var(--mustard);
+  border-radius:16px 18px 8px 8px;
+  transform:rotate(-12deg);
+}
+
+.badge-shoe::after{
+  content:"";
+  position:absolute;
+  width:16px;
+  height:16px;
+  right:-4px;
+  top:3px;
+  background:var(--mustard);
+  border-radius:50%;
+}
+
+.badge-box h3{
+  color:var(--navy);
+  font-family:"Nunito","Century Gothic",Arial,sans-serif;
+  font-weight:900;
+  font-size:clamp(2rem,5vw,3.2rem);
+  margin:8px 0;
+  line-height:1;
+  letter-spacing:-.03em;
+}
+
+.badge-box p{
+  font-size:1.1rem;
+  max-width:620px;
+  margin:12px auto 0;
+  font-weight:800;
+}
+
+.bottom-home{
+  position:fixed;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:30;
+  background:var(--navy);
+  color:white;
+  text-decoration:none;
+  padding:13px 22px;
+  border-radius:999px;
+  font-weight:800;
+  box-shadow:0 8px 24px rgba(35,57,93,0.28);
+}
+
+@media (max-width:900px){
+  .story-art{ opacity:.35; right:20px; }
+}
+
+@media (max-width:720px){
+  header{
+    margin:18px 12px 0;
+    padding:32px 22px;
+    border-radius:30px;
+  }
+
+  .container{
+    padding:16px 12px 100px;
+  }
+
+  .card{
+    padding:20px;
+    border-radius:24px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .option,.match-card,.clue-card{
+    padding:16px;
+    min-height:72px;
+    font-size:1rem;
+  }
+
+  button{
+    width:100%;
+  }
+
+  .bottom-home{
+    width:calc(100% - 30px);
+    text-align:center;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>Yeh-Shen: A Cinderella Tale from China</h1>
+
+<div class="story-art" aria-hidden="true">
+  <div class="sparkle one"></div>
+  <div class="dress"></div>
+  <div class="shoe"></div>
+  <div class="sparkle two"></div>
+  <div class="ground"></div>
+</div>
+
+<h1>Yeh-Shen: A Cinderella Tale from China</h1>
 
   <p>
     GA4 Independent Reading Practice:
@@ -638,9 +954,12 @@
   <h2>Completion Badge</h2>
 
   <div class="badge-box">
-    <div class="badge">🏅</div>
-    <h3 id="badgeTitle">Keep going!</h3>
-    <p id="badgeMessage">Finish all parts to earn your completion badge.</p>
+    <div class="badge" aria-hidden="true">
+      <div class="badge-dress"></div>
+      <div class="badge-shoe"></div>
+    </div>
+    <h3 id="badgeTitle">Follow the clues!</h3>
+    <p id="badgeMessage">Start the activities and look for character traits, evidence, and themes.</p>
   </div>
 </section>
 
@@ -825,17 +1144,17 @@ function updateProgress(){
   const badgeMessage = document.getElementById("badgeMessage");
 
   if(stars===3){
-    badgeTitle.textContent = "Completed!";
-    badgeMessage.textContent = "You earned 3 stars and completed Yeh-Shen practice.";
+    badgeTitle.textContent = "Theme finder!";
+    badgeMessage.textContent = "You completed Yeh-Shen and connected the characters, evidence, and lesson clearly.";
   }else if(stars===2){
-    badgeTitle.textContent = "Almost there!";
-    badgeMessage.textContent = "You earned 2 stars. Finish the remaining parts to earn your badge.";
+    badgeTitle.textContent = "Almost magical!";
+    badgeMessage.textContent = "You are close. Finish a few more parts to complete the Cinderella pattern.";
   }else if(stars===1){
-    badgeTitle.textContent = "Good start!";
-    badgeMessage.textContent = "You earned 1 star. Keep going to complete the reading practice.";
+    badgeTitle.textContent = "Good noticing!";
+    badgeMessage.textContent = "You are starting to notice traits, evidence, and story elements.";
   }else{
-    badgeTitle.textContent = "Keep going!";
-    badgeMessage.textContent = "Finish the activities to earn stars and a completion badge.";
+    badgeTitle.textContent = "Follow the clues!";
+    badgeMessage.textContent = "Start the activities and look for character traits, evidence, and themes.";
   }
 
   saveProgress();
@@ -858,8 +1177,8 @@ function renderQuiz(data,containerId,progressKey){
   data.forEach((item,index)=>{
     const card = document.createElement("div");
     card.className = "card";
-    card.style.boxShadow = "none";
-    card.style.border = "1px solid #d8e6ef";
+    card.style.boxShadow = "0 8px 18px rgba(23,42,87,.06)";
+    card.style.border = "3px solid rgba(23,42,87,.10)";
 
     let html =
       `<h3>${item.word ? item.word : "Question " + (index+1)}</h3>`;
